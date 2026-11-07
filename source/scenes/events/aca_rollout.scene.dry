@@ -1,0 +1,33 @@
+title: The Rollout
+subtitle: Healthcare.gov crashes on launch.
+new-page: true
+tags: event
+view-if: year = 2014 and month = 1
+max-visits: 1
+priority: 3
+
+= The Rollout
+
+The Affordable Care Act's central promise is that the uninsured can finally buy coverage. In practice, the website has struggled and millions of people have had their plans cancelled. Our opponents are gleeful. Our own side is worried.
+
+- @defend: Defend the law and the substance.
+- @fix: Fix it quietly and let results speak.
+- @admit: Admit the mistakes loudly.
+
+@defend
+subtitle: Enthusiasm up, moderates nervous.
+on-arrival: aca_secured += 1; enthusiasm += 2; mod_dissent += 3; capital -= 1 if capital > 0
+
+We argue the website is a technical failure and the law is a moral and economic success. It holds the base. It does not convince everyone.
+
+@fix
+subtitle: Slower, steadier.
+on-arrival: funds -= 1 if funds > 0; media_trust += 1; stability += 1; pop_mod += 0.1
+
+Engineers are brought in. By spring the site works, and enrollment surges. The story shifts, slowly.
+
+@admit
+subtitle: Credibility, but ammunition for opponents.
+on-arrival: media_trust += 2; enthusiasm -= 2; pop_mod -= 0.1; mod_dissent -= 2
+
+We say what went wrong and what we are doing about it. Some voters respect it. Others hear only the admission.

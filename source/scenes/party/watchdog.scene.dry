@@ -1,0 +1,41 @@
+title: Democracy Defense Program
+subtitle: Lawyers, observers, and state-level coalitions.
+tags: party_action
+new-page: true
+view-if: maga >= 15 or far_right >= 25
+choose-if: funds >= 3
+unavailable-subtitle: We need at least 3 funds.
+on-arrival: month_actions += 1; funds -= 3
+
+= Democracy Defense Program
+
+When the rules are contested, they must be defended before the contest, not after.
+
+- @lawyers: Build a national election-protection bar.
+- @states: Support state-level secretaries of state and election officials.
+- @civic: Fund civic education and local news.
+- @security: Quietly coordinate threat assessment with law enforcement.
+
+@lawyers
+subtitle: Litigation readiness.
+on-arrival: stability += 5; media_trust += 1
+
+Thousands of volunteer lawyers on call.
+
+@states
+subtitle: Bipartisan where possible.
+on-arrival: stability += 4; far_right -= 2; maga -= 1
+
+Local officials of both parties are the last line of defense.
+
+@civic
+subtitle: Slow, but it lasts.
+on-arrival: stability += 2; media_trust += 4; far_left -= 1; far_right -= 1
+
+A better-informed public is a more stable one.
+
+@security
+subtitle: Reduces extremist threat. Risks civil-liberties backlash.
+on-arrival: far_right -= 6; far_left -= 3; stability += 2; prog_dissent += 3
+
+Threat assessments are quiet work. They are also controversial.

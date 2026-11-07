@@ -1,0 +1,34 @@
+title: Inauguration
+subtitle: A different kind of presidency.
+new-page: true
+tags: event
+view-if: year = 2017 and month = 1 and white_house == "R"
+max-visits: 1
+priority: 5
+on-arrival: maga += 15; stability -= 4; enthusiasm += 8; far_right += 5
+
+= Inauguration
+
+The new president takes the oath. Millions of people will march the next day. Within weeks, the administration issues a sweeping travel restriction, fires officials, and tests the boundaries of presidential power. The party's task is no longer to win a campaign but to defend the structure of the republic.
+
+- @resist: Total resistance.
+- @selective: Selective opposition.
+- @legal: Lawyer up and fight in court.
+
+@resist
+subtitle: Energy, but little room for deals.
+on-arrival: enthusiasm += 6; prog_strength += 3; mod_dissent += 2; far_left += 1
+
+We oppose, loudly and constantly. Our base loves it.
+
+@selective
+subtitle: Hold the line where the republic is at stake.
+on-arrival: stability += 3; media_trust += 2; enthusiasm += 2; mod_dissent -= 2
+
+We pick our fights. Some on our side call it weakness. Others call it strategy.
+
+@legal
+subtitle: The institutional road.
+on-arrival: stability += 4; funds -= 1 if funds > 0; media_trust += 1
+
+Attorneys general sue; courts block some actions and permit others.

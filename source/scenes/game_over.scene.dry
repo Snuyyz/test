@@ -1,0 +1,58 @@
+title: The End
+new-page: true
+is-special: true
+go-to: ending_collapse if collapse_flag = 1; ending_finale if collapse_flag = 0
+
+@ending_collapse
+title: The Republic Falls
+new-page: true
+on-arrival: ending_label = "Collapse"
+
+= The Republic Falls
+
+Elections still happen, in form. Courts still sit, in form. But the guardrails are gone. The rules no longer bind the people who write them, and the opposition, ours and everyone's, operates at their sufferance.
+
+It did not happen in a day. It happened in a thousand small accommodations, ignored warnings, and failures of nerve, by us and by others.
+
+*Democratic stability: [+ stability +]*
+
+- @start: Try again (restart)
+
+@ending_finale
+title: Twelve Years
+new-page: true
+go-to: ending_robust if stability >= 70; ending_standing if stability >= 40 and stability < 70; ending_hollow if stability < 40
+
+@ending_robust
+new-page: true
+
+= The Republic Endures
+
+November 2026. The country is divided, tired, and often furious. But the institutions have held. Courts rule, officials certify, and power changes hands when voters say so. The coalition has learned some hard lessons about governing and about losing.
+
+*Democratic stability: [+ stability +] ([+ stability : stability +]). Party unity: [+ unity +]. Base enthusiasm: [+ enthusiasm +].*
+
+[? if house_won == 1 and senate_won == 1: Congress is in our hands. ?][? if house_won == 1 and senate_won == 0: We hold the House. ?][? if house_won == 0 and senate_won == 1: We hold the Senate. ?][? if house_won == 0 and senate_won == 0: We are in the minority in both chambers, but the republic is intact. ?]
+
+@ending_standing
+new-page: true
+
+= Bruised But Standing
+
+November 2026. American democracy has survived, but not unscathed. Trust is low, norms are frayed, and every institution has been tested. Whether the next generation inherits a working republic is still an open question.
+
+*Democratic stability: [+ stability +] ([+ stability : stability +]). Party unity: [+ unity +]. Base enthusiasm: [+ enthusiasm +].*
+
+[? if house_won == 1 and senate_won == 1: Congress is in our hands, and the work of repair can begin. ?][? if house_won == 0 or senate_won == 0: Control of Congress is still contested, and so are the terms of repair. ?]
+
+@ending_hollow
+new-page: true
+
+= A Hollowed Republic
+
+November 2026. The republic still stands in name. The offices exist and the elections are held. But the protections that made them meaningful are thin, and the ones who would exploit that thinness are patient. The coming years will decide whether this is a low point or the new normal.
+
+*Democratic stability: [+ stability +] ([+ stability : stability +]). Party unity: [+ unity +]. Base enthusiasm: [+ enthusiasm +].*
+
+@start
+go-to: root.start

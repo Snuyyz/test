@@ -1,0 +1,27 @@
+title: Enforcement
+subtitle: Federal agents in American cities.
+new-page: true
+tags: event
+view-if: year = 2026 and month = 1 and white_house == "R"
+max-visits: 1
+priority: 2
+on-arrival: far_left += 2; stability -= 2
+
+= Enforcement
+
+A surge of federal immigration enforcement in major cities provokes protests, standoffs with local police, and fatal shootings. The administration says it is restoring order. The opposition says it is breaking the law. A divided public watches.
+
+- @law: Press the rule-of-law case.
+- @shield: Pass state laws to limit cooperation.
+
+@law
+subtitle: Principled.
+on-arrival: stability += 3; media_trust += 2; enthusiasm += 3; pop_mod += 0.2
+
+We argue for due process, judicial warrants, and accountability. It works with the public.
+
+@shield
+subtitle: State resistance.
+on-arrival: enthusiasm += 4; far_right += 2; mod_dissent += 2; pop_mod += 0.1
+
+States pass laws limiting cooperation. The federal-state conflict deepens.

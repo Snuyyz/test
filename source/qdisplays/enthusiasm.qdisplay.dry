@@ -1,0 +1,7 @@
+
+# base enthusiasm
+
+(0..25) <span style="color: #d42f2f;">demoralized</span>
+(25..45) <span style="color: #FFB74D;">restless</span>
+(45..65) <span style="color: #FFD54F;">steady</span>
+(65..) <span style="color: #66BB6A;">energized</span>

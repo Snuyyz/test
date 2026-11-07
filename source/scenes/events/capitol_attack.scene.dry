@@ -1,0 +1,34 @@
+title: January 6th
+subtitle: The Capitol is stormed.
+new-page: true
+tags: event
+view-if: year = 2021 and month = 1 and lost_2020_trump = 1
+max-visits: 1
+priority: 9
+on-arrival: stability -= 8; far_right += 10; maga += 3
+
+= January 6th
+
+A mob, stirred by false claims that the election was stolen, breaks into the Capitol while Congress is certifying the results. Lawmakers shelter in place. Police are beaten. Hours later, Congress finishes the job. Many Republican members still vote to object to the results.
+
+- @commission: Demand a full, bipartisan accounting.
+- @prosecute: Press for accountability.
+- @move_on: Move on and focus on governing.
+
+@commission
+subtitle: Slow, institutional.
+on-arrival: stability += 6; media_trust += 2; far_right -= 3
+
+We pursue a commission. Republicans block it in the Senate. A House select committee investigates instead.
+
+@prosecute
+subtitle: Courts and the rule of law.
+on-arrival: stability += 5; far_right -= 4; maga += 1
+
+Hundreds of rioters are prosecuted.
+
+@move_on
+subtitle: Looks to the future.
+on-arrival: stability -= 3; enthusiasm -= 2; media_trust -= 1; pop_mod += 0.1
+
+We say we will focus on the economy. The wound does not close.

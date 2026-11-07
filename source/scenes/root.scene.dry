@@ -1,0 +1,98 @@
+title: Root Scene
+new-page: true
+go-to: post_event if started = 1; start_menu if started = 0
+
+@start_menu
+new-page: true
+
+= Defending the Republic
+
+*The Democrats, 2014-2026*
+
+A mod for *Social Democracy: An Alternate History*.
+
+You are the strategists, donors, organizers, and elected leaders of the Democratic Party. The Obama coalition looks unbeatable on paper. It is not. Over the next twelve years you will face a populist insurgency on the right, a restless insurgency on the left, a pandemic, an attempted overturning of an election, and the slow grind of institutions under stress.
+
+Your primary goal is to keep American democracy standing. Winning elections is how you do it, but it is not the same thing.
+
+- @start: Start game
+- @about: About this mod
+
+@about
+
+= About
+
+Each turn is one quarter. You get two actions per quarter: party work (organizing, messaging, money, primaries) or government work (when your side holds power). Then the world moves, and events arrive.
+
+Watch five meters: **democratic stability**, **base enthusiasm**, **party unity**, and the strength of the **MAGA right** and the **insurgent left**. If stability collapses, the republic is lost. Real elections are simulated with the historical results as a baseline, and your choices push the numbers away from history.
+
+Everything is a trade-off. The game does not assume every critic of your party is wrong, or that every ally is right.
+
+- @start_menu: Back
+
+@start
+on-arrival: {!
+Q.started = 1;
+Q.time = 1;
+Q.year = 2014;
+Q.month = 1;
+Q.month_actions = 0;
+Q.actions_per_turn = 2;
+
+// resources
+Q.capital = 4;      // political capital
+Q.funds = 6;        // fundraising, in "units" (roughly $50M each)
+
+// the state of the republic
+Q.stability = 72;   // democratic stability 0-100
+Q.enthusiasm = 50;  // base enthusiasm 0-100
+Q.unity = 60;       // party unity 0-100
+Q.maga = 0;         // strength of the populist right inside the GOP 0-100
+Q.far_right = 15;   // organized right-wing extremism 0-100
+Q.far_left = 10;    // strength of the insurgent / radical left 0-100
+Q.media_trust = 40; // trust in institutions & media
+
+// factions
+Q.prog_strength = 25;
+Q.prog_dissent = 10;
+Q.estab_strength = 45;
+Q.estab_dissent = 0;
+Q.mod_strength = 20;
+Q.mod_dissent = 5;
+Q.labor_strength = 10;
+Q.labor_dissent = 5;
+
+// election model: historical baseline + player-driven modifier
+Q.pop_mod = 0;       // accumulated deviation from the historical popular vote
+Q.dem_pop = 47;      // last two-party national vote share (D)
+Q.house_d = 201;
+Q.senate_d = 55;     // including independents caucusing with Dems
+Q.white_house = 'D';
+Q.president = 'Obama';
+Q.vp = 'Biden';
+Q.nominee = 'None';
+Q.last_result = '';
+Q.nominee_mod = 0;
+Q.lost_2020_trump = 0;
+Q.midterm_2026_done = 0;
+Q.pres_won = 0; Q.house_won = 0; Q.senate_won = 0;
+Q.dem_pop_str = ''; Q.rep_pop_str = ''; Q.pres_result = '';
+Q.game_over_flag = 0; Q.collapse_flag = 0;
+Q.has_event = 0;
+Q.primary_leaning = '';
+
+// policy flags
+Q.aca_secured = 0;
+Q.voting_rights = 0;
+Q.police_reform = 0;
+Q.climate_law = 0;
+Q.court_reform = 0;
+Q.covid_relief = 0;
+Q.immigration_deal = 0;
+Q.dnc_neutral = 0;
+
+Q.timers = ['fundraise', 'organize', 'messaging', 'outreach', 'oversight', 'legislation', 'executive'];
+Q.fundraise_timer = 0; Q.organize_timer = 0; Q.messaging_timer = 0; Q.outreach_timer = 0;
+Q.oversight_timer = 0; Q.legislation_timer = 0; Q.executive_timer = 0;
+!}
+go-to: post_event

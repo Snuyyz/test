@@ -1,0 +1,27 @@
+title: Shutdown
+subtitle: A standoff over health care subsidies.
+new-page: true
+tags: event
+view-if: year = 2025 and month = 10 and white_house == "R"
+max-visits: 1
+priority: 2
+on-arrival: enthusiasm += 6; pop_mod += 0.3
+
+= Shutdown
+
+The government shuts down for weeks in a fight over expiring health-insurance subsidies. Federal workers go unpaid. Flights are delayed. Both sides claim the moral high ground. In November, elections in New Jersey and Virginia go strongly to our side, and a democratic socialist wins the New York City mayoralty.
+
+- @hold: Hold out for the subsidies.
+- @deal: Take a deal.
+
+@hold
+subtitle: Principle, pain.
+on-arrival: enthusiasm += 4; prog_dissent -= 4; mod_dissent += 2; pop_mod += 0.1
+
+We hold. The shutdown drags on, and the pressure builds on both sides.
+
+@deal
+subtitle: Reopens government.
+on-arrival: unity -= 3; prog_dissent += 6; enthusiasm -= 3; mod_dissent -= 2
+
+A deal is struck, with a promise to vote on the subsidies later. The base is not pleased.

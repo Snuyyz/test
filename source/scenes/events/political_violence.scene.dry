@@ -1,0 +1,34 @@
+title: Violence
+subtitle: A hostile year for democratic politics.
+new-page: true
+tags: event
+view-if: year = 2025 and month = 7
+max-visits: 1
+priority: 2
+on-arrival: stability -= 3; far_left += 2; far_right += 2
+
+= Violence
+
+Political violence reaches new heights: state lawmakers are shot, an activist is assassinated at a campus event, and threats against judges and election officials multiply. The temperature is far too high.
+
+- @denounce: Denounce violence from any direction.
+- @security: Fund security for officials and election workers.
+- @blame: Blame the other side.
+
+@denounce
+subtitle: Principled.
+on-arrival: stability += 4; media_trust += 2; far_right -= 2; far_left -= 2; enthusiasm -= 1
+
+We say, clearly, that violence is never acceptable.
+
+@security
+subtitle: Practical.
+on-arrival: stability += 3; funds -= 1 if funds > 0; far_right -= 1
+
+Funds flow to local security.
+
+@blame
+subtitle: Cathartic, corrosive.
+on-arrival: enthusiasm += 2; stability -= 3; far_right += 2; far_left += 2; media_trust -= 2
+
+Rhetoric escalates. The temperature does not drop.

@@ -1,0 +1,35 @@
+title: Midterms 2018
+new-page: true
+tags: event
+view-if: year = 2018 and month = 10
+max-visits: 1
+priority: 10
+on-arrival: {!
+var delta = Q.pop_mod + (Q.enthusiasm-50)*0.02 + (Q.unity-55)*0.012 + (Q.stability-60)*0.006;
+if (Q.far_left >= 40) delta -= 0.3;
+if (Q.far_left >= 60) delta -= 0.4;
+delta += (Q.nominee_mod || 0);
+if (delta > 3.5) delta = 3.5;
+if (delta < -3.5) delta = -3.5;
+var dp = 54.4 + delta;
+Q.dem_pop = dp;
+Q.dem_pop_str = dp.toFixed(1);
+Q.rep_pop_str = (100-dp).toFixed(1);
+Q.house_d = Math.max(150, Math.min(300, Math.round(235 + (dp-54.4)*8)));
+Q.senate_d = Math.max(35, Math.min(65, Math.round(47 + (dp-54.4)*0.8)));
+Q.pop_mod = Q.pop_mod * 0.5;
+Q.nominee_mod = 0;
+Q.house_won = Q.house_d >= 218 ? 1 : 0;
+Q.senate_won = Q.senate_d >= 50 ? 1 : 0;
+!}
+
+= Midterms 2018
+
+A year of protests, special elections, and record turnout. The midterms are a referendum.
+
+The national House vote came in at [+ dem_pop_str +]% for our side and [+ rep_pop_str +]% for theirs.
+
+**House:** [+ house_d +] Democratic seats. [? if house_won == 1: We hold the majority. ?][? if house_won == 0: We are in the minority. ?]
+
+**Senate:** [+ senate_d +] Democratic seats. [? if senate_won == 1: We control the chamber. ?][? if senate_won == 0: We are in the minority. ?]
+

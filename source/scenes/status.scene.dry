@@ -1,0 +1,34 @@
+title: Status
+new-page: true
+
+= Status
+
+[+ month : month +] [+ year +]
+
+**White House:** [+ president +] ([+ white_house +]) &nbsp; **House:** [+ house_d +] D &nbsp; **Senate:** [+ senate_d +] D
+
+**Democratic stability:** [+ stability +] / 100 &nbsp; ([+ stability : stability +])
+
+**Base enthusiasm:** [+ enthusiasm +] ([+ enthusiasm : enthusiasm +]) &nbsp; **Party unity:** [+ unity +]
+
+**MAGA movement strength:** [+ maga +] &nbsp; **Organized far-right:** [+ far_right +] &nbsp; **Insurgent far-left:** [+ far_left +]
+
+**Trust in institutions:** [+ media_trust +]
+
+**Capital:** [+ capital +] &nbsp; **Funds:** [+ funds +]
+
+## Party factions
+
+**Progressives:** [+ prog_strength : strength +] (dissent [+ prog_dissent +])
+
+**Establishment liberals:** [+ estab_strength : strength +] (dissent [+ estab_dissent +])
+
+**Moderates and Blue Dogs:** [+ mod_strength : strength +] (dissent [+ mod_dissent +])
+
+**Labor wing:** [+ labor_strength : strength +] (dissent [+ labor_dissent +])
+
+## Election model
+
+Last national vote (D, two-party): [+ dem_pop +]%. Deviation from the historical baseline: [+ pop_mod +] points.
+
+- @root: Back

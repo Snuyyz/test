@@ -1,0 +1,99 @@
+title: Post Event
+new-page: true
+on-arrival: {!
+// ---- clamp meters ----
+var clampKeys = ['stability','enthusiasm','unity','maga','far_right','far_left','media_trust'];
+for (var k of clampKeys) {
+    if (Q[k] > 100) Q[k] = 100;
+    if (Q[k] < 0) Q[k] = 0;
+}
+for (var f of ['prog','estab','mod','labor']) {
+    if (Q[f+'_dissent'] < 0) Q[f+'_dissent'] = 0;
+    if (Q[f+'_dissent'] > 100) Q[f+'_dissent'] = 100;
+}
+
+// ---- advance the calendar ----
+if (Q.month_actions >= Q.actions_per_turn) {
+    Q.month_actions = 0;
+    Q.time += 1;
+    Q.month += 3;
+    if (Q.month >= 13) {
+        Q.month = 1;
+        Q.year += 1;
+    }
+    // quarterly income
+    Q.capital += 2;
+    if (Q.unity >= 70) Q.capital += 1;
+    if (Q.unity < 35) Q.capital -= 1;
+    Q.funds += 2 + (Q.enthusiasm >= 60 ? 1 : 0);
+    if (Q.capital > 10) Q.capital = 10;
+    if (Q.funds > 12) Q.funds = 12;
+    // timers
+    for (var t of Q.timers) {
+        if (Q[t+'_timer'] > 0) Q[t+'_timer'] -= 1;
+    }
+    // ---- mean reversion of volatile meters ----
+    Q.enthusiasm += (50 - Q.enthusiasm) * 0.12;
+    Q.unity += (55 - Q.unity) * 0.08;
+    Q.media_trust += (38 - Q.media_trust) * 0.06;
+    // ---- structural pressures on the republic ----
+    var rHold = (Q.white_house == "R");
+    // the populist right grows over time, faster when it holds the White House
+    if (Q.year >= 2016) Q.maga += rHold ? 1.4 : 0.6;
+    Q.far_right += (Q.maga >= 30 ? 0.6 : 0.2);
+    if (Q.year >= 2018) Q.far_left += 0.25;
+    // dissent from unhappy factions drags on unity
+    var totalDissent = Q.prog_dissent + Q.mod_dissent + Q.estab_dissent + Q.labor_dissent;
+    Q.unity += (totalDissent > 40) ? -2 : 0.5;
+    // stability: how well are the guardrails holding?
+    var pressure = 1.1;                                  // background polarization
+    if (rHold && Q.year >= 2017) pressure += (Q.maga / 100) * 3.0;
+    else pressure += (Q.maga / 100) * 0.8;
+    if (Q.far_right > 40) pressure += (Q.far_right - 40) / 35;
+    if (Q.far_left > 40) pressure += (Q.far_left - 40) / 45;
+    if (Q.unity < 40) pressure += 0.5;
+    var support = 0;
+    if (Q.enthusiasm >= 60 && Q.unity >= 60) support += 0.5;
+    if (Q.media_trust >= 50) support += 0.4;
+    Q.stability += support - pressure;
+    // cap how fast the republic can be repaired in a single quarter
+    if (Q.stab_last === undefined) Q.stab_last = Q.stability;
+    var gain = Q.stability - Q.stab_last;
+    if (gain > 2) Q.stability = Q.stab_last + 2 + (gain - 2) * 0.2;
+    Q.stab_last = Q.stability;
+    // the election modifier fades if not renewed
+    Q.pop_mod *= 0.75;
+    if (Q.pop_mod > 2.5) Q.pop_mod = 2.5;
+    if (Q.pop_mod < -2.5) Q.pop_mod = -2.5;
+    // clamp again
+    for (var k of clampKeys) {
+        if (Q[k] > 100) Q[k] = 100;
+        if (Q[k] < 0) Q[k] = 0;
+    }
+}
+
+// ---- end conditions ----
+Q.game_over_flag = 0;
+Q.collapse_flag = 0;
+if (Q.stability <= 10) { Q.game_over_flag = 1; Q.collapse_flag = 1; }
+if (Q.year >= 2027 || (Q.year == 2026 && Q.month >= 10 && Q.midterm_2026_done)) {
+    Q.game_over_flag = 1;
+}
+
+// ---- does any event want to fire? ----
+Q.has_event = 0;
+var scene = this.game.scenes['post_event.events_choice'];
+var choices = this._compileChoices(scene);
+if (choices && choices.length > 0 && choices[0].title != "Continue...") {
+    Q.has_event = 1;
+}
+!}
+go-to: game_over if game_over_flag = 1; events_choice if has_event = 1 and game_over_flag = 0; main if has_event = 0 and game_over_flag = 0
+
+= [+ month : month +] [+ year +]
+
+@events_choice
+
+- #event
+
+@dummy

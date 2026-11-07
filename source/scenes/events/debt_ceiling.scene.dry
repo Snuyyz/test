@@ -1,0 +1,26 @@
+title: The Debt Ceiling
+subtitle: A hostage crisis, again.
+new-page: true
+tags: event
+view-if: year = 2023 and month = 4
+max-visits: 1
+priority: 2
+
+= The Debt Ceiling
+
+The new House majority demands cuts in exchange for raising the debt ceiling. The Treasury warns of default. The Constitution says the debt must be paid.
+
+- @negotiate: Negotiate a deal.
+- @stand: Refuse to negotiate.
+
+@negotiate
+subtitle: Pragmatic.
+on-arrival: stability += 2; prog_dissent += 3; mod_dissent -= 2; pop_mod += 0.1
+
+A compromise passes, with some cuts and a suspension of the ceiling.
+
+@stand
+subtitle: Principle, risk.
+on-arrival: stability -= 2; enthusiasm += 2; prog_dissent -= 2; mod_dissent += 1
+
+The standoff stretches to the last minute.

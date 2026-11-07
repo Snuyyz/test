@@ -1,0 +1,41 @@
+title: Opposition Strategy
+subtitle: How do we resist from the minority?
+tags: govt_action
+new-page: true
+view-if: white_house == "R" and maga >= 20
+choose-if: capital >= 2
+unavailable-subtitle: We need at least 2 capital.
+on-arrival: month_actions += 1; capital -= 2
+
+= Opposition Strategy
+
+When the other side holds power, the opposition has to decide how to oppose.
+
+- @courts: Litigate. Use the courts and state attorneys general.
+- @protest: Support mass mobilization and peaceful protest.
+- @cooperate: Cooperate on the issues where we can.
+- @states: Build power in the states.
+
+@courts
+subtitle: Slow and uneven.
+on-arrival: stability += 4; media_trust += 1; enthusiasm += 1
+
+The courts are a brake. Not a steering wheel.
+
+@protest
+subtitle: Mass energy, but watch the margins.
+on-arrival: enthusiasm += 6; far_left += 1; pop_mod += 0.2; stability += 1
+
+The streets fill. Most protesters are peaceful. Some are not.
+
+@cooperate
+subtitle: Shows we can govern. Frustrates the base.
+on-arrival: mod_dissent -= 4; prog_dissent += 4; enthusiasm -= 2; pop_mod += 0.2; maga -= 1
+
+Governing means finding the votes that exist.
+
+@states
+subtitle: Long-term and robust.
+on-arrival: stability += 3; pop_mod += 0.2; enthusiasm += 2; house_d += 1
+
+Statehouses become laboratories, and bulwarks.

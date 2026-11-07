@@ -1,0 +1,38 @@
+title: Main
+new-page: true
+
+= [+ month : month +] [+ year +]
+
+[? if white_house == "D": <span style="color:#1565C0;">**A Democrat is in the White House: [+ president +].**</span> ?][? if white_house == "R": <span style="color:#C62828;">**A Republican is in the White House: [+ president +].**</span> ?]
+
+**Capital:** [+ capital +] &nbsp; **Funds:** [+ funds +] &nbsp; **Actions left this quarter:** [? if month_actions == 0: 2 ?][? if month_actions == 1: 1 ?]
+
+**Democratic stability:** [+ stability : stability +] ([+ stability +]) &nbsp; **Base enthusiasm:** [+ enthusiasm : enthusiasm +] &nbsp; **House:** [+ house_d +] D &nbsp; **Senate:** [+ senate_d +] D
+
+- @party_menu: Party affairs
+- @govt_menu: Government & Congress
+- @status: Full status report
+- @pass_turn: Let the quarter pass
+
+@pass_turn
+title: Let the quarter pass
+subtitle: Do nothing. Gain +1 capital.
+on-arrival: capital += 1; month_actions = actions_per_turn
+
+We conserve our energy and watch the news cycle go by.
+
+@party_menu
+title: Party affairs
+
+= Party affairs
+
+- #party_action
+- @main: Back
+
+@govt_menu
+title: Government & Congress
+
+= Government & Congress
+
+- #govt_action
+- @main: Back

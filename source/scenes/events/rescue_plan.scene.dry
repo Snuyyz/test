@@ -1,0 +1,26 @@
+title: The Rescue Plan
+subtitle: Relief, reconciliation, and the debate over size.
+new-page: true
+tags: event
+view-if: year = 2021 and month = 4 and white_house == "D"
+max-visits: 1
+priority: 2
+
+= The Rescue Plan
+
+With a narrow trifecta, we can pass a large pandemic-relief package through budget reconciliation. Moderates worry about the size. Progressives want more.
+
+- @big: Go big.
+- @smaller: Go smaller.
+
+@big
+subtitle: Stronger recovery, inflation risk.
+on-arrival: covid_relief = 1; pop_mod += 0.4; enthusiasm += 4; mod_dissent += 3; labor_dissent -= 4; unity += 3
+
+The package passes without a single Republican vote. The economy roars back. So, eventually, do prices.
+
+@smaller
+subtitle: Moderates happy.
+on-arrival: covid_relief = 1; pop_mod += 0.1; mod_dissent -= 3; prog_dissent += 5; enthusiasm -= 1
+
+A smaller package passes with a few bipartisan votes. The recovery is slower.

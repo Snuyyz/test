@@ -1,0 +1,8 @@
+
+# democratic stability
+
+(0..20) <span style="color: #d42f2f;">collapsing</span>
+(20..40) <span style="color: #FF8A65;">backsliding</span>
+(40..60) <span style="color: #FFD54F;">strained</span>
+(60..80) <span style="color: #81C784;">resilient</span>
+(80..) <span style="color: #66BB6A;">robust</span>

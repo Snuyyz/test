@@ -1,0 +1,33 @@
+title: Ferguson
+subtitle: A shooting, a grand jury, and a movement.
+new-page: true
+tags: event
+view-if: year = 2014 and month = 7
+max-visits: 1
+priority: 2
+
+= Ferguson
+
+The killing of Michael Brown by a police officer in Ferguson, Missouri, sets off protests that spread across the country. The questions are about policing, race, and accountability. The party has to decide how to speak.
+
+- @listen: Back the protesters and the call for reform.
+- @both: Call for calm and reform together.
+- @quiet: Stay quiet. Let the DOJ do its work.
+
+@listen
+subtitle: Base energized. Law-and-order voters uneasy.
+on-arrival: enthusiasm += 4; prog_dissent -= 3; mod_dissent += 2; pop_mod -= 0.1; far_left += 1
+
+We say the protesters have a point and that the pattern of policing demands reform. Our base responds.
+
+@both
+subtitle: The middle path.
+on-arrival: enthusiasm += 1; stability += 1; prog_dissent += 1
+
+We condemn violence, defend the right to protest, and call for federal review. Everybody is a little unsatisfied.
+
+@quiet
+subtitle: Avoids a fight, loses some trust.
+on-arrival: enthusiasm -= 3; prog_dissent += 3; media_trust -= 1
+
+Silence is read as indifference by some and prudence by others.

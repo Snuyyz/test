@@ -1,0 +1,47 @@
+title: Election Night 2016
+new-page: true
+tags: event
+view-if: year = 2016 and month = 10
+max-visits: 1
+priority: 10
+on-arrival: {!
+var delta = Q.pop_mod + (Q.enthusiasm-50)*0.02 + (Q.unity-55)*0.012 + (Q.stability-60)*0.006;
+if (Q.far_left >= 40) delta -= 0.3;
+if (Q.far_left >= 60) delta -= 0.4;
+delta += (Q.nominee_mod || 0);
+if (delta > 3.5) delta = 3.5;
+if (delta < -3.5) delta = -3.5;
+var dp = 51.1 + delta;
+Q.dem_pop = dp;
+Q.dem_pop_str = dp.toFixed(1);
+Q.rep_pop_str = (100-dp).toFixed(1);
+Q.house_d = Math.max(150, Math.min(300, Math.round(194 + (dp-51.1)*8)));
+Q.senate_d = Math.max(35, Math.min(65, Math.round(48 + (dp-51.1)*0.8)));
+Q.pop_mod = Q.pop_mod * 0.5;
+Q.nominee_mod = 0;
+Q.house_won = Q.house_d >= 218 ? 1 : 0;
+Q.senate_won = Q.senate_d >= 50 ? 1 : 0;
+
+Q.pres_won = dp >= 51.5 ? 1 : 0;
+if (Q.pres_won) {
+    Q.white_house = 'D';
+    Q.president = Q.nominee;
+} else {
+    Q.white_house = 'R';
+    Q.president = 'Trump';
+}
+Q.pres_result = Q.pres_won ? 'won the Electoral College' : 'lost the Electoral College';
+Q.stability += Q.pres_won ? 2 : -2;
+Q.enthusiasm += Q.pres_won ? 6 : -4;
+!}
+
+= Election Night 2016
+
+A long election night. A long campaign. A result that will be debated for years.
+
+[? if pres_won == 1: **We have won the presidency.** ?][? if pres_won == 0: **We have lost the presidency.** ?] The national two-party vote came in at [+ dem_pop_str +]% for our side and [+ rep_pop_str +]% for theirs. In the Electoral College, we [+ pres_result +].
+
+**House:** [+ house_d +] Democratic seats. [? if house_won == 1: We hold the majority. ?][? if house_won == 0: We are in the minority. ?]
+
+**Senate:** [+ senate_d +] Democratic seats. [? if senate_won == 1: We control the chamber. ?][? if senate_won == 0: We are in the minority. ?]
+

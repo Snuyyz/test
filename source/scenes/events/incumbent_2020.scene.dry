@@ -1,0 +1,20 @@
+title: The Incumbent Runs Again
+subtitle: Alt-history: a Democrat holds the White House.
+new-page: true
+tags: event
+view-if: year = 2020 and month = 1 and white_house == "D"
+max-visits: 1
+priority: 3
+on-arrival: nominee = president
+
+= The Incumbent Runs Again
+
+With a Democrat in the White House, the 2020 nomination is a formality. The question is whether the coalition will hold together through a pandemic and a divided country.
+
+- @go: Run on the record.
+
+@go
+subtitle: Continuity.
+on-arrival: enthusiasm += 2; unity += 2
+
+The campaign is built on the record.

@@ -1,0 +1,33 @@
+title: Tariffs and Cuts
+subtitle: The administration moves fast.
+new-page: true
+tags: event
+view-if: year = 2025 and month = 4 and white_house == "R"
+max-visits: 1
+priority: 2
+
+= Tariffs and Cuts
+
+Broad tariffs rattle markets. Aid and research grants are frozen. Thousands of federal employees are dismissed. The administration claims a mandate. The courts, Congress, and the public all push back, unevenly.
+
+- @economy: Make the economic case.
+- @rights: Make the rule-of-law case.
+- @mobilize: Mobilize protests.
+
+@economy
+subtitle: Kitchen-table politics.
+on-arrival: pop_mod += 0.4; mod_dissent -= 2; stability += 1
+
+Prices, jobs, and retirement accounts become the focus. The message resonates.
+
+@rights
+subtitle: Principled.
+on-arrival: stability += 3; media_trust += 2; enthusiasm += 2
+
+We argue that the government is not following the law. Many voters agree and many do not care.
+
+@mobilize
+subtitle: Mass energy.
+on-arrival: enthusiasm += 5; far_left += 1; pop_mod += 0.2
+
+Protests grow and stay peaceful, overwhelmingly.

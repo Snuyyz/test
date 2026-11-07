@@ -1,0 +1,33 @@
+title: The Debate
+subtitle: A president under scrutiny.
+new-page: true
+tags: event
+view-if: year = 2024 and month = 4 and white_house == "D" and president == "Biden"
+max-visits: 1
+priority: 3
+
+= The Debate
+
+A June debate goes badly. For weeks, an elderly president's stamina has been quietly questioned. Now it is on every screen. Donors, members of Congress, and ordinary voters are asking whether he should continue.
+
+- @stay: Stay in the race.
+- @withdraw: Withdraw and pass the torch.
+- @open_conv: Withdraw and call for an open convention.
+
+@stay
+subtitle: Loyalty and continuity.
+on-arrival: pop_mod -= 0.6; unity += 1; enthusiasm -= 3; media_trust -= 1; stability -= 1
+
+The president stays. The campaign is on defense. The polls do not move.
+
+@withdraw
+subtitle: A stunning, historic move.
+on-arrival: nominee = "Harris"; pop_mod += 0.2; enthusiasm += 6; unity += 2; estab_dissent += 2; media_trust += 1
+
+The president withdraws. The Vice President is the nominee. The energy returns. So does the time pressure.
+
+@open_conv
+subtitle: Democratic, chaotic.
+on-arrival: nominee = "Harris"; pop_mod += 0.1; unity -= 2; enthusiasm += 3; prog_dissent -= 3
+
+An open process might have produced a better candidate. It might have produced chaos.

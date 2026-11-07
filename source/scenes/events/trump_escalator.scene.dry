@@ -1,0 +1,34 @@
+title: The Escalator
+subtitle: A television personality enters the race.
+new-page: true
+tags: event
+view-if: year = 2015 and month = 4
+max-visits: 1
+priority: 1
+on-arrival: maga += 12; far_right += 4
+
+= The Escalator
+
+A real-estate developer and television star descends a golden escalator to announce his candidacy for the Republican nomination, opening with a harsh attack on immigrants. Commentators call it a joke. The Republican field is crowded. His numbers are not a joke.
+
+- @ignore: Treat it as a sideshow.
+- @engage: Take it seriously. Start building a contrast.
+- @amplify: Quietly hope he wins the nomination.
+
+@ignore
+subtitle: Safer in the short run.
+on-arrival: maga += 2; stability -= 1
+
+We assume the primary electorate will sort it out. It does not.
+
+@engage
+subtitle: Early preparation.
+on-arrival: funds -= 1 if funds > 0; media_trust += 1; stability += 2
+
+Researchers and rapid-response staff are hired early. The files are thick by the fall.
+
+@amplify
+subtitle: A gamble that has side effects.
+on-arrival: maga += 5; stability -= 3; far_right += 2; pop_mod += 0.1
+
+Some strategists decide he is the easiest opponent. The risk to the system is not their department.

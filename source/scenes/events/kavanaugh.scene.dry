@@ -1,0 +1,26 @@
+title: The Confirmation
+subtitle: A Supreme Court fight and an allegation.
+new-page: true
+tags: event
+view-if: year = 2018 and month = 7
+max-visits: 1
+priority: 2
+
+= The Confirmation
+
+A Supreme Court nominee faces credible allegations of sexual misconduct from his youth. The Senate hearing becomes a national drama. The nominee is confirmed on a narrow vote. The midterms are weeks away.
+
+- @fight: Fight the nomination with everything.
+- @measured: Press for a thorough investigation, then stand down.
+
+@fight
+subtitle: Energizes the base. Red-state senators vulnerable.
+on-arrival: enthusiasm += 6; pop_mod += 0.1; mod_dissent += 2; senate_d -= 1
+
+We lose the vote, but the energy is real.
+
+@measured
+subtitle: Measured.
+on-arrival: stability += 1; media_trust += 1; enthusiasm += 2
+
+We argue for process and accept the result.

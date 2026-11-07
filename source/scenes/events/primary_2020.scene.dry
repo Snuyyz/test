@@ -1,0 +1,33 @@
+title: The 2020 Primary
+subtitle: A crowded field narrows.
+new-page: true
+tags: event
+view-if: year = 2020 and month = 1 and white_house == "R"
+max-visits: 1
+priority: 3
+
+= The 2020 Primary
+
+Two dozen candidates have entered. Only a few remain. The front-runners are a former vice president and a democratic-socialist senator. A South Carolina primary may decide it.
+
+- @biden: Consolidate behind the former vice president.
+- @open2: Let it play out.
+- @sanders2: Back the senator.
+
+@biden
+subtitle: Electability argument.
+on-arrival: nominee = "Biden"; estab_strength += 3; mod_strength += 4; prog_dissent += 4; unity += 3; nominee_mod += 0
+
+Moderates rally. The race is settled by March.
+
+@open2
+subtitle: Lets the voters decide.
+on-arrival: nominee = "Biden"; nominee_mod += 0.2; enthusiasm += 3; unity -= 1; prog_dissent -= 2
+
+The nomination goes to the former vice president. The campaign was long but the left felt heard.
+
+@sanders2
+subtitle: Higher risk, higher variance.
+on-arrival: nominee = "Sanders"; nominee_mod -= 0.2; prog_strength += 6; mod_dissent += 7; estab_dissent += 4; unity -= 3; far_left += 2; enthusiasm += 5
+
+A rough, historic bet. The base is thrilled. The establishment is anxious.

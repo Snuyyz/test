@@ -1,0 +1,33 @@
+title: The Leak
+subtitle: Foreign intelligence leaks party e-mails.
+new-page: true
+tags: event
+view-if: year = 2016 and month = 7
+max-visits: 1
+priority: 2
+
+= The Leak
+
+Thousands of internal party e-mails appear on a transparency website. U.S. intelligence agencies will later attribute the hack to Russian military intelligence. The e-mails show staffers disparaging the insurgent campaign. The convention opens in disarray.
+
+- @apologize: Apologize, replace the chair, and move on.
+- @blame: Focus on the foreign interference.
+- @security: Rebuild cybersecurity quickly.
+
+@apologize
+subtitle: Costs the party some pride.
+on-arrival: unity += 3; prog_dissent -= 4; media_trust += 1; stability += 1
+
+The chair steps down. The convention proceeds. The story will not go away.
+
+@blame
+subtitle: Right on facts, mixed politically.
+on-arrival: stability += 3; media_trust += 1; prog_dissent += 3; enthusiasm -= 1
+
+We say, accurately, that a foreign government is trying to influence our election. Some hear it as an excuse.
+
+@security
+subtitle: Boring, necessary.
+on-arrival: funds -= 2 if funds >= 2; stability += 3; media_trust += 1
+
+The party hires real security professionals. Too late for this cycle, in time for the next.

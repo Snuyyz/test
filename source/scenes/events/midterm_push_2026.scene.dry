@@ -1,0 +1,33 @@
+title: The Last Stretch
+subtitle: The midterms are close.
+new-page: true
+tags: event
+view-if: year = 2026 and month = 7
+max-visits: 1
+priority: 2
+
+= The Last Stretch
+
+With three months until Election Day, the question is whether the coalition can turn discontent into turnout, and whether the party can persuade the persuadable. The stakes are as high as they have been in our lifetimes.
+
+- @turnout: All-in on turnout.
+- @persuasion: All-in on persuasion.
+- @defense: Invest in election protection.
+
+@turnout
+subtitle: Base mobilization.
+on-arrival: funds -= 2 if funds >= 2; enthusiasm += 6; pop_mod += 0.4
+
+We pour resources into field operations.
+
+@persuasion
+subtitle: Moderates and independents.
+on-arrival: funds -= 2 if funds >= 2; pop_mod += 0.5; mod_dissent -= 3; media_trust += 1
+
+We invest in persuasion and message testing.
+
+@defense
+subtitle: Defend the process.
+on-arrival: funds -= 2 if funds >= 2; stability += 5; pop_mod += 0.1
+
+We prepare for disputed results and intimidation.

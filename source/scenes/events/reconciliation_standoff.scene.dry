@@ -1,0 +1,33 @@
+title: Two Senators
+subtitle: The filibuster and the reconciliation fight.
+new-page: true
+tags: event
+view-if: year = 2021 and month = 10 and white_house == "D"
+max-visits: 1
+priority: 2
+
+= Two Senators
+
+Our majority in the Senate is 50 plus the Vice President. Two moderate Democratic senators block the more ambitious plans and refuse to change the filibuster. Activists threaten primaries. The Senate calendar slips.
+
+- @infra: Pass the bipartisan infrastructure bill first.
+- @hold: Hold the infrastructure bill hostage.
+- @filibuster: Push for filibuster reform on voting rights.
+
+@infra
+subtitle: A win.
+on-arrival: pop_mod += 0.3; enthusiasm -= 1; prog_dissent += 3; mod_dissent -= 3
+
+The infrastructure bill passes with Republican votes. The larger social package stalls.
+
+@hold
+subtitle: Leverage.
+on-arrival: prog_dissent -= 2; mod_dissent += 3; unity -= 2; capital -= 1 if capital > 0
+
+Hardball. It does not move the two senators.
+
+@filibuster
+subtitle: Principle.
+on-arrival: voting_rights += 1; stability += 2; enthusiasm += 2; mod_dissent += 2; capital -= 1 if capital > 0
+
+The effort fails when two senators refuse to go along. The voting-rights bills die.

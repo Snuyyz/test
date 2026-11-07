@@ -1,0 +1,41 @@
+title: Executive Action
+subtitle: What the President can do alone.
+tags: govt_action
+new-page: true
+view-if: executive_timer <= 0 and white_house == "D"
+choose-if: capital >= 2
+unavailable-subtitle: We need at least 2 capital.
+on-arrival: month_actions += 1; capital -= 2; executive_timer = 2
+
+= Executive Action
+
+When Congress will not act, the executive branch can do a little. Courts and successors can undo it.
+
+- @regulation: Agency rulemaking.
+- @appoint: Judicial and agency appointments.
+- @immig: Immigration and enforcement priorities.
+- @norms: Restore institutional norms.
+
+@regulation
+subtitle: Real, but reversible.
+on-arrival: enthusiasm += 3; pop_mod += 0.1; mod_dissent += 1; prog_dissent -= 2
+
+Rules take effect. Lawsuits follow.
+
+@appoint
+subtitle: Long-lasting.
+on-arrival: stability += 3; enthusiasm += 2; maga += 1
+
+Courts matter, and so do the people who staff the government.
+
+@immig
+subtitle: A flashpoint.
+on-arrival: enthusiasm += 3; prog_dissent -= 3; mod_dissent += 3; far_right += 2; maga += 2
+
+The politics are as hard as the law.
+
+@norms
+subtitle: Strengthens institutions.
+on-arrival: stability += 5; media_trust += 3; enthusiasm -= 1
+
+Not a vote-winner. But it matters.

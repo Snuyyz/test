@@ -1,0 +1,26 @@
+title: Kabul
+subtitle: The longest war ends in chaos.
+new-page: true
+tags: event
+view-if: year = 2021 and month = 7 and white_house == "D"
+max-visits: 1
+priority: 2
+
+= Kabul
+
+The withdrawal from Afghanistan collapses into a frantic evacuation. A suicide bombing kills thirteen service members. The pictures are devastating. The policy had wide public support. The execution did not.
+
+- @defend: Defend the decision to leave.
+- @accountability: Acknowledge failures and review.
+
+@defend
+subtitle: Principle over image.
+on-arrival: pop_mod -= 0.3; mod_dissent += 2; unity += 1
+
+The argument is right on the substance and weak on the politics.
+
+@accountability
+subtitle: Honest, costly.
+on-arrival: media_trust += 2; pop_mod -= 0.2; stability += 1
+
+The after-action review is long. The damage is done.
