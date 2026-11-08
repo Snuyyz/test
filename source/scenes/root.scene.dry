@@ -81,7 +81,7 @@ SD.init = function (Q) {
   Q.pro_democracy = 70; Q.institutions = 75; Q.subversion_progress = 0; Q.market_revolt_progress = 0;
   Q.press_freedom = 70; Q.election_admin = 70; Q.courts_independence = 65;
   Q.voting_rights = 0; Q.court_reform = 0; Q.ethics_reform = 0; Q.campaign_finance = 0; Q.filibuster_reform = 0;
-  Q.gerrymander_bias = 3.2;
+  Q.gerrymander_bias = 0.2;
   Q.nationalism = 55; Q.socialism = 38;
   // forces (analogues of Reichsbanner/Stahlhelm/SA/RFB/police/Reichswehr)
   Q.civic_strength = 1200; Q.civic_militancy = 0.01; Q.civic_banned = 0; // Indivisible/unions/voter protection corps
