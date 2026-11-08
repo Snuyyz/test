@@ -1,0 +1,27 @@
+title: Opposition
+new-page: true
+is-special: true
+
+= Opposition
+
+**The Republican Party**
+
+[? if maga_strength >= 55 : <span style="color: #b5651d;">**MAGA**</span> controls the party. ?][? if maga_strength >= 35 and maga_strength < 55 : <span style="color: #b5651d;">**MAGA**</span> and the establishment are at war for control. ?][? if maga_strength < 35 : The establishment is in charge, with the insurgents on the fringes. ?]
+
+Movement strength: [+ maga_strength_r +] / 100. Establishment grip: [+ gop_establishment_r +].
+
+[? if trump_active = 1 : Insurgent leader: **[+ maga_leader +]** ?][? if gop_nominee_type == "maga" : (the party's latest presidential nominee) ?]
+
+**Threat to the republic**
+
+Subversion progress: [+ subversion_progress_r +] / 10
+
+Your sense of urgency about the threat: [+ trump_urgency +]
+
+**Far-left movements**
+
+Strength: [+ farleft_strength_r +]. Our relations with the organized left: [+ left_relation_r +].
+
+**Far-right extremism**
+
+Strength: [+ farright_strength_r +].

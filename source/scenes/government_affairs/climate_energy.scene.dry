@@ -1,0 +1,33 @@
+title: Climate and Energy
+new-page: true
+is-card: true
+tags: govt_affairs
+view-if: climate_energy_timer <= 0 and dem_president = 1
+on-arrival: climate_energy_timer = 8
+
+= Climate and Energy
+
+Climate change is a growing threat and an economic opportunity.
+
+- @clean_investment: Massive clean-energy investment
+- @permitting_reform: Streamline permitting
+- @regulate: Tighten emissions rules
+- @easy_discard
+
+@clean_investment
+subtitle: -2 budget
+unavailable-subtitle: Need 2 budget.
+choose-if: budget >= 2
+on-arrival: budget -= 2; climate_progress += 2; young_dem += 3*(1-dissent); educated_dem += 2*(1-dissent); economic_growth += 0.3; abundance_strength += 2; month_actions += 1
+
+Subsidies for clean energy spark a manufacturing boom.
+
+@permitting_reform
+on-arrival: climate_progress += 1; abundance_strength += 3; progressive_dissent += 2; economic_growth += 0.2; labor_relation += 2; month_actions += 1
+
+We make it easier to build transmission lines, solar farms, and nuclear plants.
+
+@regulate
+on-arrival: climate_progress += 1.5; young_dem += 2*(1-dissent); rural_dem -= 2*(1-dissent); biz_relation -= 3; economic_growth -= 0.2; month_actions += 1
+
+Regulators tighten limits on pollution.

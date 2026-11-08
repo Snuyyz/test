@@ -1,0 +1,23 @@
+title: The Flint Water Crisis
+new-page: true
+tags: event
+view-if: year = 2016 and month = 1
+priority: 1
+max-visits: 1
+
+= The Flint Water Crisis
+
+Residents of Flint, Michigan, have been drinking poisoned water. The crisis exposes decaying infrastructure and indifference to poor communities across the country.
+
+- @flint_infra: Make infrastructure a national issue
+- @flint_accountability: Demand accountability
+
+@flint_infra
+on-arrival: working_dem += 2*(1-dissent); minority_dem += 2*(1-dissent); abundance_strength += 1; populist_strength += 1
+
+We call for large infrastructure investment, with bipartisan potential.
+
+@flint_accountability
+on-arrival: minority_dem += 2*(1-dissent); progressive_dissent -= 2; polarization += 1; institutions += 0.5
+
+Officials are investigated, and the issue becomes a symbol.

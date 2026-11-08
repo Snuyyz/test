@@ -1,0 +1,15 @@
+title: The Republican Primary: The Establishment Wins
+new-page: true
+tags: event
+view-if: pres_year = 1 and month = 4 and gop_nominee_done != year and not (dem_president = 0 and president_terms < 2) and not ((year = 2016 and (trump_active = 1 or maga_strength >= 45)) or (year > 2016 and maga_strength >= 40))
+priority: 590
+on-arrival: {!
+Q.gop_nominee_mod = {suburban: 2, educated: 2, rural: 1, working: 1, minority: 1};
+Q.gop_nominee_name = 'the mainstream Republican'; Q.gop_nominee_type = 'mainstream'; Q.gop_nominee_done = Q.year;
+!}
+
+= The Republican Primary: The Establishment Wins
+
+The Republican establishment has held its party. A mainstream conservative wins the nomination without dramatic upheaval. The insurgent right is restless, but the party's institutions held.
+
+Our opponent will run a conventional campaign: competent, well-funded, and cautious.

@@ -1,0 +1,74 @@
+title: The Democratic Presidential Primary
+new-page: true
+tags: event
+view-if: pres_year = 1 and month = 3 and dem_nominee_done != year and (dem_president = 0 or president_terms >= 2)
+priority: 600
+
+= The Democratic Presidential Primary
+
+The race for our presidential nomination is underway. The party apparatus, donors, unions, and activists all have their favorites, and as party leadership we can quietly tilt the field, or watch it sort itself out.
+
+Which kind of candidate should we help bring to the convention?
+
+- @establishment_nominee: The establishment standard-bearer
+- @progressive_nominee: The progressive insurgent
+- @heartland_nominee: The heartland moderate
+- @outsider_nominee: The charismatic young outsider
+
+@establishment_nominee
+subtitle: A candidate for the nominating convention.
+on-arrival: {!
+Q.dem_nominee_mod = {suburban: 4, educated: 3, minority: 3, working: -1, young: -3};
+Q.dem_nominee_name = "the Establishment nominee"; Q.dem_nominee_done = Q.year;
+Q.establishment_strength = (Q.establishment_strength || 0) + 5;
+Q.progressive_dissent = (Q.progressive_dissent || 0) + 6;
+Q.dem_enthusiasm = (Q.dem_enthusiasm || 0) - 0.3;
+!}
+
+A seasoned figure with deep party ties and a long record, who excels with suburbanites and minority voters but struggles to excite the young. [? if year = 2016 : (Historically: Hillary Clinton.) ?][? if year = 2020 : (Historically: Joe Biden.) ?][? if year = 2024 : (Historically: Kamala Harris.) ?]
+
+Our backing helps decide the nomination. The party rallies, however grudgingly.
+
+@progressive_nominee
+subtitle: A candidate for the nominating convention.
+on-arrival: {!
+Q.dem_nominee_mod = {young: 6, educated: 1, minority: 1, working: 3, suburban: -4};
+Q.dem_nominee_name = "the Progressive nominee"; Q.dem_nominee_done = Q.year;
+Q.progressive_strength = (Q.progressive_strength || 0) + 6;
+Q.establishment_dissent = (Q.establishment_dissent || 0) + 6;
+Q.moderate_dissent = (Q.moderate_dissent || 0) + 4;
+Q.dem_enthusiasm = (Q.dem_enthusiasm || 0) + 0.8;
+Q.farleft_strength = (Q.farleft_strength || 0) - 3;
+!}
+
+A movement candidate who electrifies the young and the left but frightens suburban moderates. [? if year = 2016 or year = 2020 : (Historically: Bernie Sanders.) ?]
+
+Our backing helps decide the nomination. The party rallies, however grudgingly.
+
+@heartland_nominee
+subtitle: A candidate for the nominating convention.
+on-arrival: {!
+Q.dem_nominee_mod = {rural: 3, working: 3, suburban: 2, minority: -1, young: -2};
+Q.dem_nominee_name = "the Heartland nominee"; Q.dem_nominee_done = Q.year;
+Q.moderate_strength = (Q.moderate_strength || 0) + 5;
+Q.progressive_dissent = (Q.progressive_dissent || 0) + 4;
+Q.populist_strength = (Q.populist_strength || 0) + 2;
+!}
+
+A governor or senator from a swing state who can talk to rural and working-class voters, though the base finds the candidate less thrilling.
+
+Our backing helps decide the nomination. The party rallies, however grudgingly.
+
+@outsider_nominee
+subtitle: A candidate for the nominating convention.
+on-arrival: {!
+Q.dem_nominee_mod = {young: 5, minority: 2, suburban: 1, educated: 2, rural: 1};
+Q.dem_nominee_name = "the Young nominee"; Q.dem_nominee_done = Q.year;
+Q.abundance_strength = (Q.abundance_strength || 0) + 4;
+Q.establishment_dissent = (Q.establishment_dissent || 0) + 3;
+Q.dem_enthusiasm = (Q.dem_enthusiasm || 0) + 1.0;
+!}
+
+A fresh face with a gift for communication and a thin résumé. Voters are intrigued; the establishment is nervous. [? if year = 2020 : (Historically: Pete Buttigieg ran in this lane.) ?]
+
+Our backing helps decide the nomination. The party rallies, however grudgingly.

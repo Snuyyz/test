@@ -1,0 +1,30 @@
+title: Congressional Oversight
+new-page: true
+is-card: true
+tags: govt_affairs
+view-if: oversight_timer <= 0 and dem_house = 1
+on-arrival: oversight_timer = 8
+
+= Congressional Oversight
+
+With the House in our hands, we can investigate, subpoena, and hold hearings.
+
+- @investigate_abuse: Investigate abuses of power
+- @bipartisan_oversight: Pursue bipartisan oversight
+- @legislative_agenda: Focus on the legislative agenda
+- @easy_discard
+
+@investigate_abuse
+on-arrival: institutions += 2; subversion_progress -= 0.6; trump_urgency += 0.4; polarization += 1.5; gop_enthusiasm += 0.5; dem_enthusiasm += 0.4; month_actions += 1
+
+Hearings expose misconduct and energize both sides.
+
+@bipartisan_oversight
+on-arrival: institutions += 1.5; gopmod_relation += 5; polarization -= 0.5; progressive_dissent += 3; month_actions += 1
+
+Narrower, bipartisan inquiries command broader respect.
+
+@legislative_agenda
+on-arrival: budget += 0; working_dem += 2*(1-dissent); suburban_dem += 1*(1-dissent); progressive_dissent -= 1; month_actions += 1
+
+We spend our time on popular bills, even if the Senate blocks them.

@@ -1,0 +1,29 @@
+title: The Rise of ISIS
+new-page: true
+tags: event
+view-if: year = 2014 and month = 6
+priority: 1
+max-visits: 1
+
+= The Rise of ISIS
+
+The Islamic State has seized Mosul and proclaims a caliphate. Pressure mounts for American military action in Iraq and Syria. Public opinion is weary after a decade of war.
+
+- @isis_strikes: Back limited air strikes
+- @isis_vote: Demand a congressional vote
+- @isis_oppose: Oppose any new military action
+
+@isis_strikes
+on-arrival: moderate_strength += 2; intl_relation += 2; progressive_dissent += 5; military_loyalty += 0.02
+
+We support targeted strikes and support for local partners. The left is uneasy.
+
+@isis_vote
+on-arrival: institutions += 1; progressive_strength += 1; moderate_dissent += 2; pro_democracy += 0.5
+
+We insist Congress, not the president alone, authorize any war.
+
+@isis_oppose
+on-arrival: progressive_strength += 3; progressive_dissent -= 4; moderate_dissent += 5; intl_relation -= 2
+
+We warn of another quagmire. The base cheers; hawks worry.

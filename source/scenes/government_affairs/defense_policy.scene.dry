@@ -1,0 +1,33 @@
+title: Defense and the Military
+new-page: true
+is-card: true
+tags: govt_affairs
+view-if: defense_policy_timer <= 0 and dem_president = 1
+on-arrival: defense_policy_timer = 10
+
+= Defense and the Military
+
+A professional military loyal to the Constitution is the last backstop of any republic.
+
+- @civil_military_reform: Reinforce civil-military norms
+- @veterans_programs: Expand veterans programs
+- @cut_pentagon: Trim the defense budget
+- @easy_discard
+
+@civil_military_reform
+on-arrival: military_loyalty += 0.06; institutions += 2; subversion_progress -= 0.5; progressive_dissent += 1; month_actions += 1
+
+New codes of conduct and training reaffirm the oath to the Constitution.
+
+@veterans_programs
+subtitle: -1 budget
+unavailable-subtitle: Need 1 budget.
+choose-if: budget >= 1
+on-arrival: budget -= 1; military_loyalty += 0.03; rural_dem += 2*(1-dissent); working_dem += 1*(1-dissent); month_actions += 1
+
+We win the gratitude of veterans.
+
+@cut_pentagon
+on-arrival: budget += 2; military_loyalty -= 0.04; progressive_dissent -= 3; moderate_dissent += 3; intl_relation -= 2; month_actions += 1
+
+Savings are redirected, though generals grumble.

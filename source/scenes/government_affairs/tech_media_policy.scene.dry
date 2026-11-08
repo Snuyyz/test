@@ -1,0 +1,30 @@
+title: Technology and Media Policy
+new-page: true
+is-card: true
+tags: govt_affairs
+view-if: tech_media_policy_timer <= 0 and dem_president = 1
+on-arrival: tech_media_policy_timer = 10
+
+= Technology and Media Policy
+
+Platforms, algorithms, and artificial intelligence are reshaping the economy and democratic discourse.
+
+- @platform_rules: Regulate social media platforms
+- @antitrust: Break up monopolies
+- @ai_guardrails: AI safety and worker protections
+- @easy_discard
+
+@platform_rules
+on-arrival: press_freedom += 1; polarization -= 1; pro_democracy += 1; biz_relation -= 3; abundance_dissent += 2; month_actions += 1
+
+New rules on transparency and child safety pass.
+
+@antitrust
+on-arrival: populist_strength += 3; working_dem += 2*(1-dissent); biz_relation -= 5; economic_growth -= 0.1; abundance_dissent += 2; month_actions += 1
+
+Antitrust enforcers go after giants.
+
+@ai_guardrails
+on-arrival: working_dem += 2*(1-dissent); young_dem += 1*(1-dissent); economic_growth -= 0.1; inequality -= 1; abundance_dissent += 1; month_actions += 1
+
+Guardrails and retraining funds soften disruption.

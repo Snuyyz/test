@@ -1,0 +1,29 @@
+title: Recovery Legislation
+new-page: true
+tags: event
+view-if: year = 2021 and month = 3 and dem_president = 1 and dem_house = 1 and dem_senate = 1
+priority: 500
+max-visits: 1
+
+= Recovery Legislation
+
+With unified control we can pass a major recovery package using the budget reconciliation process. The economy is still recovering and the virus is not yet beaten.
+
+- @rescue_big: A huge package ($1.9 trillion)
+- @rescue_mid: A moderate package
+- @rescue_small: A targeted, minimal bill
+
+@rescue_big
+on-arrival: stimulus_level += 2; economic_growth += 2; unemployed -= 0.8; inflation += 1; budget -= 2; working_dem += 3*(1-dissent); progressive_dissent -= 3; moderate_dissent += 2
+
+Checks go out and the child tax credit expands. The economy booms, and prices begin to climb.
+
+@rescue_mid
+on-arrival: stimulus_level += 1; economic_growth += 1; unemployed -= 0.4; inflation += 0.3; budget -= 1; moderate_strength += 2; progressive_dissent += 2
+
+A smaller package passes with a bipartisan flavor.
+
+@rescue_small
+on-arrival: economic_growth += 0.3; budget += 1; progressive_dissent += 6; working_dem -= 1*(1-dissent)
+
+We pare back. The recovery is slow.

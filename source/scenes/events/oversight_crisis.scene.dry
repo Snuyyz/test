@@ -1,0 +1,29 @@
+title: The Impeachment Question
+new-page: true
+tags: event
+view-if: year >= 2019 and month = 9 and dem_president = 0 and dem_house = 1 and maga_strength >= 35 and impeach_done != 1
+priority: 1
+max-visits: 1
+
+= The Impeachment Question
+
+With a Democratic House, serious allegations of abuse of power by the president have reached the point where Congress must decide: investigate, censure, or impeach.
+
+- @impeach_go: Proceed with impeachment
+- @impeach_hearings: Hold hearings but not impeach
+- @impeach_focus: Focus on the economy
+
+@impeach_go
+on-arrival: impeach_done = 1; institutions += 2; subversion_progress -= 0.5; dem_enthusiasm += 0.6; gop_enthusiasm += 1.2; polarization += 3; maga_strength += 1.5; suburban_dem += 1*(1-dissent)
+
+The House impeaches; the Senate acquits along party lines. The country is, if anything, more divided.
+
+@impeach_hearings
+on-arrival: impeach_done = 1; institutions += 1; polarization += 1; moderate_strength += 1; progressive_dissent += 5; dem_enthusiasm -= 0.2
+
+Our base feels abandoned; our moderates feel relief.
+
+@impeach_focus
+on-arrival: impeach_done = 1; working_dem += 3*(1-dissent); moderate_strength += 2; progressive_dissent += 6; subversion_progress += 0.3
+
+We choose pocketbook politics over process. Critics say we shrank from our duty.

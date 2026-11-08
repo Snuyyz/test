@@ -1,0 +1,10 @@
+title: The Republican President Seeks Re-election
+new-page: true
+tags: event
+view-if: pres_year = 1 and month = 4 and gop_nominee_done != year and dem_president = 0 and president_terms < 2
+priority: 590
+on-arrival: gop_nominee_name = president; gop_nominee_done = year; incumbent_bonus = 1
+
+= The Republican President Seeks Re-election
+
+**[+ president +]** is running for re-election and faces no serious primary challenge. Republicans rally to the incumbent.

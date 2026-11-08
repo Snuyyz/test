@@ -1,0 +1,31 @@
+title: Jake Moretti
+is-pinned-card: true
+tags: advisor, moderate
+view-if: jake_moretti_advisor = 1
+new-page: true
+
+= Jake Moretti
+
+Moretti is a rural outreach director from a county the party hasn't won in a generation. He insists we show up everywhere.
+
+- @listening_tour
+- @gun_farm
+- @root: Return to main
+
+@listening_tour
+title: Rural Listening Tour
+subtitle: Show up in places the party has abandoned.
+unavailable-subtitle: [? if advisor_action_timer > 0 : [+ advisor_action_timer +] months before next advisor action. ?]
+choose-if: advisor_action_timer = 0
+on-arrival: advisor_action_timer = 6; rural_dem += 5*(1-dissent); working_dem += 1*(1-dissent); populist_strength += 3; progressive_dissent += 3
+
+We spend weeks in diners and fairgrounds. Turnout in rural counties improves a little; the press covers the effort kindly.
+
+@gun_farm
+title: Back Practical Rural Priorities
+subtitle: Highlight broadband, hospitals, and farm policy.
+unavailable-subtitle: [? if advisor_action_timer > 0 : [+ advisor_action_timer +] months before next advisor action. ?]
+choose-if: advisor_action_timer = 0
+on-arrival: advisor_action_timer = 6; rural_dem += 3*(1-dissent); populist_strength += 2; moderate_strength += 2; progressive_dissent += 2
+
+Broadband, rural hospitals, and farm credit give rural voters concrete reasons to listen.

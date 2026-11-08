@@ -1,0 +1,36 @@
+title: The Judiciary
+new-page: true
+is-card: true
+tags: govt_affairs
+view-if: judiciary_timer <= 0 and dem_president = 1
+on-arrival: judiciary_timer = 10
+
+= The Judiciary
+
+Courts shape every policy fight. Federal judges serve for life, so choices made today last for decades.
+
+- @appoint_judges: Prioritize judicial appointments
+- @bipartisan_picks: Seek consensus nominees
+- @court_reform_push: Push structural court reform
+- @easy_discard
+
+@appoint_judges
+subtitle: needs Senate control
+unavailable-subtitle: Needs a Democratic Senate.
+choose-if: dem_senate = 1
+on-arrival: courts_independence += 3; court_lean -= 0.4; progressive_dissent -= 2; month_actions += 1
+
+We move nominees through the Senate and fill vacancies.
+
+@bipartisan_picks
+on-arrival: courts_independence += 4; gopmod_relation += 4; progressive_dissent += 3; institutions += 1; month_actions += 1
+
+We pick respected jurists acceptable across the spectrum.
+
+@court_reform_push
+subtitle: needs Congress
+unavailable-subtitle: Needs both chambers.
+choose-if: dem_senate = 1 and dem_house = 1
+on-arrival: court_reform += 1; court_lean -= 1; progressive_dissent -= 5; moderate_dissent += 5; institutions -= 1; polarization += 2; trump_urgency += 0.3; month_actions += 1
+
+Term limits and expansion spark a firestorm.

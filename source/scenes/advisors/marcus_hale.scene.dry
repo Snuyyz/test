@@ -1,0 +1,31 @@
+title: Marcus Hale
+is-pinned-card: true
+tags: advisor, establishment
+view-if: marcus_hale_advisor = 1
+new-page: true
+
+= Marcus Hale
+
+Hale is the party's chief pollster, a numbers man who distrusts slogans that have not been tested in focus groups.
+
+- @message_testing
+- @battleground_polls
+- @root: Return to main
+
+@message_testing
+title: Message Testing
+subtitle: Refine our message for swing voters.
+unavailable-subtitle: [? if advisor_action_timer > 0 : [+ advisor_action_timer +] months before next advisor action. ?]
+choose-if: advisor_action_timer = 0
+on-arrival: advisor_action_timer = 6; suburban_dem += 4*(1-dissent); working_dem += 2*(1-dissent); establishment_strength += 2; progressive_dissent += 3
+
+Focus groups reveal what persuadable voters actually care about. The new message is sharper, and some on the left call it focus-grouped mush.
+
+@battleground_polls
+title: Battleground Polling
+subtitle: Find where we are weakest and fix it.
+unavailable-subtitle: [? if advisor_action_timer > 0 : [+ advisor_action_timer +] months before next advisor action. ?]
+choose-if: advisor_action_timer = 0
+on-arrival: advisor_action_timer = 6; resources += 1; dem_enthusiasm += 0.3; trump_urgency += 0.3
+
+The polling shows exactly where our coalition is cracking. The data is sobering and useful.

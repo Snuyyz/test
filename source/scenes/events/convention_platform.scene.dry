@@ -1,0 +1,30 @@
+title: The Democratic Convention
+new-page: true
+tags: event
+view-if: pres_year = 1 and month = 7 and convention_done != year
+priority: 250
+
+= The Democratic Convention
+
+Delegates gather for the party's national convention. The platform is a battlefield: progressives want bold commitments, moderates want caution, labor wants trade protections, and everyone wants unity.
+
+- @platform_bold: A bold platform
+- @platform_balanced: A balanced platform
+- @platform_unity: A unity convention
+
+@platform_bold
+on-arrival: convention_done = year; progressive_dissent -= 6; moderate_dissent += 4; left_relation += 5; farleft_strength -= 1; suburban_dem -= 1*(1-dissent); young_dem += 2*(1-dissent); dem_enthusiasm += 0.4
+
+The platform embraces ambitious commitments. The left is pleased.
+
+@platform_balanced
+on-arrival: convention_done = year; progressive_dissent += 1; moderate_dissent -= 1; labor_dissent -= 1; suburban_dem += 1*(1-dissent)
+
+A carefully negotiated platform offends few and thrills fewer.
+
+@platform_unity
+choose-if: resources >= 1
+unavailable-subtitle: Need 1 resource.
+on-arrival: convention_done = year; progressive_dissent -= 3; moderate_dissent -= 3; labor_dissent -= 3; populist_dissent -= 3; establishment_dissent -= 3; abundance_dissent -= 3; resources -= 1
+
+Speakers across the spectrum embrace each other onstage. The show of unity helps.

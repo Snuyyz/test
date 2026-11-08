@@ -1,0 +1,25 @@
+title: A New Faction: Abundance
+new-page: true
+tags: event
+view-if: year >= 2019 and abundance_discovered = 0 and economic_growth >= 0 and month = 5
+priority: 150
+max-visits: 1
+
+= A New Faction: Abundance
+
+A group of younger policy thinkers, housing advocates, and technologists inside the party argue that the left has become too good at saying no. They want a politics of building: housing, transit, clean power, and a government that works.
+
+The faction is small now, but it is attracting talent and money.
+
+- @abundance_welcome: Welcome the new wing
+- @abundance_ignore: Treat it as a fad
+
+@abundance_welcome
+on-arrival: abundance_discovered = 1; abundance_strength += 6; abundance_dissent -= 5; progressive_dissent += 2
+
+A new tent in the big tent opens.
+
+@abundance_ignore
+on-arrival: abundance_discovered = 1; abundance_dissent += 5
+
+The new wing grows resentful, but grows nonetheless.

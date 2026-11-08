@@ -1,0 +1,29 @@
+title: Russia Invades Ukraine
+new-page: true
+tags: event
+view-if: year = 2022 and month = 3
+priority: 1
+max-visits: 1
+
+= Russia Invades Ukraine
+
+Russia has launched a full-scale invasion of Ukraine, the largest war in Europe since 1945. Energy and food prices spike; the West debates how far to go.
+
+- @ukraine_support: Lead a coalition in support of Ukraine
+- @ukraine_limits: Support Ukraine, with limits
+- @ukraine_negotiate: Push for negotiations
+
+@ukraine_support
+on-arrival: intl_relation += 8; moderate_strength += 2; inflation += 0.5; progressive_dissent += 2; maga_strength += 0.5
+
+We back sanctions and arms. NATO unity is strengthened.
+
+@ukraine_limits
+on-arrival: intl_relation += 3; moderate_strength += 1; progressive_dissent += 0; populist_strength += 1
+
+We help Ukraine while ruling out direct US involvement.
+
+@ukraine_negotiate
+on-arrival: progressive_strength += 2; intl_relation -= 4; moderate_dissent += 4; populist_strength += 1
+
+We press for a settlement. Allies are alarmed.

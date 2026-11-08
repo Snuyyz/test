@@ -1,0 +1,23 @@
+title: The Infrastructure Bill
+new-page: true
+tags: event
+view-if: year = 2021 and month = 11 and dem_president = 1 and dem_senate = 1
+priority: 1
+max-visits: 1
+
+= The Infrastructure Bill
+
+A bipartisan infrastructure bill awaits a vote, while a much bigger social-spending package is stalled by moderate senators. Progressives want to hold the first hostage to the second.
+
+- @infra_pass: Pass infrastructure now
+- @infra_hostage: Hold it until the bigger bill passes
+
+@infra_pass
+on-arrival: budget -= 1; economic_growth += 0.4; abundance_strength += 2; gopmod_relation += 4; progressive_dissent += 5; working_dem += 2*(1-dissent); institutions += 1
+
+The bipartisan bill becomes law; roads, bridges, and broadband get funded.
+
+@infra_hostage
+on-arrival: progressive_dissent -= 4; moderate_dissent += 6; gopmod_relation -= 4; working_dem -= 1*(1-dissent); polarization += 1; budget -= 0
+
+Weeks of brinkmanship follow; both bills end up in trouble.

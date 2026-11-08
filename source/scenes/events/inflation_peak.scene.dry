@@ -1,0 +1,37 @@
+title: Inflation Peaks
+new-page: true
+tags: event
+view-if: year = 2022 and month = 6
+priority: 400
+max-visits: 1
+
+= Inflation Peaks
+
+Prices are rising at their fastest pace in forty years. Voters say the economy is their top concern.
+
+[? if stimulus_level >= 3 : Critics blame the scale of recent spending. ?][? if stimulus_level < 3 : Critics blame supply chains and war. ?]
+
+- @inflation_fight: Support aggressive action to fight inflation
+- @inflation_prices: Target prices directly
+- @inflation_blame: Blame the war and companies
+
+@inflation_fight
+on-arrival: {!
+Q.inflation += 3 + Math.max(0, Q.stimulus_level - 1); Q.economic_growth -= 1.5; Q.unemployed += 0.3; Q.suburban_dem += 1 * (1 - Q.dissent); Q.progressive_dissent += 2;
+!}
+
+The Federal Reserve raises rates; inflation begins to cool; so does growth.
+
+@inflation_prices
+on-arrival: {!
+Q.inflation += 2.2 + Math.max(0, Q.stimulus_level - 1) * 0.7; Q.economic_growth -= 0.5; Q.working_dem += 2 * (1 - Q.dissent); Q.biz_relation -= 3; Q.populist_strength += 2;
+!}
+
+We go after corporate pricing power and supply chain bottlenecks.
+
+@inflation_blame
+on-arrival: {!
+Q.inflation += 3.8 + Math.max(0, Q.stimulus_level - 1); Q.working_dem -= 2 * (1 - Q.dissent); Q.suburban_dem -= 2 * (1 - Q.dissent); Q.polarization += 1;
+!}
+
+Voters are unimpressed by excuses.

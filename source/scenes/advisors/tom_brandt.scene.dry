@@ -1,0 +1,31 @@
+title: Tom Brandt
+is-pinned-card: true
+tags: advisor, labor
+view-if: tom_brandt_advisor = 1
+new-page: true
+
+= Tom Brandt
+
+Brandt is the labor liaison, a former union local president who keeps the party honest about working-class life.
+
+- @union_drive
+- @workers_message
+- @root: Return to main
+
+@union_drive
+title: Support Union Organizing
+subtitle: Back organizing drives in warehouses, hospitals, and factories.
+unavailable-subtitle: [? if advisor_action_timer > 0 : [+ advisor_action_timer +] months before next advisor action. ?]
+choose-if: advisor_action_timer = 0
+on-arrival: advisor_action_timer = 6; labor_strength += 5; labor_relation += 6; working_dem += 3*(1-dissent); biz_relation -= 3; labor_dissent -= 5
+
+Union drives win across several industries. Business groups complain; workers notice who showed up.
+
+@workers_message
+title: A Message for Workers
+subtitle: Make the economy about paychecks, not abstractions.
+unavailable-subtitle: [? if advisor_action_timer > 0 : [+ advisor_action_timer +] months before next advisor action. ?]
+choose-if: advisor_action_timer = 0
+on-arrival: advisor_action_timer = 6; working_dem += 4*(1-dissent); rural_dem += 1*(1-dissent); populist_strength += 2; abundance_dissent += 2
+
+The new message talks about wages, healthcare costs, and dignity. It lands in union halls and diners alike.

@@ -1,0 +1,37 @@
+title: Confronting the Trump Movement
+new-page: true
+is-card: true
+tags: party_affairs
+view-if: confronting_trump_timer <= 0 and maga_strength >= 25
+on-arrival: confronting_trump_timer = 8
+
+= Confronting the Trump Movement
+
+A populist, nationalist movement is reshaping the Republican Party and challenging democratic norms. How do we respond?
+
+- @expose_threat: Sound the alarm
+- @address_grievances: Address the grievances behind the movement
+- @build_cross_party: Build a cross-party defense of democracy
+- @mock_it: Mock and ignore
+- @easy_discard
+
+@expose_threat
+subtitle: raises urgency
+on-arrival: trump_urgency += 1.5; pro_democracy += 1; polarization += 1; maga_strength -= 1; dem_enthusiasm += 0.5; gopmod_relation -= 2; month_actions += 1
+
+We warn that democratic norms are under threat. The base is energized, though some say we cry wolf.
+
+@address_grievances
+on-arrival: maga_strength -= 3; working_dem += 3*(1-dissent); rural_dem += 3*(1-dissent); populist_strength += 2; progressive_dissent += 3; polarization -= 1; month_actions += 1
+
+We talk honestly about trade, towns left behind, and distrust of elites, and offer real alternatives.
+
+@build_cross_party
+on-arrival: gopmod_relation += 6; maga_strength -= 1.5; institutions += 2; progressive_dissent += 2; trump_urgency += 0.8; pro_democracy += 1.5; month_actions += 1
+
+Never-Trump Republicans, civil libertarians, and business leaders join us in a coalition that tolerates uneasy bedfellows.
+
+@mock_it
+on-arrival: trump_urgency -= 0.5; polarization += 1.5; maga_strength += 2; gop_enthusiasm += 0.5; suburban_dem += 1*(1-dissent); month_actions += 1
+
+Satire lands well with our base but also galvanizes our opponents. Ignoring the movement is not working.

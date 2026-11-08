@@ -1,0 +1,31 @@
+title: Dolores Reyes
+is-pinned-card: true
+tags: advisor, progressive
+view-if: dolores_reyes_advisor = 1
+new-page: true
+
+= Dolores Reyes
+
+Reyes is the party's organizing director, a veteran of field campaigns and immigrant-rights coalitions who believes elections are won door by door.
+
+- @field_ops
+- @infrequent_voters
+- @root: Return to main
+
+@field_ops
+title: Build the Field Operation
+subtitle: Invest in neighborhood organizers and volunteer networks.
+unavailable-subtitle: [? if advisor_action_timer > 0 : [+ advisor_action_timer +] months before next advisor action. ?]
+choose-if: advisor_action_timer = 0
+on-arrival: advisor_action_timer = 6; civic_strength += 300; dem_enthusiasm += 0.8; progressive_dissent -= 5; moderate_dissent += 2
+
+We have funded thousands of new organizers. Enthusiasm is up, and moderates grumble about the cost.
+
+@infrequent_voters
+title: Turn Out Infrequent Voters
+subtitle: Targeted outreach to young and minority voters.
+unavailable-subtitle: [? if advisor_action_timer > 0 : [+ advisor_action_timer +] months before next advisor action. ?]
+choose-if: advisor_action_timer = 0
+on-arrival: advisor_action_timer = 6; minority_dem += 4*(1-dissent); young_dem += 3*(1-dissent); progressive_strength += 2; establishment_dissent += 2
+
+Canvassers knock on doors that campaigns usually skip. Turnout among occasional voters ticks up.

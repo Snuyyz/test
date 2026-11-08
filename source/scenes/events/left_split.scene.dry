@@ -1,0 +1,29 @@
+title: The Left Breaks Away
+new-page: true
+tags: event
+view-if: year >= 2015 and farleft_strength >= 22 and left_relation < 40 and left_split_done != 1
+priority: 350
+max-visits: 1
+
+= The Left Breaks Away
+
+A coalition of left activists, disillusioned young voters, and third-party organizers is launching a challenge to our right flank, a candidate and a ballot line that could cost us close races.
+
+- @left_split_negotiate: Negotiate a pact
+- @left_split_attack: Treat them as spoilers
+- @left_split_ignore: Ignore them
+
+@left_split_negotiate
+on-arrival: left_split_done = 1; left_relation += 12; farleft_strength -= 6; progressive_dissent -= 4; moderate_dissent += 4; biz_relation -= 2
+
+A deal brings many back to the fold.
+
+@left_split_attack
+on-arrival: left_split_done = 1; left_relation -= 6; farleft_strength += 3; suburban_dem += 1*(1-dissent); progressive_dissent += 4
+
+We call them spoilers. They call us sellouts.
+
+@left_split_ignore
+on-arrival: left_split_done = 1; farleft_strength += 2; young_dem -= 2*(1-dissent)
+
+We hope they fade away.

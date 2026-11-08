@@ -1,0 +1,30 @@
+title: Fiscal Policy
+new-page: true
+is-card: true
+tags: govt_affairs
+view-if: fiscal_policy_timer <= 0 and dem_president = 1
+on-arrival: fiscal_policy_timer = 10
+
+= Fiscal Policy
+
+Budgets are moral documents, and the debt limit is a recurring hostage.
+
+- @raise_taxes: Raise taxes on high earners
+- @close_loopholes: Close loopholes and boost enforcement
+- @grand_bargain: Seek a grand bargain
+- @easy_discard
+
+@raise_taxes
+on-arrival: budget += 3; biz_relation -= 5; working_dem += 1*(1-dissent); progressive_dissent -= 3; moderate_dissent += 2; month_actions += 1
+
+The rich pay more; the treasury breathes easier.
+
+@close_loopholes
+on-arrival: budget += 2; biz_relation -= 2; inequality -= 1; month_actions += 1
+
+Tax enforcement raises substantial revenue.
+
+@grand_bargain
+on-arrival: budget += 3; gopmod_relation += 6; progressive_dissent += 6; labor_dissent += 4; moderate_strength += 2; month_actions += 1
+
+A bipartisan bargain trims deficits at some political cost.

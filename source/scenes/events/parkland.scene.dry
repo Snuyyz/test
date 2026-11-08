@@ -1,0 +1,23 @@
+title: Parkland
+new-page: true
+tags: event
+view-if: year = 2018 and month = 2
+priority: 1
+max-visits: 1
+
+= Parkland
+
+Seventeen students and teachers were killed in a school shooting in Parkland, Florida. The surviving students launch a national movement demanding action on guns.
+
+- @parkland_back: Stand with the students
+- @parkland_bipartisan: Seek a bipartisan compromise
+
+@parkland_back
+on-arrival: young_dem += 4*(1-dissent); suburban_dem += 3*(1-dissent); rural_dem -= 1*(1-dissent); dem_enthusiasm += 0.8; polarization += 0.5
+
+Student leaders become the faces of a new civic movement.
+
+@parkland_bipartisan
+on-arrival: suburban_dem += 2*(1-dissent); gopmod_relation += 3; moderate_strength += 1; progressive_dissent += 2
+
+A modest package of reforms passes at the state level.

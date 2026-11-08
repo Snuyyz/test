@@ -1,0 +1,29 @@
+title: The Killing of George Floyd
+new-page: true
+tags: event
+view-if: year = 2020 and month = 6
+priority: 500
+max-visits: 1
+
+= The Killing of George Floyd
+
+The killing of George Floyd by a police officer in Minneapolis has sparked the largest protests in American history, from small towns to big cities. Some protests turn to rioting and looting; the president threatens to deploy troops.
+
+- @floyd_reform: Back reform and peaceful protest
+- @floyd_defund: Embrace the most radical demands
+- @floyd_order: Stress law and order
+
+@floyd_reform
+on-arrival: minority_dem += 4*(1-dissent); young_dem += 3*(1-dissent); suburban_dem += 1*(1-dissent); directleft_militancy -= 0.05; progressive_dissent -= 3; polarization += 1
+
+We call for concrete reforms and condemn violence in the same breath.
+
+@floyd_defund
+on-arrival: young_dem += 3*(1-dissent); minority_dem += 1*(1-dissent); suburban_dem -= 4*(1-dissent); working_dem -= 2*(1-dissent); progressive_dissent -= 6; moderate_dissent += 8; directleft_strength += 10; polarization += 2; gop_enthusiasm += 1
+
+The slogan spreads faster than the policy. Opponents have a new weapon.
+
+@floyd_order
+on-arrival: suburban_dem += 3*(1-dissent); working_dem += 2*(1-dissent); minority_dem -= 3*(1-dissent); young_dem -= 3*(1-dissent); progressive_dissent += 8; farleft_strength += 2; local_police_loyalty += 0.05
+
+We prioritize safety. Our base accuses us of betrayal.

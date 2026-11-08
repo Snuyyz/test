@@ -1,0 +1,12 @@
+title: A New Congress
+new-page: true
+tags: event
+view-if: just_seated = 1 and just_inaugurated = 0 and congress_shown != time
+priority: 700
+on-arrival: congress_shown = time
+
+= A New Congress
+
+The new Congress convenes. The House has [+ house_dem +] Democrats and [+ house_gop +] Republicans; the Senate has [+ senate_dem +] in the Democratic caucus against [+ senate_gop +] Republicans.
+
+[? if dem_house = 1 and dem_senate = 1 : We control both chambers. ?][? if dem_house = 1 and dem_senate = 0 : We control the House but not the Senate. ?][? if dem_house = 0 and dem_senate = 1 : We control the Senate but not the House. ?][? if dem_house = 0 and dem_senate = 0 : We are in the minority in both chambers. ?]

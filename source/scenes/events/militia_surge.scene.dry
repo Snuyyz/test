@@ -1,0 +1,29 @@
+title: The Militia Threat
+new-page: true
+tags: event
+view-if: year >= 2016 and farright_strength >= 18 and militia_done != 1
+priority: 350
+max-visits: 1
+
+= The Militia Threat
+
+Armed militias, sometimes in uniform, show up at protests, state capitols, and polling places. Their numbers are small but growing, and some officials are tolerating them.
+
+- @militia_ban: Demand the law be enforced
+- @militia_civic: Build a civic counterweight
+- @militia_shrug: Downplay it
+
+@militia_ban
+on-arrival: militia_done = 1; farright_strength -= 4; militia_strength -= 100; federal_law_loyalty += 0.02; polarization += 1; maga_strength -= 1
+
+Prosecutors move; militia numbers fall.
+
+@militia_civic
+on-arrival: militia_done = 1; civic_strength += 600; election_admin += 3; dem_enthusiasm += 0.3; radicalization += 1
+
+Volunteers organize to protect polling places and officials.
+
+@militia_shrug
+on-arrival: militia_done = 1; farright_strength += 2; militia_strength += 60; pro_democracy -= 2
+
+Downplaying the threat does nothing to reduce it.

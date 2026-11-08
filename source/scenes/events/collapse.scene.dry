@@ -1,0 +1,16 @@
+title: The End of the Republic
+subtitle: Game over
+new-page: true
+tags: event
+view-if: game_lost = 1 and game_over != 1
+priority: 1000
+max-visits: 1
+go-to: game_over
+
+= The End of the Republic
+
+The democratic order has failed. [? if dispute_ok = 0 : The attempt to overturn the will of the voters succeeded. ?][? if dispute_ok != 0 : Year after year, the guardrails were stripped away until nothing remained to hold. ?]
+
+Elections still take place, but they no longer decide who governs. The courts, the press, and the civil service have been hollowed out. The opposition is surveilled, prosecuted, and divided.
+
+This is how democracies die: not in a single moment, but through a sequence of choices, many of which seemed reasonable at the time.

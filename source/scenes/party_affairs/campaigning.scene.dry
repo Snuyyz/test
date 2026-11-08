@@ -1,0 +1,48 @@
+title: Campaign Blitz
+new-page: true
+is-card: true
+tags: party_affairs
+view-if: campaigning_timer <= 0
+on-arrival: campaigning_timer = 6
+
+= Campaign Blitz
+
+Every election is decided by who shows up. Where should we deploy our surrogates and ads?
+
+- @blue_wall: Industrial heartland
+- @suburban_push: Suburban professionals
+- @rights_turnout: Mobilize our base
+- @sun_belt: Sun Belt expansion
+- @easy_discard
+
+@blue_wall
+subtitle: -1 resource
+unavailable-subtitle: Need 1 resource.
+choose-if: resources >= 1
+on-arrival: resources -= 1; working_dem += 5*(1-dissent); rural_dem += 1*(1-dissent); labor_dissent -= 3; month_actions += 1
+
+We flood Pennsylvania, Michigan, and Ohio with ads, surrogates, and union canvassers.
+
+@suburban_push
+subtitle: -1 resource
+unavailable-subtitle: Need 1 resource.
+choose-if: resources >= 1
+on-arrival: resources -= 1; suburban_dem += 5*(1-dissent); educated_dem += 2*(1-dissent); progressive_dissent += 2; month_actions += 1
+
+Targeted mail and digital ads speak to suburban parents worried about schools, healthcare, and extremism.
+
+@rights_turnout
+subtitle: -1 resource
+unavailable-subtitle: Need 1 resource.
+choose-if: resources >= 1
+on-arrival: resources -= 1; minority_dem += 5*(1-dissent); young_dem += 3*(1-dissent); dem_enthusiasm += 0.5; month_actions += 1
+
+We invest in churches, campuses, and community centers. Turnout in our core groups rises.
+
+@sun_belt
+subtitle: -1 resource
+unavailable-subtitle: Need 1 resource.
+choose-if: resources >= 1
+on-arrival: resources -= 1; minority_dem += 3*(1-dissent); suburban_dem += 3*(1-dissent); rural_dem += 1*(1-dissent); month_actions += 1
+
+Arizona, Georgia, North Carolina: long-term investment pays early dividends.

@@ -1,33 +1,31 @@
-title: The Rollout
-subtitle: Healthcare.gov crashes on launch.
+title: The Healthcare Rollout
 new-page: true
 tags: event
-view-if: year = 2014 and month = 1
+view-if: year = 2014 and month = 2
+priority: 1
 max-visits: 1
-priority: 3
 
-= The Rollout
+= The Healthcare Rollout
 
-The Affordable Care Act's central promise is that the uninsured can finally buy coverage. In practice, the website has struggled and millions of people have had their plans cancelled. Our opponents are gleeful. Our own side is worried.
+The Affordable Care Act's coverage provisions have taken effect, but the rollout has been rocky: website failures, cancelled plans, and a flood of attack ads. Millions are nonetheless enrolling.
 
-- @defend: Defend the law and the substance.
-- @fix: Fix it quietly and let results speak.
-- @admit: Admit the mistakes loudly.
+How should the party respond?
 
-@defend
-subtitle: Enthusiasm up, moderates nervous.
-on-arrival: aca_secured += 1; enthusiasm += 2; mod_dissent += 3; capital -= 1 if capital > 0
+- @aca_defend: Defend the law loudly
+- @aca_fix: Focus on fixing the problems
+- @aca_distance: Keep our distance
 
-We argue the website is a technical failure and the law is a moral and economic success. It holds the base. It does not convince everyone.
+@aca_defend
+on-arrival: uninsured -= 1; progressive_dissent -= 2; moderate_dissent += 2; dem_enthusiasm += 0.3; gop_enthusiasm += 0.3
 
-@fix
-subtitle: Slower, steadier.
-on-arrival: funds -= 1 if funds > 0; media_trust += 1; stability += 1; pop_mod += 0.1
+We run a loud, proud campaign on healthcare. Enrollment surges; so do the attacks.
 
-Engineers are brought in. By spring the site works, and enrollment surges. The story shifts, slowly.
+@aca_fix
+on-arrival: uninsured -= 1.5; moderate_strength += 2; suburban_dem += 2*(1-dissent); progressive_dissent += 2
 
-@admit
-subtitle: Credibility, but ammunition for opponents.
-on-arrival: media_trust += 2; enthusiasm -= 2; pop_mod -= 0.1; mod_dissent -= 2
+We concede mistakes, fix the website, and extend enrollment deadlines. Coverage numbers improve.
 
-We say what went wrong and what we are doing about it. Some voters respect it. Others hear only the admission.
+@aca_distance
+on-arrival: moderate_dissent -= 2; progressive_dissent += 4; working_dem -= 2*(1-dissent)
+
+Vulnerable candidates avoid mentioning the law. Our base notices.

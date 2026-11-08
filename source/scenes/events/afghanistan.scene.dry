@@ -1,26 +1,25 @@
-title: Kabul
-subtitle: The longest war ends in chaos.
+title: The Fall of Kabul
 new-page: true
 tags: event
-view-if: year = 2021 and month = 7 and white_house == "D"
+view-if: year = 2021 and month = 8
+priority: 1
 max-visits: 1
-priority: 2
 
-= Kabul
+= The Fall of Kabul
 
-The withdrawal from Afghanistan collapses into a frantic evacuation. A suicide bombing kills thirteen service members. The pictures are devastating. The policy had wide public support. The execution did not.
+The Taliban have swept into Kabul as American forces complete their withdrawal. Chaotic images of evacuations at the airport dominate the news.
 
-- @defend: Defend the decision to leave.
-- @accountability: Acknowledge failures and review.
+[? if dem_president = 1 : The administration takes the blame. ?][? if dem_president = 0 : The Republican administration's earlier agreements are under scrutiny. ?]
 
-@defend
-subtitle: Principle over image.
-on-arrival: pop_mod -= 0.3; mod_dissent += 2; unity += 1
+- @afghan_owned: Defend ending the forever war
+- @afghan_accountability: Demand accountability and help evacuees
 
-The argument is right on the substance and weak on the politics.
+@afghan_owned
+on-arrival: progressive_strength += 2; moderate_dissent += 2; intl_relation -= 3; working_dem += 1*(1-dissent)
 
-@accountability
-subtitle: Honest, costly.
-on-arrival: media_trust += 2; pop_mod -= 0.2; stability += 1
+We argue it was time to end America's longest war, regardless of how it ended.
 
-The after-action review is long. The damage is done.
+@afghan_accountability
+on-arrival: intl_relation += 2; moderate_strength += 2; military_loyalty += 0.02; progressive_dissent += 3; suburban_dem += 1*(1-dissent)
+
+We insist on a full accounting and aid for those left behind.

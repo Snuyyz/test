@@ -1,0 +1,29 @@
+title: Charleston
+new-page: true
+tags: event
+view-if: year = 2015 and month = 6
+priority: 1
+max-visits: 1
+
+= Charleston
+
+A white supremacist has murdered nine worshippers at a historic Black church in Charleston, South Carolina. The nation mourns; the argument over firearms and the Confederate flag erupts again.
+
+- @charleston_guns: Push for gun safety legislation
+- @charleston_flag: Focus on racism and the Confederate flag
+- @charleston_unity: Lead a unifying moment of mourning
+
+@charleston_guns
+on-arrival: suburban_dem += 3*(1-dissent); rural_dem -= 2*(1-dissent); minority_dem += 2*(1-dissent); gop_enthusiasm += 0.4; polarization += 1
+
+We call for background checks. The bill stalls, but the fight energizes our suburban base.
+
+@charleston_flag
+on-arrival: minority_dem += 3*(1-dissent); pro_democracy += 1; polarization += 0.5; farright_strength += 0.5
+
+Statehouses begin to remove Confederate symbols; the moment unites many.
+
+@charleston_unity
+on-arrival: pro_democracy += 1.5; polarization -= 1.5; minority_dem += 1*(1-dissent); suburban_dem += 1*(1-dissent)
+
+A national moment of unity gives the country a brief respite.

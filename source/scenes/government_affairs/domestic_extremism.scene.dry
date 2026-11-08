@@ -1,0 +1,30 @@
+title: Domestic Extremism
+new-page: true
+is-card: true
+tags: govt_affairs
+view-if: domestic_extremism_timer <= 0 and dem_president = 1 and (farright_strength >= 8 or farleft_strength >= 20)
+on-arrival: domestic_extremism_timer = 8
+
+= Domestic Extremism
+
+Militias, extremist networks, and violent fringe groups threaten public safety and democratic order across the spectrum.
+
+- @task_force: Create an interagency task force
+- @online_extremism: Counter online radicalization
+- @prevent_overreach: Safeguard civil liberties
+- @easy_discard
+
+@task_force
+on-arrival: farright_strength -= 2.5; militia_strength -= 40; farleft_strength -= 0.5; federal_law_loyalty += 0.02; progressive_dissent += 2; month_actions += 1
+
+Federal agencies target violent plots while respecting civil liberties.
+
+@online_extremism
+on-arrival: farright_strength -= 1.5; press_freedom -= 1; polarization -= 0.5; progressive_dissent += 2; resources += 0; month_actions += 1
+
+Platforms and prosecutors cooperate, with free-speech critics watching closely.
+
+@prevent_overreach
+on-arrival: press_freedom += 1; institutions += 1; progressive_dissent -= 3; farright_strength += 0.5; month_actions += 1
+
+We reaffirm limits on surveillance and protest policing.

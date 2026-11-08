@@ -4,95 +4,509 @@ go-to: post_event if started = 1; start_menu if started = 0
 
 @start_menu
 new-page: true
+go-to: start_menu_2
 
-= Defending the Republic
+= Social Democracy: An Alternate History
+== Dynamic America, 2014 - 2026
 
-*The Democrats, 2014-2026*
+@start_menu_2
 
-A mod for *Social Democracy: An Alternate History*.
+- @start_1: Start game
+- @modinfo: Mod Info
+- @credits: Credits
 
-You are the strategists, donors, organizers, and elected leaders of the Democratic Party. The Obama coalition looks unbeatable on paper. It is not. Over the next twelve years you will face a populist insurgency on the right, a restless insurgency on the left, a pandemic, an attempted overturning of an election, and the slow grind of institutions under stress.
-
-Your primary goal is to keep American democracy standing. Winning elections is how you do it, but it is not the same thing.
-
-- @start: Start game
-- @about: About this mod
-
-@about
-
-= About
-
-Each turn is one quarter. You get two actions per quarter: party work (organizing, messaging, money, primaries) or government work (when your side holds power). Then the world moves, and events arrive.
-
-Watch five meters: **democratic stability**, **base enthusiasm**, **party unity**, and the strength of the **MAGA right** and the **insurgent left**. If stability collapses, the republic is lost. Real elections are simulated with the historical results as a baseline, and your choices push the numbers away from history.
-
-Everything is a trade-off. The game does not assume every critic of your party is wrong, or that every ally is right.
-
-- @start_menu: Back
+@start_1
+go-to: start
 
 @start
 on-arrival: {!
-Q.started = 1;
-Q.time = 1;
-Q.year = 2014;
-Q.month = 1;
-Q.month_actions = 0;
-Q.actions_per_turn = 2;
+(function () {
+var W = (typeof window !== 'undefined') ? window : global;
+var SD = W.SD = W.SD || {};
+if (SD.version === 3) { return; }
+SD.version = 3;
+var clamp = function (x, a, b) { return x < a ? a : (x > b ? b : x); };
+SD.clamp = clamp;
 
-// resources
-Q.capital = 4;      // political capital
-Q.funds = 6;        // fundraising, in "units" (roughly $50M each)
+// ---------------------------------------------------------------------------
+// Demographic groups ("classes") x parties, same idea as the original game.
+// ---------------------------------------------------------------------------
+SD.classes = ['working', 'suburban', 'educated', 'rural', 'minority', 'young'];
+SD.parties = ['dem', 'gop', 'left', 'farright', 'nonvote'];
+SD.parties_graph = ['dem', 'gop', 'left', 'farright'];
+SD.factions = ['progressive', 'establishment', 'labor', 'moderate', 'abundance', 'populist'];
 
-// the state of the republic
-Q.stability = 72;   // democratic stability 0-100
-Q.enthusiasm = 50;  // base enthusiasm 0-100
-Q.unity = 60;       // party unity 0-100
-Q.maga = 0;         // strength of the populist right inside the GOP 0-100
-Q.far_right = 15;   // organized right-wing extremism 0-100
-Q.far_left = 10;    // strength of the insurgent / radical left 0-100
-Q.media_trust = 40; // trust in institutions & media
+// turnout drop-off in midterm years (the "midterm electorate")
+SD.mid = { working: 1.35, suburban: 1.0, educated: 0.85, rural: 1.05, minority: 1.55, young: 1.8 };
+// dynamic third-force weights
+SD.left_w = { working: 0.05, suburban: 0.02, educated: 0.12, rural: 0.01, minority: 0.04, young: 0.30 };
+SD.fr_w = { working: 0.08, suburban: 0.04, educated: 0.01, rural: 0.18, minority: 0.01, young: 0.10 };
 
-// factions
-Q.prog_strength = 25;
-Q.prog_dissent = 10;
-Q.estab_strength = 45;
-Q.estab_dissent = 0;
-Q.mod_strength = 20;
-Q.mod_dissent = 5;
-Q.labor_strength = 10;
-Q.labor_dissent = 5;
+// Electoral College blocs: ev, class weights, calibration target (dem margin at game start)
+SD.blocs = {
+  blue_core:       { ev: 230, target: 11.0, w: { educated: .26, minority: .30, suburban: .22, working: .10, young: .10, rural: .02 } },
+  rust_belt:       { ev: 44,  target: 2.5,  w: { working: .30, suburban: .25, rural: .18, minority: .12, educated: .10, young: .05 } },
+  heartland_swing: { ev: 53,  target: 1.0,  w: { suburban: .26, working: .22, rural: .18, minority: .18, educated: .10, young: .06 } },
+  sun_belt:        { ev: 49,  target: -2.0, w: { suburban: .28, minority: .25, working: .15, educated: .14, rural: .10, young: .08 } },
+  red_core:        { ev: 162, target: -17.0, w: { rural: .30, working: .22, suburban: .22, minority: .14, educated: .06, young: .06 } }
+};
+SD.bloc_names = Object.keys(SD.blocs);
+// how each group realigns as the Trump movement grows (points per 10 strength above its 2014 level)
+SD.realign = {
+  gop: { working: 1.2, rural: 1.0, suburban: -0.8, educated: -1.0, minority: 0.2, young: -0.2 },
+  dem: { working: -0.9, rural: -0.6, suburban: 0.8, educated: 1.0, minority: 0.0, young: 0.2 }
+};
 
-// election model: historical baseline + player-driven modifier
-Q.pop_mod = 0;       // accumulated deviation from the historical popular vote
-Q.dem_pop = 47;      // last two-party national vote share (D)
-Q.house_d = 201;
-Q.senate_d = 55;     // including independents caucusing with Dems
-Q.white_house = 'D';
-Q.president = 'Obama';
-Q.vp = 'Biden';
-Q.nominee = 'None';
-Q.last_result = '';
-Q.nominee_mod = 0;
-Q.lost_2020_trump = 0;
-Q.midterm_2026_done = 0;
-Q.pres_won = 0; Q.house_won = 0; Q.senate_won = 0;
-Q.dem_pop_str = ''; Q.rep_pop_str = ''; Q.pres_result = '';
-Q.game_over_flag = 0; Q.collapse_flag = 0;
-Q.has_event = 0;
-Q.primary_leaning = '';
+// ---------------------------------------------------------------------------
+// Initial state (January 2014)
+// ---------------------------------------------------------------------------
+SD.init = function (Q) {
+  Q.started = 1; Q.time = 1; Q.year = 2014; Q.month = 1; Q.month_actions = 0;
+  Q.difficulty = 0; Q.dynamic_mode = 1;
+  Q.resources = 2; Q.dues = 5; Q.dissent = 0.05; Q.dissent_percent = 5;
+  Q.factions = SD.factions.slice();
+  var fs = { progressive: [20, 15], establishment: [30, 0], labor: [20, 5], moderate: [20, 5], abundance: [5, 10], populist: [5, 10] };
+  for (var f of SD.factions) { Q[f + '_strength'] = fs[f][0]; Q[f + '_dissent'] = fs[f][1]; }
+  Q.abundance_discovered = 0; Q.populist_discovered = 0;
+  // urgency / ideology trackers (same role as crisis_urgency, nazi_urgency, radicalization...)
+  Q.crisis_urgency = 0; Q.trump_urgency = 0; Q.radicalization = 0; Q.democratization = 0;
+  Q.labor_agenda = 0; Q.climate_agenda = 0; Q.healthcare_agenda = 0; Q.economic_plan = 0;
+  // relations
+  Q.gopmod_relation = 20; Q.left_relation = 45; Q.biz_relation = 45; Q.labor_relation = 65; Q.intl_relation = 70;
+  // opposition
+  Q.maga_strength = 24; Q.maga_leader = 'Trump'; Q.trump_active = 0; Q.gop_nominee_type = '';
+  Q.gop_establishment = 60; Q.farleft_strength = 10; Q.farright_strength = 5;
+  Q.dem_enthusiasm = 5; Q.gop_enthusiasm = 5; Q.polarization = 55;
+  // democracy meters
+  Q.pro_democracy = 70; Q.institutions = 75; Q.subversion_progress = 0; Q.market_revolt_progress = 0;
+  Q.press_freedom = 70; Q.election_admin = 70; Q.courts_independence = 65;
+  Q.voting_rights = 0; Q.court_reform = 0; Q.ethics_reform = 0; Q.campaign_finance = 0; Q.filibuster_reform = 0;
+  Q.gerrymander_bias = 3.2;
+  Q.nationalism = 55; Q.socialism = 38;
+  // forces (analogues of Reichsbanner/Stahlhelm/SA/RFB/police/Reichswehr)
+  Q.civic_strength = 1200; Q.civic_militancy = 0.01; Q.civic_banned = 0; // Indivisible/unions/voter protection corps
+  Q.militia_strength = 300; Q.militia_militancy = 0.5;                    // right-wing militias
+  Q.streetright_strength = 30; Q.streetright_militancy = 0.8;             // street extremist groups
+  Q.directleft_strength = 60; Q.directleft_militancy = 0.4;               // direct-action far left
+  Q.federal_law_strength = 50; Q.federal_law_loyalty = 0.55; Q.federal_law_militancy = 1;
+  Q.local_police_strength = 90; Q.local_police_loyalty = 0.5; Q.local_police_militancy = 2;
+  Q.military_strength = 100; Q.military_loyalty = 0.75; Q.military_militancy = 3;
+  Q.coup_progress = 0;
+  // government
+  Q.president = 'Obama'; Q.president_party = 'D'; Q.dem_president = 1; Q.president_terms = 2; Q.vp_party = "D"; Q.in_power_since = 2009;
+  Q.house_dem = 200; Q.senate_dem = 55; Q.dem_house = 0; Q.dem_senate = 1;
+  Q.dem_governors = 21; Q.dem_legislatures = 18;
+  Q.dem_nominee = ''; Q.dem_nominee_name = ''; Q.dem_nominee_mod = {}; Q.gop_nominee_mod = {};
+  Q.gop_nominee_name = ''; Q.incumbent_bonus = 0;
+  Q.n_elections = 0; Q.election_due = 0; Q.election_done = 0; Q.transition_due = 0; Q.inauguration_due = 0;
+  Q.ending_due = 0; Q.game_lost = 0; Q.game_over = 0;
+  // economy
+  Q.unemployed = 6.6; Q.inflation = 1.6; Q.economic_growth = 2.5; Q.budget = 2; Q.uninsured = 13;
+  Q.impeach_done = 0; Q.dispute_done = 0; Q.capitol_done = 0; Q.violence_done = 0; Q.tariffs_done = 0; Q.shutdown_done = 0; Q.ai_done = 0; Q.revolt_cooldown = 0; Q.left_split_done = 0; Q.militia_done = 0; Q.power_grab_done = 0; Q.power_grab_year = 0; Q.subversion_done = 0; Q.backlash_done = 0; Q.dispute_score = 0; Q.convention_done = 0; Q.october_done = 0; Q.congress_shown = 0; Q.inaug_shown = 0; Q.el_pres_winner = ''; Q.el_house = 0; Q.el_senate = 0; Q.el_house_gop = 0; Q.el_senate_gop = 0; Q.el_dem_votes = 0; Q.el_gop_votes = 0; Q.el_left_votes = 0; Q.el_farright_votes = 0; Q.el_turnout = 0; Q.el_dem_ev = 0; Q.el_gop_ev = 0; Q.el_rust_belt = 0; Q.el_heartland_swing = 0; Q.el_sun_belt = 0; Q.el_blue_core = 0; Q.el_red_core = 0;
+  Q.court_lean = 1; Q.stimulus_level = 0; Q.trump_checked = 0; Q.election_shown = 0; Q.dem_nominee_done = 0; Q.gop_nominee_done = 0; Q.just_inaugurated = 0; Q.just_seated = 0; Q.flipped_presidency = 0; Q.last_advisor_action = 0; Q.last_cabinet_action = 0; Q.dispute_ok = 1;
+  Q.dolores_reyes_advisor = 1; Q.marcus_hale_advisor = 1; Q.tom_brandt_advisor = 1; Q.elaine_whitcomb_advisor = 1; Q.sam_okafor_advisor = 0; Q.ruth_calloway_advisor = 0; Q.jake_moretti_advisor = 0;
+  Q.inequality = 55; Q.climate_progress = 0; Q.pandemic = 0; Q.covid_deaths_handled = 0;
+  // groups
+  Q.working = 0.20; Q.suburban = 0.21; Q.educated = 0.13; Q.rural = 0.16; Q.minority = 0.22; Q.young = 0.08;
+  Q.classes = SD.classes.slice(); Q.parties = SD.parties.slice(); Q.parties_graph = SD.parties_graph.slice();
+  var m = {
+    working:  { dem: 28, gop: 38, left: 2, farright: 1, nonvote: 29 },
+    suburban: { dem: 32, gop: 40, left: 1, farright: 1, nonvote: 24 },
+    educated: { dem: 46, gop: 30, left: 3, farright: 0.5, nonvote: 20 },
+    rural:    { dem: 18, gop: 50, left: 1, farright: 2, nonvote: 27 },
+    minority: { dem: 52, gop: 14, left: 2, farright: 0.5, nonvote: 31 },
+    young:    { dem: 34, gop: 20, left: 5, farright: 2, nonvote: 35 }
+  };
+  Q.left_base = {}; Q.fr_base = {}; Q.base_matrix = {};
+  for (var c of SD.classes) {
+    for (var p of SD.parties) { Q[c + '_' + p] = m[c][p]; }
+    Q.left_base[c] = m[c].left; Q.fr_base[c] = m[c].farright;
+    Q.base_matrix[c] = { dem: m[c].dem, gop: m[c].gop, nonvote: m[c].nonvote };
+  }
+  // timers (card cooldowns)
+  Q.timers = ['advisor_action', 'fundraising', 'campaigning', 'ideology', 'media', 'organizing', 'voter_protection',
+    'confronting_trump', 'crisis_program', 'outreach', 'left_outreach', 'international_relations', 'party_disunity',
+    'shuffle_leadership', 'state_affairs', 'economic_policy', 'healthcare', 'labor_policy', 'social_welfare', 'judiciary',
+    'voting_policy', 'foreign_policy', 'defense_policy', 'immigration', 'climate_energy', 'justice_policing',
+    'domestic_extremism', 'oversight', 'fiscal_policy', 'civil_rights', 'tech_media_policy', 'education'];
+  for (var t of Q.timers) { Q[t + '_timer'] = 0; }
+  Q.shuffle_leadership_timer = 0;
+  Q.advisor_action_timer = 0;
+  Q.party_support_records = []; Q.economic_records = [];
+  Q.calibrated = 0;
+  SD.dynamic(Q);
+  SD.calibrate(Q);
+  SD.poll(Q, false);
+};
 
-// policy flags
-Q.aca_secured = 0;
-Q.voting_rights = 0;
-Q.police_reform = 0;
-Q.climate_law = 0;
-Q.court_reform = 0;
-Q.covid_relief = 0;
-Q.immigration_deal = 0;
-Q.dnc_neutral = 0;
+// ---------------------------------------------------------------------------
+// Vote model
+// ---------------------------------------------------------------------------
+// third-force parties are derived from base + movement strength each month
+SD.dynamic = function (Q) {
+  for (var c of SD.classes) {
+    Q[c + '_left'] = Math.max(0, Q.left_base[c] + (Q.farleft_strength - 10) * SD.left_w[c]);
+    Q[c + '_farright'] = Math.max(0, Q.fr_base[c] + (Q.farright_strength - 5) * SD.fr_w[c]);
+  }
+};
 
-Q.timers = ['fundraise', 'organize', 'messaging', 'outreach', 'oversight', 'legislation', 'executive'];
-Q.fundraise_timer = 0; Q.organize_timer = 0; Q.messaging_timer = 0; Q.outreach_timer = 0;
-Q.oversight_timer = 0; Q.legislation_timer = 0; Q.executive_timer = 0;
+SD.shares = function (Q, midterm) {
+  var out = {};
+  var inc = Q.dem_president ? 1 : -1;
+  var econ = clamp((6 - Q.unemployed) * 0.5 + (Q.economic_growth - 2) * 0.3 - Math.max(0, Q.inflation - 3) * 0.6, -6, 4);
+  var econ_sens = { working: 1.3, suburban: 1.1, educated: 0.7, rural: 1.0, minority: 0.9, young: 0.9 };
+  var dnm = Q.dem_nominee_mod || {}, gnm = Q.gop_nominee_mod || {};
+  for (var c of SD.classes) {
+    var vals = {}, tot = 0;
+    for (var p of SD.parties) {
+      var v = Math.max(0, Q[c + '_' + p] || 0);
+      if ((p === 'dem' || p === 'gop') && Q.base_matrix) {
+        var b0 = Q.base_matrix[c][p], dv = v - b0;
+        v = b0 + dv / (1 + Math.abs(dv) / 18);
+      }
+      if (!midterm) {
+        if (p === 'dem') v += (dnm[c] || 0);
+        if (p === 'gop') v += (gnm[c] || 0);
+      }
+      if (p === 'dem') {
+        v *= 1 + 0.04 * ((Q.dem_enthusiasm || 5) - 5);
+        v *= 1 + 0.015 * inc * econ * econ_sens[c];
+        if (midterm && Q.dem_president) v *= 0.96;
+      }
+      if (p === 'gop') {
+        v *= 1 + 0.04 * ((Q.gop_enthusiasm || 5) - 5);
+        v *= 1 - 0.015 * inc * econ * econ_sens[c];
+        if (midterm && !Q.dem_president) v *= 0.96;
+      }
+      if (p === 'nonvote' && midterm) v *= SD.mid[c];
+      vals[p] = Math.max(0.01, v); tot += vals[p];
+    }
+    for (var p2 of SD.parties) { vals[p2] = 100 * vals[p2] / tot; }
+    out[c] = vals;
+  }
+  return out;
+};
+
+SD.fatigue = function (Q, electionYear) {
+  var yrs = Math.max(0, (electionYear - (Q.in_power_since || 2009)));
+  return (Q.dem_president ? -1 : 1) * 0.5 * Math.max(0, yrs - 4);
+};
+
+SD.houseSeats = function (d2, bias) {
+  var s = 1 / (1 + Math.exp(-((d2 - 50 - bias) / 16)));
+  return clamp(Math.round(435 * s), 130, 320);
+};
+
+SD.computeBlocs = function (Q, sh, withLean) {
+  var res = {};
+  for (var b of SD.bloc_names) {
+    var B = SD.blocs[b], num = 0, den = 0;
+    for (var c of SD.classes) {
+      var w = B.w[c];
+      num += w * (sh[c].dem - sh[c].gop);
+      den += w * (100 - sh[c].nonvote);
+    }
+    res[b] = 100 * num / den + (withLean === false ? 0 : (Q[b + '_lean'] || 0));
+  }
+  return res;
+};
+
+SD.calibrate = function (Q) {
+  var sh = SD.shares(Q, false);
+  // calibration should ignore the incumbency/econ terms: temporarily neutralize
+  var raw = SD.computeBlocs(Q, sh, false);
+  for (var b of SD.bloc_names) { Q[b + '_lean'] = SD.blocs[b].target - raw[b]; }
+  Q.calibrated = 1;
+};
+
+SD.poll = function (Q, midterm) {
+  SD.dynamic(Q);
+  var sh = SD.shares(Q, midterm), nat = {};
+  for (var p of SD.parties) {
+    nat[p] = 0;
+    for (var c of SD.classes) { nat[p] += Q[c] * sh[c][p]; }
+  }
+  for (var cc of SD.classes) { for (var pp of SD.parties) { Q[cc + '_' + pp + '_n'] = Math.round(sh[cc][pp]); } }
+  var voters = 100 - nat.nonvote;
+  for (var p2 of SD.parties_graph) {
+    Q[p2 + '_normalized'] = nat[p2] / voters;
+    Q[p2 + '_votes'] = Math.round(1000 * nat[p2] / voters) / 10;
+  }
+  Q.turnout = Math.round(10 * voters) / 10;
+  var d2 = 100 * nat.dem / (nat.dem + nat.gop);
+  Q.dem_two_party = Math.round(10 * d2) / 10;
+  var bl = SD.computeBlocs(Q, sh, true), dev = 0;
+  var ey = (Q.year % 2 === 0) ? Q.year : Q.year + 1;
+  var fat = midterm ? 0 : SD.fatigue(Q, ey);
+  for (var b of SD.bloc_names) {
+    bl[b] += fat;
+    Q[b + '_margin'] = Math.round(10 * bl[b]) / 10;
+    if (bl[b] > 0) { dev += SD.blocs[b].ev; }
+  }
+  Q.dem_ev_proj = dev; Q.gop_ev_proj = 538 - dev;
+  Q.house_proj = SD.houseSeats(d2, Q.gerrymander_bias);
+  Q.senate_proj = SD.senateNext(Q, d2, Q.year % 2 === 0 ? Q.year : Q.year + 1);
+  return { d2: d2, bl: bl, sh: sh };
+};
+
+SD.senateBias = { 2014: -5, 2016: 2, 2018: -6, 2020: -1, 2022: 1, 2024: -5, 2026: 0 };
+SD.senateNext = function (Q, d2, year) {
+  var bias = (SD.senateBias[year] !== undefined) ? SD.senateBias[year] : 0;
+  var target = 50 + (d2 - 50) * 1.6 + bias;
+  return clamp(Math.round(0.55 * Q.senate_dem + 0.45 * target), 32, 68);
+};
+
+// ---------------------------------------------------------------------------
+// Parties / factions / dissent (same formula as the original)
+// ---------------------------------------------------------------------------
+SD.factionsTick = function (Q) {
+  var total_strength = 0, total_dissent = 0;
+  for (var f of SD.factions) {
+    if (Q[f + '_strength'] < 0) Q[f + '_strength'] = 0;
+    if (f === 'abundance' && !Q.abundance_discovered && Q.abundance_strength <= 5) { }
+    total_strength += Q[f + '_strength'];
+  }
+  if (total_strength <= 0) { total_strength = 1; }
+  for (var g of SD.factions) {
+    Q[g + '_strength'] = 100 * Q[g + '_strength'] / total_strength;
+    Q[g + '_dissent'] = clamp(Q[g + '_dissent'], 0, 100);
+    total_dissent += Q[g + '_strength'] * Q[g + '_dissent'];
+  }
+  Q.dissent = clamp(0.01 * total_dissent / 100, 0, 0.95);
+  Q.dissent_percent = Q.dissent * 100;
+};
+
+// ---------------------------------------------------------------------------
+// Economy (Phillips-curve style drift, as in the original)
+// ---------------------------------------------------------------------------
+SD.economy = function (Q) {
+  if (Q.budget <= 0 && Q.budget > -2 && Q.inflation < 3) Q.inflation += 0.05;
+  if (Q.budget <= -2 && Q.budget > -5 && Q.inflation < 6) Q.inflation += 0.12;
+  if (Q.budget <= -5 && Q.inflation < 10) Q.inflation += 0.2;
+  // inflation and growth mean-revert (faster recoveries from deep slumps)
+  Q.inflation += (2.0 - Q.inflation) * 0.035;
+  var g_speed = Q.economic_growth < 0 ? 0.09 : 0.06;
+  Q.economic_growth += (2.3 - Q.economic_growth) * g_speed;
+  if (Q.inflation >= 6 && Q.economic_growth > 2) Q.economic_growth -= 0.1;
+  // unemployment moves toward an equilibrium set by growth (Okun-style)
+  var ustar = clamp(5.4 - 0.55 * (Q.economic_growth - 2.3), 3.4, 26);
+  Q.unemployed += (ustar - Q.unemployed) * 0.11;
+  if (Q.inflation < -0.5) Q.unemployed += 0.08;
+  Q.unemployed = clamp(Q.unemployed, 2.5, 30);
+  Q.inflation = clamp(Q.inflation, -3, 15);
+  Q.economic_growth = clamp(Q.economic_growth, -12, 9);
+  if (Q.month % 3 === 0 && Q.economic_growth >= 1.5 && Q.unemployed < 8) Q.budget += 1;
+  if (Q.month % 6 === 0 && Q.dem_president && Q.economic_growth >= 1) Q.budget += 1;
+  Q.budget = clamp(Q.budget, -8, 8);
+};
+
+// ---------------------------------------------------------------------------
+// Opposition and democracy meters
+// ---------------------------------------------------------------------------
+SD.opposition = function (Q) {
+  var anx = Math.max(0, Q.unemployed - 6) + Math.max(0, Q.inflation - 3.5);
+  var dm = 0.30 + 0.015 * (Q.polarization - 50) + 0.08 * anx;
+  dm -= 0.008 * (Q.pro_democracy - 60);
+  dm -= 0.05 * (Q.trump_urgency || 0);
+  if (!Q.dem_president) dm += 0.10;
+  Q.maga_strength = clamp(Q.maga_strength + dm, 0, 100);
+  // GOP establishment is displaced as MAGA grows
+  Q.gop_establishment = clamp(100 - Q.maga_strength * 1.1, 5, 90);
+  // far left
+  var fl = 0.02;
+  if (Q.left_relation < 35) fl += 0.18; else if (Q.left_relation < 50) fl += 0.04; else fl -= 0.08;
+  if (Q.radicalization >= 5) fl -= 0.05;
+  if (Q.economic_growth < 0) fl += 0.1;
+  Q.farleft_strength = clamp(Q.farleft_strength + fl, 2, 60);
+  // far right / militias
+  var fr = 0.03 + 0.012 * (Q.polarization - 50) + 0.0015 * Q.maga_strength;
+  fr -= 0.04 * (Q.trump_urgency || 0);
+  Q.farright_strength = clamp(Q.farright_strength + fr, 1, 60);
+  Q.militia_strength = Math.max(0, Q.militia_strength + (Q.farright_strength - 15) * 0.8);
+  Q.directleft_strength = Math.max(0, Q.directleft_strength + (Q.farleft_strength - 15) * 0.4);
+  // polarization drifts upward slowly; civic culture damps it
+  Q.polarization = clamp(Q.polarization + 0.04 + 0.001 * Q.maga_strength - 0.0008 * Q.pro_democracy, 20, 95);
+  // democratic culture and institutions
+  var gopP = !Q.dem_president;
+  var pd = -0.03;
+  if (gopP) { pd -= 0.05 * (Q.maga_strength / 50); } else { pd += 0.06; }
+  if (Q.press_freedom < 40) pd -= 0.04;
+  Q.pro_democracy = clamp(Q.pro_democracy + pd, 0, 99);
+  var im = 0;
+  if (gopP && Q.maga_leader && Q.president === Q.maga_leader) {
+    im -= 0.85 * (Q.maga_strength / 50) * (1 - 0.5 * Q.courts_independence / 100) * (1 - 0.5 * (Q.civic_strength / 2500));
+  } else if (gopP) {
+    im -= 0.05;
+  } else { im += 0.04; }
+  im += 0.003 * (Q.courts_independence - 50) * 0.2;
+  Q.institutions = clamp(Q.institutions + im, 0, 100);
+  Q.courts_independence = clamp(Q.courts_independence + (gopP && Q.maga_strength > 40 ? -0.15 : 0.03), 0, 100);
+  Q.press_freedom = clamp(Q.press_freedom + (gopP && Q.maga_strength > 40 ? -0.2 : 0.04), 0, 100);
+  Q.election_admin = clamp(Q.election_admin + (gopP && Q.maga_strength > 35 ? -0.12 : 0.05) + 0.02 * Q.voting_rights, 0, 100);
+  // subversion progress (analogue of coup_progress)
+  var sp = 0;
+  if (Q.maga_strength >= 40) sp += 0.04 * (Q.maga_strength - 35) / 5;
+  sp -= 0.0006 * (Q.institutions - 50) + 0.0003 * Q.election_admin;
+  if (Q.military_loyalty < 0.5) sp += 0.05;
+  Q.subversion_progress = clamp(Q.subversion_progress + sp, 0, 10);
+  // civic strength responds to the threat level
+  Q.civic_strength = Math.max(0, Q.civic_strength + (Q.trump_urgency || 0) * 3 + (Q.maga_strength - 35) * 0.4);
+  // mobilization thermostat: the side that is ahead breeds complacency, the side that is behind mobilizes
+  var lead = (Q.dem_two_party || 50) - 50;
+  var dtar = 5 - 0.30 * lead + (Q.dem_president ? -0.4 : 0.5);
+  var gtar = 5 + 0.45 * lead + (Q.dem_president ? 0.5 : -0.4);
+  Q.dem_enthusiasm = clamp(Q.dem_enthusiasm + (dtar - Q.dem_enthusiasm) * 0.12, 0, 10);
+  Q.gop_enthusiasm = clamp(Q.gop_enthusiasm + (gtar - Q.gop_enthusiasm) * 0.12, 0, 10);
+  // political gravity: campaign gains fade toward a baseline that realigns with the MAGA movement
+  var rate = 0.09;
+  for (var c of SD.classes) {
+    var shift = (Q.maga_strength - 24) / 10;
+    var tg = Q.base_matrix[c].gop + SD.realign.gop[c] * shift;
+    var td = Q.base_matrix[c].dem + SD.realign.dem[c] * shift;
+    Q[c + '_gop'] += (tg - Q[c + '_gop']) * rate;
+    Q[c + '_dem'] += (td - Q[c + '_dem']) * rate;
+    Q[c + '_nonvote'] += (Q.base_matrix[c].nonvote - Q[c + '_nonvote']) * 0.03;
+  }
+  // Dems chronically at risk of losing groups to economic hardship
+  if (Q.unemployed > 8) { Q.working_dem -= 0.05; Q.young_dem -= 0.04; }
+};
+
+// resilience of the republic against an attempt to overturn an election (0-105)
+SD.resilience = function (Q) {
+  return 0.30 * Q.institutions + 0.15 * Q.election_admin + 0.15 * Q.pro_democracy +
+    Math.min(Q.civic_strength, 3000) / 3000 * 15 + 15 * Q.military_loyalty + 10 * Q.federal_law_loyalty + 0.05 * Q.courts_independence;
+};
+
+// ---------------------------------------------------------------------------
+// Elections
+// ---------------------------------------------------------------------------
+SD.holdElection = function (Q) {
+  var midterm = (Q.year % 4 === 2);
+  var r = SD.poll(Q, midterm);
+  var E = { year: Q.year, midterm: midterm ? 1 : 0, d2: r.d2 };
+  E.dem_votes = Q.dem_votes; E.gop_votes = Q.gop_votes; E.left_votes = Q.left_votes; E.farright_votes = Q.farright_votes;
+  E.turnout = Q.turnout;
+  if (!midterm) {
+    var dev = 0;
+    for (var b of SD.bloc_names) {
+      var m = r.bl[b] + (Q.incumbent_bonus || 0) * (Q.dem_president ? 1 : -1);
+      E[b] = Math.round(10 * m) / 10;
+      if (m > 0) dev += SD.blocs[b].ev;
+    }
+    E.dem_ev = dev; E.gop_ev = 538 - dev;
+    E.winner = dev >= 270 ? 'D' : 'R';
+    Q.el_pres_winner = E.winner;
+    Q.el_dem_ev = E.dem_ev; Q.el_gop_ev = E.gop_ev;
+    for (var b2 of SD.bloc_names) { Q['el_' + b2] = E[b2]; }
+  }
+  // Congress
+  E.house = SD.houseSeats(r.d2, Q.gerrymander_bias);
+  E.senate = SD.senateNext(Q, r.d2, Q.year);
+  Q.el_house = E.house; Q.el_senate = E.senate; Q.el_house_gop = 435 - E.house; Q.el_senate_gop = 100 - E.senate;
+  Q.el_year = Q.year; Q.el_midterm = E.midterm;
+  Q.el_dem_votes = E.dem_votes; Q.el_gop_votes = E.gop_votes; Q.el_left_votes = E.left_votes; Q.el_farright_votes = E.farright_votes;
+  Q.el_turnout = E.turnout; Q.el_d2 = Math.round(10 * E.d2) / 10;
+  // governors
+  var gshift = Math.round((E.d2 - 50) * 0.9 + (Q.dem_president ? -1.5 : 1.5));
+  Q.dem_governors = clamp(Math.round(0.6 * Q.dem_governors + 0.4 * (25 + gshift * 1.2)), 10, 40);
+  Q.dem_legislatures = clamp(Math.round(0.6 * Q.dem_legislatures + 0.4 * (23 + gshift * 1.4)), 6, 34);
+  Q.n_elections += 1; Q.election_done = Q.year;
+  // pending seating (new Congress is seated in January)
+  Q.pending_house = E.house; Q.pending_senate = E.senate;
+  if (!midterm) { Q.president_elect_party = E.winner; }
+  // post-election mood swings
+  if (E.d2 >= 50) { Q.dem_enthusiasm = clamp(Q.dem_enthusiasm + 1, 0, 10); Q.gop_enthusiasm = clamp(Q.gop_enthusiasm - 1.5, 0, 10); }
+  else { Q.gop_enthusiasm = clamp(Q.gop_enthusiasm + 1, 0, 10); Q.dem_enthusiasm = clamp(Q.dem_enthusiasm - 1.5, 0, 10); }
+  return E;
+};
+
+SD.seatCongress = function (Q) {
+  if (Q.pending_house !== undefined) {
+    Q.house_dem = Q.pending_house; Q.senate_dem = Q.pending_senate;
+    Q.pending_house = undefined; Q.pending_senate = undefined;
+  }
+  Q.dem_house = Q.house_dem >= 218 ? 1 : 0;
+  Q.dem_senate = (Q.senate_dem >= 51 || (Q.senate_dem === 50 && Q.vp_party === 'D')) ? 1 : 0;
+};
+
+SD.inaugurate = function (Q) {
+  var prev = Q.president_party;
+  if (Q.president_elect_party !== prev) { Q.in_power_since = Q.year; }
+  if (Q.president_elect_party === 'D') {
+    if (Q.president_party === 'D' && Q.president_terms < 2 && Q.dem_president) { Q.president_terms += 1; }
+    else { Q.president_terms = 1; }
+    Q.president_party = 'D'; Q.dem_president = 1; Q.vp_party = 'D';
+    Q.president = Q.dem_nominee_name || 'the Democratic nominee';
+  } else {
+    if (Q.president_party === 'R' && Q.president_terms < 2) { Q.president_terms += 1; }
+    else { Q.president_terms = 1; }
+    Q.president_party = 'R'; Q.dem_president = 0; Q.vp_party = 'R';
+    Q.president = Q.gop_nominee_name || 'the Republican nominee';
+  }
+  Q.dem_nominee_mod = {}; Q.gop_nominee_mod = {}; Q.incumbent_bonus = 0;
+  Q.president_elect_party = undefined;
+  SD.seatCongress(Q);
+};
+
+// ---------------------------------------------------------------------------
+// Date flags
+// ---------------------------------------------------------------------------
+SD.dateFlags = function (Q) {
+  Q.election_due = (Q.month === 11 && Q.year % 2 === 0) ? 1 : 0;
+  Q.transition_due = (Q.month === 1 && Q.year % 2 === 1 && Q.year > 2014) ? 1 : 0;
+  Q.inauguration_due = (Q.month === 1 && (Q.year === 2017 || Q.year === 2021 || Q.year === 2025 || Q.year === 2029)) ? 1 : 0;
+  Q.pres_year = (Q.year % 4 === 0) ? 1 : 0;
+  Q.midterm_year = (Q.year % 4 === 2) ? 1 : 0;
+  Q.ending_due = (Q.year >= 2027) ? 1 : 0;
+};
+
+// ---------------------------------------------------------------------------
+// Full monthly tick: called when a month passes
+// ---------------------------------------------------------------------------
+SD.advanceMonth = function (Q) {
+  Q.time += 1; Q.month_actions = 0; Q.month += 1;
+  if (Q.month >= 13) {
+    Q.month = 1; Q.year += 1;
+    Q.resources += Q.dues;
+    if (Q.dissent_percent < 5) Q.resources += 1; else if (Q.dissent_percent > 30) Q.resources -= 1;
+  }
+  for (var t of Q.timers) { if (Q[t + '_timer'] && Q[t + '_timer'] > 0) Q[t + '_timer'] -= 1; }
+  if (Q.revolt_cooldown > 0) Q.revolt_cooldown -= 1;
+  Q.party_support_records.push({ date: new Date(Q.year, Q.month - 1), dem: Q.dem_normalized * 100, gop: Q.gop_normalized * 100, left: Q.left_normalized * 100, farright: Q.farright_normalized * 100 });
+  Q.economic_records.push({ date: new Date(Q.year, Q.month - 1), inflation: Q.inflation, unemployment: Q.unemployed });
+  SD.economy(Q);
+  SD.opposition(Q);
+  SD.dateFlags(Q);
+  if (Q.inauguration_due || Q.transition_due) { /* handled by events, applied on arrival */ }
+  if (Q.month === 11 && Q.year % 2 === 0) { Q.last_election = SD.holdElection(Q); }
+};
+
+// state that must be refreshed on every visit to post_event
+SD.refresh = function (Q) {
+  for (var c of SD.classes) { for (var p of SD.parties) { if (Q[c + '_' + p] < 0) Q[c + '_' + p] = 0; } }
+  for (var k of ['pro_democracy', 'institutions', 'press_freedom', 'election_admin', 'courts_independence']) {
+    Q[k] = clamp(Q[k], 0, 99);
+  }
+  for (var r of ['gopmod_relation', 'left_relation', 'biz_relation', 'labor_relation', 'intl_relation']) { Q[r] = clamp(Q[r], 0, 100); }
+  Q.maga_strength = clamp(Q.maga_strength, 0, 100);
+  Q.resources = Math.max(0, Q.resources);
+  Q.democracy_score = Math.round((Q.institutions + Q.pro_democracy) / 2);
+  SD.factionsTick(Q);
+  SD.dateFlags(Q);
+  var next = (Q.year % 2 === 0 && !(Q.month === 12)) ? Q.year : (Q.year % 2 === 0 ? Q.year + 2 : Q.year + 1);
+  SD.poll(Q, next % 4 === 2);
+  Q.dem_votes_d = Q.dem_votes.toFixed(1); Q.gop_votes_d = Q.gop_votes.toFixed(1);
+  Q.unemployed_2 = Q.unemployed.toFixed(1); Q.inflation_2 = Q.inflation.toFixed(1); Q.economic_growth_2 = Q.economic_growth.toFixed(1);
+  Q.house_gop = 435 - Q.house_dem; Q.senate_gop = 100 - Q.senate_dem; Q.prev_year = Q.year - 1;
+  var rl = ['maga_strength','farleft_strength','farright_strength','polarization','pro_democracy','institutions','press_freedom','election_admin','courts_independence','subversion_progress','dem_enthusiasm','gop_enthusiasm','gopmod_relation','left_relation','biz_relation','labor_relation','intl_relation','civic_strength','militia_strength','streetright_strength','directleft_strength','dem_governors','dem_legislatures','gerrymander_bias','budget','uninsured','inequality','climate_progress','gop_establishment','democracy_score','dem_ev_proj','gop_ev_proj','house_proj','senate_proj','dissent_percent'];
+  for (var f of SD.factions) { rl.push(f + '_strength'); rl.push(f + '_dissent'); }
+  for (var n of rl) { Q[n + '_r'] = Math.round(Q[n] * 10) / 10; }
+  Q.military_loyalty_r = Math.round(Q.military_loyalty * 100); Q.federal_law_loyalty_r = Math.round(Q.federal_law_loyalty * 100); Q.local_police_loyalty_r = Math.round(Q.local_police_loyalty * 100);
+  Q.next_election_year = next;
+  Q.months_to_election = (next - Q.year) * 12 + (11 - Q.month);
+};
+})();
+
+SD.init(Q);
 !}
 go-to: post_event

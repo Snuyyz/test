@@ -1,0 +1,30 @@
+title: Foreign Policy
+new-page: true
+is-card: true
+tags: govt_affairs
+view-if: foreign_policy_timer <= 0 and dem_president = 1
+on-arrival: foreign_policy_timer = 8
+
+= Foreign Policy
+
+Allies and rivals alike are watching how America manages itself at home.
+
+- @alliance_renewal: Renew alliances
+- @diplomacy_first: Diplomacy over force
+- @trade_deals: Pursue new trade agreements
+- @easy_discard
+
+@alliance_renewal
+on-arrival: intl_relation += 8; moderate_strength += 2; progressive_dissent += 1; month_actions += 1
+
+Diplomats work the phones and hold joint summits.
+
+@diplomacy_first
+on-arrival: intl_relation += 4; progressive_strength += 2; moderate_dissent += 2; rural_dem -= 0; month_actions += 1
+
+We prioritize negotiation and arms control.
+
+@trade_deals
+on-arrival: intl_relation += 4; biz_relation += 4; labor_dissent += 4; economic_growth += 0.2; month_actions += 1
+
+New agreements open markets and anger some unions.

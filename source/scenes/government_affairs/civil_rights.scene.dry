@@ -1,0 +1,30 @@
+title: Civil Rights
+new-page: true
+is-card: true
+tags: govt_affairs
+view-if: civil_rights_timer <= 0 and dem_president = 1
+on-arrival: civil_rights_timer = 8
+
+= Civil Rights
+
+Equal rights under law remain the core promise of the republic.
+
+- @lgbtq_protections: Strengthen LGBTQ and gender protections
+- @racial_justice: Advance racial-equity initiatives
+- @universal_framing: Frame rights in universal terms
+- @easy_discard
+
+@lgbtq_protections
+on-arrival: young_dem += 3*(1-dissent); educated_dem += 2*(1-dissent); rural_dem -= 2*(1-dissent); gop_enthusiasm += 0.3; progressive_dissent -= 3; month_actions += 1
+
+New protections pass amid fierce debate.
+
+@racial_justice
+on-arrival: minority_dem += 4*(1-dissent); suburban_dem -= 1*(1-dissent); working_dem -= 1*(1-dissent); polarization += 1; month_actions += 1
+
+We tackle disparities in housing, lending, and justice.
+
+@universal_framing
+on-arrival: minority_dem += 2*(1-dissent); working_dem += 2*(1-dissent); suburban_dem += 1*(1-dissent); progressive_dissent += 2; polarization -= 0.5; month_actions += 1
+
+Universal programs lift everyone while narrowing gaps.

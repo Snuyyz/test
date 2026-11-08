@@ -1,34 +1,113 @@
 title: Status
 new-page: true
+is-special: true
 
 = Status
 
 [+ month : month +] [+ year +]
 
-**White House:** [+ president +] ([+ white_house +]) &nbsp; **House:** [+ house_d +] D &nbsp; **Senate:** [+ senate_d +] D
+Resources available: [+ resources +] | Annual dues: [+ dues +] | Budget room: [+ budget_r +]
 
-**Democratic stability:** [+ stability +] / 100 &nbsp; ([+ stability : stability +])
+President: **[+ president +]** ([? if dem_president = 1 : <span style="color: #1a5fb4;">**D**</span> ?][? if dem_president = 0 : <span style="color: #c01c28;">**R**</span> ?]), term [+ president_terms +]
 
-**Base enthusiasm:** [+ enthusiasm +] ([+ enthusiasm : enthusiasm +]) &nbsp; **Party unity:** [+ unity +]
+House: [+ house_dem +] D - [+ house_gop +] R ([? if dem_house = 1 : <span style="color: #1a5fb4;">**we control**</span> ?][? if dem_house = 0 : opposition-controlled ?]). Senate: [+ senate_dem +] D - [+ senate_gop +] R ([? if dem_senate = 1 : <span style="color: #1a5fb4;">**we control**</span> ?][? if dem_senate = 0 : opposition-controlled ?]).
 
-**MAGA movement strength:** [+ maga +] &nbsp; **Organized far-right:** [+ far_right +] &nbsp; **Insurgent far-left:** [+ far_left +]
+Democratic governors: [+ dem_governors_r +] of 50. State legislatures: [+ dem_legislatures_r +].
 
-**Trust in institutions:** [+ media_trust +]
+Next election: November [+ next_election_year +], in [+ months_to_election +] months.
 
-**Capital:** [+ capital +] &nbsp; **Funds:** [+ funds +]
+Party dissent: [+ dissent_percent_r +]%
 
-## Party factions
+<span style="color: #2a9d3a;">**Progressives**</span>: strength [+ progressive_strength_r +]%, dissent [+ progressive_dissent_r +]
 
-**Progressives:** [+ prog_strength : strength +] (dissent [+ prog_dissent +])
+<span style="color: #1a5fb4;">**Establishment**</span>: strength [+ establishment_strength_r +]%, dissent [+ establishment_dissent_r +]
 
-**Establishment liberals:** [+ estab_strength : strength +] (dissent [+ estab_dissent +])
+<span style="color: #c64600;">**Labor**</span>: strength [+ labor_strength_r +]%, dissent [+ labor_dissent_r +]
 
-**Moderates and Blue Dogs:** [+ mod_strength : strength +] (dissent [+ mod_dissent +])
+<span style="color: #5e5c64;">**Moderates**</span>: strength [+ moderate_strength_r +]%, dissent [+ moderate_dissent_r +]
 
-**Labor wing:** [+ labor_strength : strength +] (dissent [+ labor_dissent +])
+[? if abundance_discovered : <span style="color: #9141ac;">**Abundance**</span>: strength [+ abundance_strength_r +]%, dissent [+ abundance_dissent_r +] ?]
 
-## Election model
+[? if populist_discovered : <span style="color: #a51d2d;">**Populists**</span>: strength [+ populist_strength_r +]%, dissent [+ populist_dissent_r +] ?]
 
-Last national vote (D, two-party): [+ dem_pop +]%. Deviation from the historical baseline: [+ pop_mod +] points.
+Economy: unemployment [+ unemployed_2 +]%, inflation [+ inflation_2 +]%, growth [+ economic_growth_2 +]%
 
-- @root: Back
+Democratic health index: [+ democracy_score_r +] / 100 (institutions [+ institutions_r +], civic culture [+ pro_democracy_r +])
+
+@emergency
+title: Emergency
+new-page: true
+
+= Emergency
+
+There is currently no emergency.
+
+@politics
+title: Politics
+new-page: true
+
+= Politics
+
+**Relations**
+
+Republican moderates: [+ gopmod_relation_r +] ([+ gopmod_relation : relationships +])
+
+The organized left: [+ left_relation_r +] ([+ left_relation : relationships +])
+
+Business community: [+ biz_relation_r +] ([+ biz_relation : relationships +])
+
+Labor unions: [+ labor_relation_r +] ([+ labor_relation : relationships +])
+
+Allies abroad: [+ intl_relation_r +] ([+ intl_relation : relationships +])
+
+**Enthusiasm**
+
+Democrats: [+ dem_enthusiasm_r +] / 10. Republicans: [+ gop_enthusiasm_r +] / 10.
+
+**Rules of the game**
+
+Voting rights reform level: [+ voting_rights +]. Court reform: [+ court_reform +]. Ethics reform: [+ ethics_reform +]. Filibuster reform: [+ filibuster_reform +]. Partisan gerrymander bias against us: [+ gerrymander_bias_r +] points.
+
+**Public opinion**
+
+Polarization: [+ polarization_r +] / 100. Press freedom: [+ press_freedom_r +]. Election administration integrity: [+ election_admin_r +]. Judicial independence: [+ courts_independence_r +].
+
+@paramilitaries
+title: Forces
+new-page: true
+
+= Forces
+
+**Civil society mobilization**: Our network of volunteers, unions, and community groups is about [+ civic_strength_r +] strong.
+
+**Right-wing militias**: about [+ militia_strength_r +] members. Street extremists: [+ streetright_strength_r +].
+
+**Direct-action left**: about [+ directleft_strength_r +] activists.
+
+**The institutions**
+
+Military loyalty to the Constitution: [+ military_loyalty_r +]%
+
+Federal law enforcement independence: [+ federal_law_loyalty_r +]%
+
+Local police: [+ local_police_loyalty_r +]% reliable
+
+@polls
+title: Polls
+new-page: true
+
+= Polls
+
+*If an election were held now ([? if midterm_year = 1 : midterm turnout ?][? if midterm_year = 0 : presidential-year turnout ?] assumed):*
+
+Popular vote: <span style="color: #1a5fb4;">**Democrats**</span> [+ dem_votes_d +]%, <span style="color: #c01c28;">**Republicans**</span> [+ gop_votes_d +]%, left parties [+ left_votes +]%, far right [+ farright_votes +]%. Turnout: [+ turnout +]%.
+
+Presidential projection: Democrats [+ dem_ev_proj_r +] electoral votes, Republicans [+ gop_ev_proj_r +].
+
+Battleground leans (Democratic lead, points): Industrial Midwest [+ rust_belt_margin +], Florida/Ohio/Iowa [+ heartland_swing_margin +], Sun Belt [+ sun_belt_margin +].
+
+Congress projection: House Democrats [+ house_proj_r +] seats. Senate Democrats [+ senate_proj_r +].
+
+**Demographic support (the share of each group voting each way, normalized, before turnout adjustments)**
+
+Working-class voters: D [+ working_dem_n +]  R [+ working_gop_n +]. Suburbanites: D [+ suburban_dem_n +]  R [+ suburban_gop_n +]. College-educated: D [+ educated_dem_n +]  R [+ educated_gop_n +]. Rural: D [+ rural_dem_n +]  R [+ rural_gop_n +]. Minority communities: D [+ minority_dem_n +]  R [+ minority_gop_n +]. Young voters: D [+ young_dem_n +]  R [+ young_gop_n +].

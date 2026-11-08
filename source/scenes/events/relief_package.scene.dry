@@ -1,0 +1,29 @@
+title: The Relief Package
+new-page: true
+tags: event
+view-if: year = 2020 and month = 4
+priority: 500
+max-visits: 1
+
+= The Relief Package
+
+The economy is in free fall. Congress is negotiating a historic relief bill: direct payments, expanded unemployment insurance, and loans to business. How big should it be?
+
+- @relief_huge: Go big
+- @relief_mid: A targeted package
+- @relief_small: Hold the line on spending
+
+@relief_huge
+on-arrival: stimulus_level += 2; economic_growth += 2.5; unemployed -= 0.8; budget -= 2; working_dem += 3*(1-dissent); progressive_dissent -= 3; inflation += 0.3
+
+We back the largest relief effort in history. The recovery will be faster, and perhaps hotter.
+
+@relief_mid
+on-arrival: stimulus_level += 1; economic_growth += 1.5; unemployed -= 0.4; budget -= 1; moderate_strength += 2
+
+A targeted package passes, with bipartisan support.
+
+@relief_small
+on-arrival: economic_growth -= 0.5; unemployed += 0.4; budget += 1; progressive_dissent += 6; working_dem -= 2*(1-dissent); biz_relation += 2
+
+We refuse to be spenders. Families face a long recovery.

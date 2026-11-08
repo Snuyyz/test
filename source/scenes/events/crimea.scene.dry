@@ -1,0 +1,23 @@
+title: Russia Annexes Crimea
+new-page: true
+tags: event
+view-if: year = 2014 and month = 3
+priority: 1
+max-visits: 1
+
+= Russia Annexes Crimea
+
+Russian forces have seized Crimea, and Moscow annexes the peninsula after a referendum the West calls illegitimate. The American public is tired of war; yet Europe expects leadership.
+
+- @crimea_sanctions: Support strong sanctions and aid
+- @crimea_restraint: Emphasize restraint
+
+@crimea_sanctions
+on-arrival: intl_relation += 6; moderate_strength += 2; progressive_dissent += 2
+
+We back coordinated sanctions and aid to Kyiv. Allies are reassured.
+
+@crimea_restraint
+on-arrival: progressive_strength += 2; intl_relation -= 3; moderate_dissent += 3; populist_strength += 1
+
+We caution against escalation. Some call it appeasement; others call it prudence.

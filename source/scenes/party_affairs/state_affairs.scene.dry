@@ -1,0 +1,48 @@
+title: State and Local Affairs
+new-page: true
+is-card: true
+tags: party_affairs
+view-if: state_affairs_timer <= 0
+on-arrival: state_affairs_timer = 6
+
+= State and Local Affairs
+
+Governors, legislatures, and secretaries of state decide how elections are run and how policy is lived. Where do we fight?
+
+- @legislatures: Flip state legislatures
+- @secretaries: Back secretary of state candidates
+- @ballot_measures: Pursue ballot initiatives
+- @governors_races: Invest in governors races
+- @easy_discard
+
+@legislatures
+subtitle: -1 resource
+unavailable-subtitle: Need 1 resource.
+choose-if: resources >= 1
+on-arrival: resources -= 1; dem_legislatures += 1; gerrymander_bias -= 0.15; civic_strength += 100; month_actions += 1
+
+Targeted spending in legislative races begins to pay off.
+
+@secretaries
+subtitle: -1 resource
+unavailable-subtitle: Need 1 resource.
+choose-if: resources >= 1
+on-arrival: resources -= 1; election_admin += 3; subversion_progress -= 0.3; month_actions += 1
+
+Election administration races become a priority.
+
+@ballot_measures
+subtitle: -1 resource
+unavailable-subtitle: Need 1 resource.
+choose-if: resources >= 1
+on-arrival: resources -= 1; gerrymander_bias -= 0.3; voting_rights += 0.1; dem_enthusiasm += 0.3; month_actions += 1
+
+Voters approve independent redistricting commissions and voting access measures.
+
+@governors_races
+subtitle: -1 resource
+unavailable-subtitle: Need 1 resource.
+choose-if: resources >= 1
+on-arrival: resources -= 1; dem_governors += 1; rural_dem += 1*(1-dissent); month_actions += 1
+
+A strong bench of governors produces future leaders.

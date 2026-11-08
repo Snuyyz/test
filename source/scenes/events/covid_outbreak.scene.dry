@@ -1,0 +1,41 @@
+title: The Coronavirus Pandemic
+new-page: true
+tags: event
+view-if: year = 2020 and month = 3
+priority: 900
+max-visits: 1
+
+= The Coronavirus Pandemic
+
+A novel coronavirus has reached the United States. Hospitals fill; schools and businesses close; the economy collapses almost overnight. It is the largest public health crisis in a century.
+
+[? if dem_president = 1 : A Democratic administration is in charge of the response. The country will judge us on every decision. ?][? if dem_president = 0 : A Republican administration is responsible for the federal response. We have to decide how to oppose and how to help. ?]
+
+- @covid_science: Follow the science: aggressive public health measures
+- @covid_balance: Balance health and economy
+- @covid_reopen: Prioritize reopening
+
+@covid_science
+on-arrival: {!
+Q.pandemic = 1; Q.economic_growth = -7; Q.unemployed = Math.max(Q.unemployed, 11); Q.inflation = 0.6; Q.budget -= 2;
+Q.suburban_dem += 3 * (1 - Q.dissent); Q.educated_dem += 3 * (1 - Q.dissent); Q.rural_dem -= 2 * (1 - Q.dissent);
+Q.pro_democracy += 1; Q.polarization += 1; Q.covid_deaths_handled = 2;
+!}
+
+We back strict measures and urge vaccine development. The country is deeply divided over masks and lockdowns.
+
+@covid_balance
+on-arrival: {!
+Q.pandemic = 1; Q.economic_growth = -6; Q.unemployed = Math.max(Q.unemployed, 10.5); Q.inflation = 0.7; Q.budget -= 2;
+Q.suburban_dem += 1 * (1 - Q.dissent); Q.working_dem += 1 * (1 - Q.dissent); Q.moderate_strength += 2; Q.covid_deaths_handled = 1;
+!}
+
+We try to find a middle path. Neither side is satisfied.
+
+@covid_reopen
+on-arrival: {!
+Q.pandemic = 1; Q.economic_growth = -5; Q.unemployed = Math.max(Q.unemployed, 10); Q.inflation = 0.8; Q.budget -= 2;
+Q.rural_dem += 2 * (1 - Q.dissent); Q.working_dem += 1 * (1 - Q.dissent); Q.suburban_dem -= 3 * (1 - Q.dissent); Q.progressive_dissent += 5; Q.covid_deaths_handled = 0;
+!}
+
+We press for reopening. The recession is milder, the toll is heavier.

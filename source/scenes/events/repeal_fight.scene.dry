@@ -1,0 +1,28 @@
+title: The Healthcare Repeal Fight
+new-page: true
+tags: event
+view-if: year = 2017 and month = 7 and dem_president = 0
+priority: 1
+max-visits: 1
+
+= The Healthcare Repeal Fight
+
+Republicans in Congress are trying to repeal the Affordable Care Act, a bill that would take coverage away from millions. The vote in the Senate will be razor-thin.
+
+- @repeal_mobilize: Mobilize patients and providers
+- @repeal_negotiate: Negotiate behind the scenes
+
+@repeal_mobilize
+on-arrival: {!
+Q.civic_strength += 300; Q.dem_enthusiasm = Math.min(10, Q.dem_enthusiasm + 1);
+Q.uninsured -= 0.0;
+if (Q.maga_strength < 60) { Q.uninsured += 0; }
+Q.healthcare_agenda += 1; Q.working_dem += 2 * (1 - Q.dissent);
+!}
+
+Town halls overflow. The repeal effort collapses by a single vote.
+
+@repeal_negotiate
+on-arrival: gopmod_relation += 4; moderate_strength += 2; progressive_dissent += 3; uninsured += 0.5
+
+We trade quietly with moderates. The bill is softened.

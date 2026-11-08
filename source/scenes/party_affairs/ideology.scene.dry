@@ -1,0 +1,36 @@
+title: Define Our Ideology
+new-page: true
+is-card: true
+tags: party_affairs
+view-if: ideology_timer <= 0
+on-arrival: ideology_timer = 10
+
+= Define Our Ideology
+
+The party stands for many things. Voters, donors, and activists want a clear answer about what we are.
+
+- @progressive_turn: A bolder, progressive agenda
+- @pragmatic_center: Pragmatic center
+- @abundance_agenda: The abundance agenda
+- @populist_economics: Economic populism
+- @easy_discard
+
+@progressive_turn
+on-arrival: progressive_strength += 6; moderate_strength -= 2; establishment_strength -= 2; progressive_dissent -= 8; moderate_dissent += 6; biz_relation -= 4; left_relation += 4; farleft_strength -= 0.5; young_dem += 3*(1-dissent); suburban_dem -= 2*(1-dissent); month_actions += 1
+
+We champion universal programs and confront concentrated wealth. The left feels heard; swing voters watch nervously.
+
+@pragmatic_center
+on-arrival: moderate_strength += 5; establishment_strength += 2; progressive_strength -= 4; progressive_dissent += 6; moderate_dissent -= 5; suburban_dem += 4*(1-dissent); biz_relation += 4; left_relation -= 5; farleft_strength += 0.6; month_actions += 1
+
+We emphasize competence and bipartisan achievements. Moderates breathe easier; activists wonder where the fight went.
+
+@abundance_agenda
+on-arrival: abundance_discovered = 1; abundance_strength += 6; progressive_dissent += 2; labor_dissent += 1; suburban_dem += 2*(1-dissent); young_dem += 2*(1-dissent); economic_growth += 0.2; month_actions += 1
+
+Build more housing, clean energy, and transit; make government deliver. The agenda draws new energy and some skepticism from those wary of deregulation.
+
+@populist_economics
+on-arrival: populist_discovered = 1; populist_strength += 6; labor_strength += 2; working_dem += 4*(1-dissent); rural_dem += 2*(1-dissent); educated_dem -= 2*(1-dissent); abundance_dissent += 3; progressive_dissent += 2; month_actions += 1
+
+We take on monopolies, trade deals, and corporate power with a message aimed at working families of every background.

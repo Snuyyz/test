@@ -1,0 +1,39 @@
+title: Social Welfare
+new-page: true
+is-card: true
+tags: govt_affairs
+view-if: social_welfare_timer <= 0 and dem_president = 1 and dem_house = 1 and dem_senate = 1
+on-arrival: social_welfare_timer = 8
+
+= Social Welfare
+
+The social safety net can reduce poverty or become a political target. What do we expand?
+
+- @child_credit: Expand the child tax credit
+- @paid_leave: Paid family leave
+- @housing: Build housing and loosen zoning
+- @easy_discard
+
+@child_credit
+subtitle: -2 budget
+unavailable-subtitle: Need 2 budget.
+choose-if: budget >= 2
+on-arrival: budget -= 2; working_dem += 3*(1-dissent); suburban_dem += 2*(1-dissent); minority_dem += 2*(1-dissent); inequality -= 3; month_actions += 1
+
+Child poverty falls sharply.
+
+@paid_leave
+subtitle: -1 budget
+unavailable-subtitle: Need 1 budget.
+choose-if: budget >= 1
+on-arrival: budget -= 1; working_dem += 2*(1-dissent); suburban_dem += 2*(1-dissent); young_dem += 1*(1-dissent); month_actions += 1
+
+Workers get leave to care for newborns and sick relatives.
+
+@housing
+subtitle: -1 budget
+unavailable-subtitle: Need 1 budget.
+choose-if: budget >= 1
+on-arrival: abundance_strength += 3; budget -= 1; young_dem += 3*(1-dissent); suburban_dem -= 1*(1-dissent); inequality -= 2; economic_growth += 0.2; month_actions += 1
+
+A housing bill makes building easier and cheaper, over local objections.

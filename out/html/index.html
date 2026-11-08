@@ -4,10 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta prefix="ifiction: http://babel.ifarchive.org/protocol/iFiction/"
-        property="ifiction:ifid" content="5B0C2A6E-4E0F-4C77-9B0B-2D0A7E1F9C31">
-    <title>Defending the Republic: The Democrats, 2014-2026 - Community Mod</title>
+        property="ifiction:ifid" content="7FCDF039-2B77-4179-B795-CBAFA65253AA">
+    <title>Dynamic Social Democracy</title>
     <link rel="stylesheet" type="text/css" href="game.css">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <script src="jquery-1.11.1.min.js"></script>
+    <script src="d3.v7.min.js"></script>
+    <script src="d3-parliament.js"></script>
+    <script src="d3-linegraph.js"></script>
     <script src="core.js"></script>
     <script src="game.js"></script>
   </head>
@@ -18,9 +22,8 @@
     <div class="background" id="bg1">
     </div>
 
-    <div id="options" class="overlay options" style="display: none;">
+    <div id="options" class="overlay" style="display: none;">
         <div class="overlay_top">
-        <!-- TODO: enable/disable animations as you wish -->
             <table>
                 <tr>
                     <td>
@@ -42,10 +45,9 @@
                 <tr>
                     <td> <hr> </td>
                 </tr>
-                <!--
                 <tr>
                     <td>
-                        Images:
+                        Event images:
                     <td>
                         <label for="images_yes">On</label>
                     </td>
@@ -62,27 +64,7 @@
                 <tr>
                     <td> <hr> </td>
                 </tr>
-                -->
-                <tr>
-                    <td>
-                        Background animations:
-                    </td>
-                    <td>
-                        <label for="animate_bg_yes">On</label>
-                    </td>
-                    <td>
-                        <input type="radio" id="animate_bg_yes" name="animate_bg" value="1" onclick="window.enableAnimateBg();">
-                    </td>
-                    <td>
-                        <label for="animate_bg_no">Off</label>
-                    </td>
-                    <td>
-                        <input type="radio" id="animate_bg_no" name="animate_bg" value="0" onclick="window.disableAnimateBg();">
-                    </td>
-                </tr>
-                <tr>
-                    <td> <hr> </td>
-                </tr>
+ 
                 <tr>
                     <td>
                         Animations:
@@ -103,10 +85,9 @@
                 <tr>
                     <td> <hr> </td>
                 </tr>
-                <!-- Uncomment for audio options
                 <tr>
                     <td>
-                        Audio:
+                        Music:
                     </td>
                     <td>
                         <label for="audio_yes">On</label>
@@ -121,11 +102,9 @@
                         <input type="radio" id="audio_no" name="audio" value="0" onclick="window.disableAudio();">
                     </td>
                 </tr>
-
                 <tr>
                     <td> <hr> </td>
                 </tr>
-                -->
                 <tr>
                     <td>
                         Color scheme:
@@ -144,15 +123,43 @@
                     </td>
                 </tr>
                 <tr>
+                    <td> <hr> </td>
+                </tr>
+                <tr>
+                    <td>
+                        Colored text:
+                    </td>
+                    <td>
+                        <label for="gray_on">Disable</label>
+                    </td>
+                    <td>
+                        <input type="radio" id="gray_on" name="gray_mode" value="0" onclick="window.enableGrayMode();">
+                    </td>
+                    <td>
+                        <label for="gray_no">Enable</label>
+                    </td>
+                    <td>
+                        <input type="radio" id="gray_no" name="gray_mode" value="1" onclick="window.disableGrayMode();">
+                    </td>
+                </tr>
+                <tr>
                     <td>
                         <button onclick="window.hideOptions();">Close</button>
                     </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                   <td>
+                        <button onclick="window.showMods();">Mods</button>
+                    </td>
+
                 </tr>
             </table>
         </div>
     </div>
 
-    <div id="save" class="overlay saves" style="display: none;">
+    <div id="save" class="overlay" style="display: none;">
         <table id="saves_table" class="overlay_top">
             <tr>
                 <td>Auto-0</td>
@@ -289,7 +296,7 @@
                 <td colspan="5">
                     <label for="import_save">Import save file:</label> <input type="file" id="import_save" onchange="dendryUI.importSave('import_save');"></input>
                 </td>
-            </tr>
+            </tr> 
             <tr>
                 <td>
                     <button onclick="dendryUI.hideSaveSlots();">Close</button>
@@ -310,18 +317,32 @@
     <div id='page'>
         <div id="mid_panel">
             <header>
-                <h1>Defending the Republic: The Democrats, 2014-2026</h1>
-                <h2>Community Mod</h2>
+                <h1 id="game-title">Dynamic Social Democracy: An Alternate History</h1>
+                <h2 id="game-author">Autumn Chen; America 2014-2026 conversion</h2>
 
                 <div id="header-links">
-                    <!--<a id="stats-link" onclick="window.showStats();" href="#">Status</a>-->
+                    <a id="stats-link" onclick="window.showStats();" href="#">Library</a>
                     <a onclick="dendryUI.showSaveSlots();" href="#">Save/Load</a>
-                    <a onclick="dendryUI.showOptions();" href="#">Options</a>
+                    <a onclick="window.showOptions();" href="#">Options</a>
                 </div>
             </header>
             <div id="tools_wrapper">
                 <div id='stats_sidebar' class='tools left'>
+                    <div class="tab_container">
+                        <button class="tab_button" id="emergency_tab" onclick="window.changeTab('status.emergency', 'emergency_tab');" style="display: none;">Emergency Status</button>
+                        <button class="tab_button active" id="main_tab" onclick="window.changeTab('status', 'main_tab');">Main</button>
+                        <button class="tab_button" id="politics_tab" onclick="window.changeTab('status.politics', 'politics_tab');">Politics</button>
+                        <button class="tab_button" id="paramilitary_tab" onclick="window.changeTab('status.paramilitaries', 'paramilitary_tab');">Forces</button>
+                        <button class="tab_button" id="poll_tab" onclick="window.changeTab('status.polls', 'poll_tab');">Polls</button>
+                    </div>
                     <div id="qualities">
+                    </div>
+                </div>
+                <div id='stats_sidebar_right' class='tools right'>
+                    <div class="tab_container">
+                        <button class="tab_button active" id="scheming_tab" onclick="window.changeTab('status_right', 'scheming_tab', true);">Opposition</button>
+                    </div>
+                    <div id="qualities_right">
                     </div>
                 </div>
             </div>

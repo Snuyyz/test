@@ -1,0 +1,30 @@
+title: Immigration
+new-page: true
+is-card: true
+tags: govt_affairs
+view-if: immigration_timer <= 0 and dem_president = 1
+on-arrival: immigration_timer = 8
+
+= Immigration
+
+Immigration is among the country's most emotionally charged issues. The Right uses it; the Left wants justice; most voters want order and humanity.
+
+- @border_enforcement: Border security with legal pathways
+- @path_to_citizenship: A path to citizenship
+- @executive_action: Act by executive order
+- @easy_discard
+
+@border_enforcement
+on-arrival: rural_dem += 3*(1-dissent); working_dem += 2*(1-dissent); minority_dem -= 1*(1-dissent); progressive_dissent += 5; maga_strength -= 1; month_actions += 1
+
+We pair stricter enforcement with legal pathways.
+
+@path_to_citizenship
+on-arrival: minority_dem += 4*(1-dissent); young_dem += 2*(1-dissent); rural_dem -= 3*(1-dissent); working_dem -= 1*(1-dissent); progressive_dissent -= 4; maga_strength += 1.5; gop_enthusiasm += 0.3; month_actions += 1
+
+Millions gain legal status, and the Right energizes.
+
+@executive_action
+on-arrival: minority_dem += 2*(1-dissent); rural_dem -= 2*(1-dissent); institutions -= 0.5; polarization += 1; month_actions += 1
+
+Executive action helps some families, but invites courtroom battles.

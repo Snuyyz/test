@@ -1,0 +1,30 @@
+title: Grassroots Organizing
+new-page: true
+is-card: true
+tags: party_affairs
+view-if: organizing_timer <= 0
+on-arrival: organizing_timer = 8
+
+= Grassroots Organizing
+
+Movements win elections that candidates cannot. Whom should we organize?
+
+- @indivisible_model: Neighborhood resistance groups
+- @labor_community: Labor and community coalition
+- @faith_and_veterans: Faith and veterans outreach
+- @easy_discard
+
+@indivisible_model
+on-arrival: civic_strength += 400; dem_enthusiasm += 0.6; radicalization -= 0; progressive_strength += 2; month_actions += 1
+
+Thousands of volunteer-run local chapters sprout up, trained in nonviolent tactics.
+
+@labor_community
+on-arrival: civic_strength += 250; labor_strength += 3; labor_relation += 5; working_dem += 2*(1-dissent); minority_dem += 2*(1-dissent); month_actions += 1
+
+Unions and community groups share staff, phone banks, and trust.
+
+@faith_and_veterans
+on-arrival: civic_strength += 200; rural_dem += 2*(1-dissent); suburban_dem += 2*(1-dissent); moderate_strength += 2; month_actions += 1
+
+Pastors and veterans vouch for us in places where partisan labels are suspect.

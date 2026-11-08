@@ -1,0 +1,35 @@
+title: A Test of the Guardrails
+new-page: true
+tags: event
+view-if: not (dem_president = 1) and president == maga_leader and institutions < 70 and power_grab_done < 3 and month = 6 and power_grab_year != year
+priority: 380
+on-arrival: power_grab_year = year
+
+= A Test of the Guardrails
+
+The Republican administration is testing the limits of executive power: firing independent officials, defying judicial orders, and threatening critics. The guardrails of American democracy are being tested daily.
+
+- @grab_courts: Fight in the courts
+- @grab_streets: Fight in the streets and at the ballot box
+- @grab_coalition: Build a bipartisan coalition for the rule of law
+- @grab_wait: Wait for the next election
+
+@grab_courts
+on-arrival: power_grab_done += 1; institutions += 2; courts_independence += 2; maga_strength += 0.5; resources -= 0
+
+Lawsuits pile up. Some win; some drag.
+
+@grab_streets
+on-arrival: power_grab_done += 1; civic_strength += 500; dem_enthusiasm += 1; polarization += 1; institutions += 1
+
+Mass mobilization sends a warning.
+
+@grab_coalition
+on-arrival: power_grab_done += 1; gopmod_relation += 6; institutions += 3; pro_democracy += 2; progressive_dissent += 3
+
+A handful of Republicans, business leaders, and judges join the effort.
+
+@grab_wait
+on-arrival: power_grab_done += 1; institutions -= 4; pro_democracy -= 2; subversion_progress += 0.5
+
+We do not fight, and the guardrails weaken.

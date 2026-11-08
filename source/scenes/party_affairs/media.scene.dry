@@ -1,0 +1,39 @@
+title: Media Strategy
+new-page: true
+is-card: true
+tags: party_affairs
+view-if: media_timer <= 0
+on-arrival: media_timer = 8
+
+= Media Strategy
+
+The media landscape is fractured: cable, podcasts, influencers, and algorithms all pull voters in different directions.
+
+- @local_news: Invest in local outreach
+- @influencer_network: Build an influencer and podcast network
+- @attack_ads: Go negative on the opposition
+- @easy_discard
+
+@local_news
+subtitle: -1 resource
+unavailable-subtitle: Need 1 resource.
+choose-if: resources >= 1
+on-arrival: resources -= 1; rural_dem += 2*(1-dissent); suburban_dem += 2*(1-dissent); press_freedom += 1; polarization -= 0.5; month_actions += 1
+
+We back local-news partnerships and town halls, reaching voters who tune out national shouting matches.
+
+@influencer_network
+subtitle: -1 resource
+unavailable-subtitle: Need 1 resource.
+choose-if: resources >= 1
+on-arrival: resources -= 1; young_dem += 5*(1-dissent); working_dem += 1*(1-dissent); educated_dem += 1*(1-dissent); month_actions += 1
+
+Friendly creators and podcasters carry our message in their own voices.
+
+@attack_ads
+subtitle: -1 resource
+unavailable-subtitle: Need 1 resource.
+choose-if: resources >= 1
+on-arrival: resources -= 1; suburban_gop -= 3; trump_urgency += 0.3; polarization += 1; gop_enthusiasm += 0.4; month_actions += 1
+
+Contrast ads hit hard, and the other side is energized too.

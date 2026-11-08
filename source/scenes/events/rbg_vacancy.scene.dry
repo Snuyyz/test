@@ -1,0 +1,33 @@
+title: A Vacancy on the Court
+new-page: true
+tags: event
+view-if: year = 2020 and month = 9
+priority: 400
+max-visits: 1
+
+= A Vacancy on the Court
+
+Justice Ruth Bader Ginsburg has died six weeks before the presidential election, and the question of who will fill her seat will shape the Court for a generation.
+
+[? if dem_president = 0 and dem_senate = 0 : The Republican Senate says it will move quickly. ?][? if dem_president = 1 or dem_senate = 1 : We have the tools to shape the outcome. ?]
+
+- @rbg_fight: Make the vacancy the campaign issue
+- @rbg_norms: Appeal to the Senate's precedent
+
+@rbg_fight
+on-arrival: {!
+Q.dem_enthusiasm = Math.min(10, Q.dem_enthusiasm + 1);
+if (!Q.dem_president && !Q.dem_senate) { Q.court_lean += 1.5; }
+if (Q.dem_president || Q.dem_senate) { Q.court_lean -= 0.5; }
+Q.polarization += 1; Q.progressive_dissent -= 2;
+!}
+
+The fight dominates the final weeks.
+
+@rbg_norms
+on-arrival: {!
+Q.institutions += 0.5; Q.gopmod_relation += 2; Q.progressive_dissent += 2;
+if (!Q.dem_president && !Q.dem_senate) { Q.court_lean += 1.5; }
+!}
+
+We appeal to institutional memory. It matters less than we hoped.

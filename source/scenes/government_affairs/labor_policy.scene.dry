@@ -1,0 +1,33 @@
+title: Labor Policy
+new-page: true
+is-card: true
+tags: govt_affairs
+view-if: labor_policy_timer <= 0 and dem_president = 1
+on-arrival: labor_policy_timer = 8
+
+= Labor Policy
+
+Unions are the backbone of the party but face headwinds. What can we do for workers?
+
+- @pro_act: Strengthen the right to organize
+- @minimum_wage: Raise the minimum wage
+- @worker_training: Invest in apprenticeships
+- @easy_discard
+
+@pro_act
+on-arrival: labor_strength += 5; labor_relation += 8; working_dem += 3*(1-dissent); biz_relation -= 5; labor_dissent -= 6; month_actions += 1
+
+New rules make organizing easier. Business groups mobilize against us.
+
+@minimum_wage
+on-arrival: labor_relation += 4; working_dem += 3*(1-dissent); young_dem += 2*(1-dissent); biz_relation -= 3; unemployed += 0.05; month_actions += 1
+
+Millions get raises.
+
+@worker_training
+subtitle: -1 budget
+unavailable-subtitle: Need 1 budget.
+choose-if: budget >= 1
+on-arrival: budget -= 1; unemployed -= 0.2; working_dem += 2*(1-dissent); rural_dem += 1*(1-dissent); moderate_strength += 1; month_actions += 1
+
+A skills agenda wins support across lines.

@@ -1,0 +1,16 @@
+title: Midterm Election Day
+new-page: true
+tags: event
+view-if: election_due = 1 and midterm_year = 1 and election_shown != year
+priority: 800
+on-arrival: election_shown = year
+
+= Midterm Election Day
+
+Americans have voted in the [+ year +] midterm elections.
+
+The national House vote: <span style="color: #1a5fb4;">**Democrats**</span> [+ el_dem_votes +]%, <span style="color: #c01c28;">**GOP**</span> [+ el_gop_votes +]%, left parties [+ el_left_votes +]%, far-right parties [+ el_farright_votes +]%. Turnout was [+ el_turnout +]% of eligible voters.
+
+[? if el_house >= 218 : The <span style="color: #1a5fb4;">**Democrats**</span> **win control of the House**, [+ el_house +] seats to [+ el_house_gop +]. ?][? if el_house < 218 : The <span style="color: #c01c28;">**GOP**</span> will **control the House**, [+ el_house_gop +] seats to [+ el_house +]. ?]In the Senate the new balance is [+ el_senate +] Democratic-caucus seats to [+ el_senate_gop +].
+
+[? if dem_president = 1 : The president's party historically suffers in midterms, and tonight the pattern holds in most of the country. ?][? if dem_president = 0 : Voters have delivered a verdict on the president's first term in office. ?]

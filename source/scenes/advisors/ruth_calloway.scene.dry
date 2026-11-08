@@ -1,0 +1,31 @@
+title: Ruth Calloway
+is-pinned-card: true
+tags: advisor, moderate
+view-if: ruth_calloway_advisor = 1
+new-page: true
+
+= Ruth Calloway
+
+Calloway is a retired general turned national security adviser, trusted by the Pentagon and wary of both isolationism and adventurism.
+
+- @reassure_allies
+- @civil_military
+- @root: Return to main
+
+@reassure_allies
+title: Reassure Allies
+subtitle: Quiet diplomacy with foreign partners.
+unavailable-subtitle: [? if advisor_action_timer > 0 : [+ advisor_action_timer +] months before next advisor action. ?]
+choose-if: advisor_action_timer = 0
+on-arrival: advisor_action_timer = 6; intl_relation += 8; moderate_strength += 2; progressive_dissent += 2
+
+Calloway's calls to allied capitals calm nerves about American reliability.
+
+@civil_military
+title: Reinforce Civil-Military Norms
+subtitle: Reaffirm the military's constitutional role.
+unavailable-subtitle: [? if advisor_action_timer > 0 : [+ advisor_action_timer +] months before next advisor action. ?]
+choose-if: advisor_action_timer = 0
+on-arrival: advisor_action_timer = 6; military_loyalty += 0.05; subversion_progress -= 0.4; institutions += 1
+
+Retired generals and current officers publicly restate their oath to the Constitution rather than to any individual.

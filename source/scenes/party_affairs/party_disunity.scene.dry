@@ -1,0 +1,33 @@
+title: Party Unity
+new-page: true
+is-card: true
+tags: party_affairs
+view-if: party_disunity_timer <= 0 and dissent_percent >= 8
+on-arrival: party_disunity_timer = 10
+
+= Party Unity
+
+The party's factions are quarreling. Unity is a resource; disunity is a drain.
+
+- @unity_retreat: Hold a unity retreat
+- @big_tent: Promise every faction a seat at the table
+- @crack_whip: Enforce discipline
+- @easy_discard
+
+@unity_retreat
+subtitle: -1 resource
+unavailable-subtitle: Need 1 resource.
+choose-if: resources >= 1
+on-arrival: progressive_dissent -= 6; establishment_dissent -= 6; labor_dissent -= 6; moderate_dissent -= 6; abundance_dissent -= 6; populist_dissent -= 6; resources -= 1; month_actions += 1
+
+Leaders talk it out. Grievances remain, but they are heard.
+
+@big_tent
+on-arrival: progressive_dissent -= 3; moderate_dissent -= 3; labor_dissent -= 3; populist_dissent -= 3; abundance_dissent -= 3; establishment_dissent -= 3; budget -= 1; month_actions += 1
+
+Platform planks and committee seats are distributed to all.
+
+@crack_whip
+on-arrival: progressive_dissent += 3; moderate_dissent += 3; establishment_dissent -= 8; resources += 1; month_actions += 1
+
+Leadership imposes order. The establishment is pleased; rebels are not.

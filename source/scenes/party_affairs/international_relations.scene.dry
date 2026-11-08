@@ -1,0 +1,30 @@
+title: International Relations
+new-page: true
+is-card: true
+tags: party_affairs
+view-if: international_relations_timer <= 0
+on-arrival: international_relations_timer = 12
+
+= International Relations
+
+America's alliances and reputation affect both security and economic stability.
+
+- @allies_trip: Tour allied capitals
+- @human_rights: Champion human rights and democracy abroad
+- @america_first_lite: Emphasize domestic priorities
+- @easy_discard
+
+@allies_trip
+on-arrival: intl_relation += 8; moderate_strength += 2; progressive_dissent += 1; month_actions += 1
+
+Our leaders reassure allies that American democracy remains reliable.
+
+@human_rights
+on-arrival: intl_relation += 4; progressive_strength += 2; pro_democracy += 1; biz_relation -= 2; month_actions += 1
+
+We put democracy and rights at the heart of foreign policy.
+
+@america_first_lite
+on-arrival: intl_relation -= 3; working_dem += 3*(1-dissent); rural_dem += 2*(1-dissent); populist_strength += 3; moderate_dissent += 2; month_actions += 1
+
+We say charity begins at home. The foreign-policy establishment groans.

@@ -1,0 +1,19 @@
+title: The 2025 Off-Year Elections
+new-page: true
+tags: event
+view-if: year = 2025 and month = 11 and dem_president = 0
+priority: 200
+max-visits: 1
+
+= The 2025 Off-Year Elections
+
+Voters in several states and cities have gone to the polls in off-year elections, a first test of the new political climate.
+
+[? if dem_enthusiasm >= 6 : The results are strong for the Democrats. ?][? if dem_enthusiasm < 6 and dem_enthusiasm >= 4 : The results are mixed. ?][? if dem_enthusiasm < 4 : The results are poor for the Democrats. ?]
+
+- @offyear_message: Draw lessons and double down
+
+@offyear_message
+on-arrival: dem_enthusiasm += 0.3; resources += 1
+
+The party takes the results as a sign.

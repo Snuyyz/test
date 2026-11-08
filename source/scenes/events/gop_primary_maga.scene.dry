@@ -1,0 +1,16 @@
+title: The Republican Primary: The Insurgent Wins
+new-page: true
+tags: event
+view-if: pres_year = 1 and month = 4 and gop_nominee_done != year and not (dem_president = 0 and president_terms < 2) and ((year = 2016 and (trump_active = 1 or maga_strength >= 45)) or (year > 2016 and maga_strength >= 40))
+priority: 590
+on-arrival: {!
+Q.gop_nominee_mod = {rural: 5, working: 4, young: 1, minority: 1, suburban: -3, educated: -5};
+Q.gop_nominee_name = Q.maga_leader; Q.gop_nominee_type = 'maga'; Q.gop_nominee_done = Q.year;
+Q.gop_enthusiasm = Math.min(10, Q.gop_enthusiasm + 1.2); Q.trump_urgency = (Q.trump_urgency || 0) + 0.8; Q.trump_active = 1;
+!}
+
+= The Republican Primary: The Insurgent Wins
+
+The populist-nationalist movement has won the Republican nomination. **[+ maga_leader +]** captured the primaries with a message of grievance against elites, trade deals, and immigration, defying the party establishment.
+
+The <span style="color: #c01c28;">**GOP**</span> will have a loyal, energized base; the <span style="color: #1a5fb4;">**Democrats**</span> will have an enemy with a gift for dominating the news cycle, and a movement that has never promised to accept defeat quietly.

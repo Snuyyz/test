@@ -1,0 +1,28 @@
+title: An October Surprise
+new-page: true
+tags: event
+view-if: pres_year = 1 and month = 10 and october_done != year and (dissent_percent >= 10 or maga_strength >= 30)
+priority: 260
+
+= An October Surprise
+
+Days before the election, a damaging story about our campaign breaks, whether it is an investigation, a leak, or a hacked email trove. The media amplifies it. Our opponents seize on it.
+
+- @surprise_transparent: Release everything
+- @surprise_counter: Counterattack
+- @surprise_silence: Ignore it and keep campaigning
+
+@surprise_transparent
+on-arrival: october_done = year; dem_enthusiasm -= 0.3; pro_democracy += 0.5; suburban_dem += 1*(1-dissent); resources -= 0
+
+We insist on full transparency. The story fades, though not before it hurts.
+
+@surprise_counter
+on-arrival: october_done = year; polarization += 1; dem_enthusiasm += 0.3; suburban_dem -= 2*(1-dissent); gop_enthusiasm += 0.3
+
+We attack the sources and the motive. The story drags on.
+
+@surprise_silence
+on-arrival: october_done = year; suburban_dem -= 3*(1-dissent); dem_enthusiasm -= 0.5; working_dem -= 1*(1-dissent)
+
+We say nothing. The story grows in the vacuum.

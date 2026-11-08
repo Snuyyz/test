@@ -1,34 +1,30 @@
-title: January 6th
-subtitle: The Capitol is stormed.
+title: The Capitol Under Siege
 new-page: true
 tags: event
-view-if: year = 2021 and month = 1 and lost_2020_trump = 1
-max-visits: 1
-priority: 9
-on-arrival: stability -= 8; far_right += 10; maga += 3
+view-if: year >= 2021 and month = 1 and dispute_done = prev_year and dispute_ok = 1 and capitol_done != year
+priority: 840
 
-= January 6th
+= The Capitol Under Siege
 
-A mob, stirred by false claims that the election was stolen, breaks into the Capitol while Congress is certifying the results. Lawmakers shelter in place. Police are beaten. Hours later, Congress finishes the job. Many Republican members still vote to object to the results.
+On the day Congress meets to certify the election, an angry crowd stirred by claims of fraud storms the Capitol. Lawmakers flee. Police are overwhelmed. Hours later, order is restored and Congress completes its task.
 
-- @commission: Demand a full, bipartisan accounting.
-- @prosecute: Press for accountability.
-- @move_on: Move on and focus on governing.
+Whatever the verdict of the courts, history will remember the day American democracy came closer to the edge than at any time in generations.
 
-@commission
-subtitle: Slow, institutional.
-on-arrival: stability += 6; media_trust += 2; far_right -= 3
+- @capitol_commission: Demand a full independent investigation
+- @capitol_prosecute: Support prosecution of those responsible
+- @capitol_move_on: Move on to the legislative agenda
 
-We pursue a commission. Republicans block it in the Senate. A House select committee investigates instead.
+@capitol_commission
+on-arrival: capitol_done = year; institutions += 3; pro_democracy += 3; polarization += 2; maga_strength -= 3; farright_strength -= 2; militia_strength -= 60; gopmod_relation -= 3
 
-@prosecute
-subtitle: Courts and the rule of law.
-on-arrival: stability += 5; far_right -= 4; maga += 1
+A bipartisan commission is stymied; yet the investigation goes ahead and documents what happened.
 
-Hundreds of rioters are prosecuted.
+@capitol_prosecute
+on-arrival: capitol_done = year; institutions += 2; farright_strength -= 3; militia_strength -= 80; federal_law_loyalty += 0.03; polarization += 1; pro_democracy += 2
 
-@move_on
-subtitle: Looks to the future.
-on-arrival: stability -= 3; enthusiasm -= 2; media_trust -= 1; pop_mod += 0.1
+Hundreds of rioters face charges, with sentences that hit militia networks hard.
 
-We say we will focus on the economy. The wound does not close.
+@capitol_move_on
+on-arrival: capitol_done = year; working_dem += 2*(1-dissent); moderate_strength += 2; progressive_dissent += 4; institutions -= 1; pro_democracy -= 1
+
+We want to turn the page, but the page does not turn.

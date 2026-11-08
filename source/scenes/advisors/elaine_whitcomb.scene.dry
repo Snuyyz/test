@@ -1,0 +1,31 @@
+title: Elaine Whitcomb
+is-pinned-card: true
+tags: advisor, establishment
+view-if: elaine_whitcomb_advisor = 1
+new-page: true
+
+= Elaine Whitcomb
+
+Whitcomb is the party's election lawyer, quietly preparing for every way an election can go wrong.
+
+- @litigate_access
+- @contested_results
+- @root: Return to main
+
+@litigate_access
+title: Litigate for Ballot Access
+subtitle: Fight restrictive voting rules in court.
+unavailable-subtitle: [? if advisor_action_timer > 0 : [+ advisor_action_timer +] months before next advisor action. ?]
+choose-if: advisor_action_timer = 0
+on-arrival: advisor_action_timer = 6; election_admin += 4; voting_rights += 0.2; subversion_progress -= 0.3; resources -= 0
+
+Our lawyers win several cases protecting access to the ballot and clear procedures for counting votes.
+
+@contested_results
+title: Prepare for Contested Results
+subtitle: Plan for attempts to overturn an election.
+unavailable-subtitle: [? if advisor_action_timer > 0 : [+ advisor_action_timer +] months before next advisor action. ?]
+choose-if: advisor_action_timer = 0
+on-arrival: advisor_action_timer = 6; subversion_progress -= 0.8; trump_urgency += 0.8; institutions += 1.5; civic_strength += 100
+
+A network of lawyers, poll watchers, and state officials rehearses how to defend a clean count.

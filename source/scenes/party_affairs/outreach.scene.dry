@@ -1,0 +1,30 @@
+title: Cross-Party Outreach
+new-page: true
+is-card: true
+tags: party_affairs
+view-if: outreach_timer <= 0
+on-arrival: outreach_timer = 8
+
+= Cross-Party Outreach
+
+Divided government requires deals, and deals require relationships across the aisle.
+
+- @gop_moderates: Cultivate Republican moderates
+- @business_groups: Meet with business leaders
+- @governors: Work with Republican governors
+- @easy_discard
+
+@gop_moderates
+on-arrival: gopmod_relation += 8; moderate_strength += 2; progressive_dissent += 3; suburban_dem += 1*(1-dissent); month_actions += 1
+
+Quiet dinners and joint bills build trust.
+
+@business_groups
+on-arrival: biz_relation += 8; moderate_strength += 1; labor_dissent += 3; resources += 1; month_actions += 1
+
+Chambers of commerce and tech executives are courted; some are even friendly.
+
+@governors
+on-arrival: gopmod_relation += 5; dem_governors += 0; rural_dem += 1*(1-dissent); suburban_dem += 1*(1-dissent); institutions += 1; month_actions += 1
+
+Practical state-level cooperation offers a model for national dealmaking.

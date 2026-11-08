@@ -1,58 +1,51 @@
-title: The End
+title: Game Over.
 new-page: true
-is-special: true
-go-to: ending_collapse if collapse_flag = 1; ending_finale if collapse_flag = 0
+go-to: eg_menu
+on-arrival: {!
+Q.game_over = 1;
+Q.dem_norm = Math.round(Q.dem_votes);
+// ending classification
+var d = Q.democracy_score;
+var inpow = (Q.dem_president ? 1 : 0) + (Q.dem_house ? 1 : 0) + (Q.dem_senate ? 1 : 0);
+if (Q.game_lost) { Q.ending_id = 'collapse'; }
+else if (d >= 75 && Q.maga_strength < 45) { Q.ending_id = 'resilient'; }
+else if (d >= 55) { Q.ending_id = 'fragile'; }
+else { Q.ending_id = 'authoritarian_drift'; }
+if (!Q.game_lost) {
+  if (this.achieve) {
+    if (Q.dem_president && Q.dem_house && Q.dem_senate) this.achieve('trifecta_2026');
+    if (d >= 75) this.achieve('guardrails_hold');
+    if (Q.maga_strength < 25) this.achieve('movement_contained');
+    if (Q.n_elections >= 7 && Q.dissent_percent < 10) this.achieve('united_party');
+    if (Q.farleft_strength < 8 && Q.farright_strength < 8) this.achieve('fringes_shrunk');
+    if (Q.gerrymander_bias <= 1) this.achieve('fair_maps');
+    if (Q.voting_rights >= 1 && Q.ethics_reform >= 1) this.achieve('democracy_reformers');
+    if (!Q.dem_president && d >= 70) this.achieve('loyal_opposition');
+    if (Q.unemployed < 5 && Q.inflation < 3.5) this.achieve('soft_landing');
+  }
+} else if (this.achieve) {
+  this.achieve('the_republic_fell');
+}
+!}
 
-@ending_collapse
-title: The Republic Falls
-new-page: true
-on-arrival: ending_label = "Collapse"
+= The End
 
-= The Republic Falls
+@eg_menu
 
-Elections still happen, in form. Courts still sit, in form. But the guardrails are gone. The rules no longer bind the people who write them, and the opposition, ours and everyone's, operates at their sufferance.
+= The Verdict
 
-It did not happen in a day. It happened in a thousand small accommodations, ignored warnings, and failures of nerve, by us and by others.
+[? if ending_id == "collapse" : ## The Republic Falls ?]
+[? if ending_id == "resilient" : ## A Resilient Republic ?]
+[? if ending_id == "fragile" : ## A Fragile Republic ?]
+[? if ending_id == "authoritarian_drift" : ## Democracy in Retreat ?]
 
-*Democratic stability: [+ stability +]*
+[? if ending_id == "collapse" : American democracy has collapsed. Elections may continue, but the real power no longer answers to voters. The movement that rose in the 2010s, and the failures of those who might have stopped it, are now the subject of history, not politics. ?]
+[? if ending_id == "resilient" : As 2026 closes, American democracy has weathered a decade of storms. Courts, election officials, civil society, and a majority of voters held the line, and a Democratic Party that adapted to a changing country helped lead the defense. ?]
+[? if ending_id == "fragile" : American democracy survives, but it is bruised. Norms have eroded, trust is low, and the next crisis could break what this one only bent. The work continues. ?]
+[? if ending_id == "authoritarian_drift" : American democracy has not formally collapsed, but the signs are alarming: weakened institutions, an intimidated press, and a party system that no longer plays by shared rules. Whether it recovers depends on what happens next. ?]
 
-- @start: Try again (restart)
+**Final state:** Democrats hold [? if dem_president = 1 : the presidency ?][? if dem_president = 0 : neither the presidency ?][? if dem_house = 1 : , the House ?][? if dem_senate = 1 : , the Senate ?]. Democratic health index: [+ democracy_score_r +]. Movement strength of MAGA: [+ maga_strength_r +]. Party dissent: [+ dissent_percent_r +]%.
 
-@ending_finale
-title: Twelve Years
-new-page: true
-go-to: ending_robust if stability >= 70; ending_standing if stability >= 40 and stability < 70; ending_hollow if stability < 40
+[? if dem_president = 1 and dem_house = 1 and dem_senate = 1 : **A full trifecta.** ?]
 
-@ending_robust
-new-page: true
-
-= The Republic Endures
-
-November 2026. The country is divided, tired, and often furious. But the institutions have held. Courts rule, officials certify, and power changes hands when voters say so. The coalition has learned some hard lessons about governing and about losing.
-
-*Democratic stability: [+ stability +] ([+ stability : stability +]). Party unity: [+ unity +]. Base enthusiasm: [+ enthusiasm +].*
-
-[? if house_won == 1 and senate_won == 1: Congress is in our hands. ?][? if house_won == 1 and senate_won == 0: We hold the House. ?][? if house_won == 0 and senate_won == 1: We hold the Senate. ?][? if house_won == 0 and senate_won == 0: We are in the minority in both chambers, but the republic is intact. ?]
-
-@ending_standing
-new-page: true
-
-= Bruised But Standing
-
-November 2026. American democracy has survived, but not unscathed. Trust is low, norms are frayed, and every institution has been tested. Whether the next generation inherits a working republic is still an open question.
-
-*Democratic stability: [+ stability +] ([+ stability : stability +]). Party unity: [+ unity +]. Base enthusiasm: [+ enthusiasm +].*
-
-[? if house_won == 1 and senate_won == 1: Congress is in our hands, and the work of repair can begin. ?][? if house_won == 0 or senate_won == 0: Control of Congress is still contested, and so are the terms of repair. ?]
-
-@ending_hollow
-new-page: true
-
-= A Hollowed Republic
-
-November 2026. The republic still stands in name. The offices exist and the elections are held. But the protections that made them meaningful are thin, and the ones who would exploit that thinness are patient. The coming years will decide whether this is a low point or the new normal.
-
-*Democratic stability: [+ stability +] ([+ stability : stability +]). Party unity: [+ unity +]. Base enthusiasm: [+ enthusiasm +].*
-
-@start
-go-to: root.start
+- @root: Return to the main menu

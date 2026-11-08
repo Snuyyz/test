@@ -1,0 +1,23 @@
+title: Bank Failures
+new-page: true
+tags: event
+view-if: year = 2023 and month = 3
+priority: 1
+max-visits: 1
+
+= Bank Failures
+
+Silicon Valley Bank and other regional lenders have collapsed, and depositors are panicking. Regulators have to decide whether to guarantee deposits.
+
+- @bank_backstop: Back a broad deposit guarantee
+- @bank_reform: Demand tougher bank regulation
+
+@bank_backstop
+on-arrival: budget -= 1; biz_relation += 3; economic_growth += 0.2; progressive_dissent += 3; populist_dissent += 3
+
+Panic ebbs, to the fury of populists on both sides.
+
+@bank_reform
+on-arrival: biz_relation -= 4; progressive_dissent -= 3; populist_strength += 2; economic_growth -= 0.1
+
+We introduce a tough regulatory package.

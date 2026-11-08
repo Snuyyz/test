@@ -1,0 +1,29 @@
+title: War in Gaza
+new-page: true
+tags: event
+view-if: year = 2023 and month = 10
+priority: 300
+max-visits: 1
+
+= War in Gaza
+
+Hamas has attacked Israel on October 7, killing some 1,200 people, and Israel has launched a devastating war in Gaza. American politics is torn: Jewish and Arab-American communities, the young, and the progressive base, and a majority of Americans, want different things.
+
+- @gaza_israel: Stand firmly with Israel
+- @gaza_ceasefire: Push for a ceasefire and humanitarian aid
+- @gaza_conditional: Condition military aid
+
+@gaza_israel
+on-arrival: moderate_strength += 2; intl_relation += 2; left_relation -= 10; farleft_strength += 3; young_dem -= 4*(1-dissent); minority_dem -= 2*(1-dissent); progressive_dissent += 8
+
+Support for Israel remains our official line; protests spread on campuses and the movement against us grows.
+
+@gaza_ceasefire
+on-arrival: left_relation += 4; farleft_strength -= 0.5; young_dem += 1*(1-dissent); progressive_dissent += 0; moderate_dissent += 4; intl_relation -= 2
+
+We press for a ceasefire. Allies and critics are both unhappy.
+
+@gaza_conditional
+on-arrival: left_relation += 7; farleft_strength -= 1.5; progressive_dissent -= 4; moderate_dissent += 6; intl_relation -= 4; young_dem += 2*(1-dissent)
+
+We demand conditions on aid; the old guard is furious.

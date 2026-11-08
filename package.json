@@ -1,7 +1,8 @@
 {
-  "name": "democrats_2014_2026",
+  "name": "dynamic_social_democracy_usa_2014_2026",
   "version": "0.1.0",
-  "description": "A Social Democracy: An Alternate History mod about the US Democratic Party, 2014-2026",
+  "description": "Social Democracy: An Alternate History - United States 2014-2026 mod (Democrats)",
   "scripts": { "dendrynexus": "dendrynexus" },
+  "license": "MIT",
   "dependencies": { "dendrynexus": "github:originn0/dendrynexus" }
 }

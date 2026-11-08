@@ -1,0 +1,45 @@
+title: Shuffle Leadership
+view-if: started and shuffle_leadership_timer <= 0
+new-page: true
+is-card: true
+is-pinned-card: true
+on-arrival: month_actions += 1; shuffle_leadership_timer = 10
+go-to: shuffle_leadership_menu
+
+@shuffle_leadership_menu
+
+= Shuffle Leadership
+
+Our advisory circle is limited to a handful of trusted figures at any time. Who should we bring in, and who should we let go?
+
+- @swap_prog: Swap in the organizer and rural strategist (Reyes, Moretti); drop Hale and Whitcomb.
+- @swap_estab: Swap in the pollster and election lawyer (Hale, Whitcomb); drop Reyes and Moretti.
+- @swap_econ: Swap in the economist and digital director (Nair-style technocrats: Okafor, Calloway); drop Brandt and Hale.
+- @swap_labor: Swap in Brandt and Hale; drop Okafor and Calloway.
+- @remove_none: Don't change advisors.
+
+@swap_prog
+on-arrival: dolores_reyes_advisor = 1; jake_moretti_advisor = 1; marcus_hale_advisor = 0; elaine_whitcomb_advisor = 0; progressive_strength += 2; moderate_strength += 2
+
+Reyes and Moretti join the circle. The grassroots are energized.
+
+@swap_estab
+on-arrival: marcus_hale_advisor = 1; elaine_whitcomb_advisor = 1; dolores_reyes_advisor = 0; jake_moretti_advisor = 0; establishment_strength += 4
+
+Hale and Whitcomb take center stage. The party apparatus hums.
+
+@swap_econ
+on-arrival: sam_okafor_advisor = 1; ruth_calloway_advisor = 1; tom_brandt_advisor = 0; marcus_hale_advisor = 0; abundance_strength += 3; moderate_strength += 2; labor_dissent += 3
+
+Okafor and Calloway join. Labor leaders are unhappy.
+
+@swap_labor
+on-arrival: tom_brandt_advisor = 1; marcus_hale_advisor = 1; sam_okafor_advisor = 0; ruth_calloway_advisor = 0; labor_strength += 4; abundance_dissent += 3
+
+Brandt and Hale join. The party leans into its working-class identity.
+
+@remove_none
+on-arrival: month_actions -= 1; shuffle_leadership_timer = 0
+go-to: root
+
+We keep our team as is.

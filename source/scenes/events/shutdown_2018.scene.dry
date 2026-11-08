@@ -1,0 +1,23 @@
+title: A Government Shutdown
+new-page: true
+tags: event
+view-if: year = 2018 and month = 12 and dem_president = 0 and maga_strength >= 30
+priority: 1
+max-visits: 1
+
+= A Government Shutdown
+
+The government has partially shut down in a fight over border-wall funding. Hundreds of thousands of federal workers are unpaid.
+
+- @shutdown_hold: Hold the line
+- @shutdown_deal: Seek a quick deal
+
+@shutdown_hold
+on-arrival: working_dem += 2*(1-dissent); suburban_dem += 2*(1-dissent); dem_enthusiasm += 0.5; progressive_dissent -= 2; polarization += 1
+
+The public blames the president for the shutdown.
+
+@shutdown_deal
+on-arrival: gopmod_relation += 3; moderate_strength += 1; progressive_dissent += 3; dem_enthusiasm -= 0.2
+
+Federal workers return to work, with little to show for the fight.

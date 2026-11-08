@@ -1,26 +1,23 @@
-title: A Landmark Summer
-subtitle: Marriage equality and a massacre in Charleston.
+title: Marriage Equality
 new-page: true
 tags: event
-view-if: year = 2015 and month = 7
-max-visits: 1
+view-if: year = 2015 and month = 6
 priority: 1
+max-visits: 1
 
-= A Landmark Summer
+= Marriage Equality
 
-In one week, a gunman murders nine people at a church in Charleston and the Supreme Court rules that same-sex couples have a constitutional right to marry. Grief and celebration share a news cycle.
+The Supreme Court has ruled that same-sex couples have a constitutional right to marry. The moment is a landmark for civil rights, and a flashpoint for cultural conservatives.
 
-- @unite: Speak to the moment, not the factions.
-- @gun: Press for gun reform.
+- @marriage_celebrate: Celebrate the ruling
+- @marriage_respect: Celebrate and respect dissenters
 
-@unite
-subtitle: Rare unity.
-on-arrival: enthusiasm += 3; unity += 3; media_trust += 2
+@marriage_celebrate
+on-arrival: young_dem += 3*(1-dissent); educated_dem += 2*(1-dissent); rural_dem -= 1*(1-dissent); progressive_dissent -= 2; gop_enthusiasm += 0.3
 
-For a few days the country looks like it is speaking to itself.
+Celebrations erupt across the country, and not everywhere.
 
-@gun
-subtitle: Base energized, rural voters wary.
-on-arrival: enthusiasm += 4; mod_dissent += 3; pop_mod -= 0.1; far_right += 1
+@marriage_respect
+on-arrival: young_dem += 2*(1-dissent); suburban_dem += 1*(1-dissent); polarization -= 0.5
 
-We say what many are thinking. We do not win the votes.
+We celebrate while pledging to protect religious liberty.

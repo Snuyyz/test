@@ -1,0 +1,23 @@
+title: Brexit and the Populist Wave
+new-page: true
+tags: event
+view-if: year = 2016 and month = 6
+priority: 1
+max-visits: 1
+
+= Brexit and the Populist Wave
+
+British voters have chosen to leave the European Union, and populist movements across the West are riding a wave of anger at globalization and elites. Many ask whether the same wave is coming for America.
+
+- @brexit_econ: Sharpen our economic message
+- @brexit_warn: Warn of the dangers of nationalism
+
+@brexit_econ
+on-arrival: working_dem += 3*(1-dissent); rural_dem += 1*(1-dissent); populist_strength += 2; crisis_urgency += 1
+
+We stress wages, jobs, and community, and take the anger seriously.
+
+@brexit_warn
+on-arrival: trump_urgency += 1; suburban_dem += 2*(1-dissent); educated_dem += 1*(1-dissent); rural_dem -= 1*(1-dissent)
+
+We warn that economic anxiety is being exploited.

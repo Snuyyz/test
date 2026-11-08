@@ -1,0 +1,42 @@
+title: Economic Policy
+new-page: true
+is-card: true
+tags: govt_affairs
+view-if: economic_policy_timer <= 0 and dem_president = 1
+on-arrival: economic_policy_timer = 6
+
+= Economic Policy
+
+The economy is the foundation of everything. Unemployment stands at [+ unemployed_2 +] percent and inflation at [+ inflation_2 +] percent.
+
+- @stimulus: Stimulus spending
+- @investment: Public investment
+- @trade_policy: Retool trade policy
+- @consolidate: Consolidate and cut deficits
+- @easy_discard
+
+@stimulus
+subtitle: -2 budget
+unavailable-subtitle: Need 2 budget.
+choose-if: budget >= 2
+on-arrival: budget -= 2; economic_growth += 1.2; inflation += 0.3; stimulus_level += 1; working_dem += 2*(1-dissent); progressive_dissent -= 3; month_actions += 1
+
+Federal dollars flow. Growth picks up; some economists warn of overheating.
+
+@investment
+subtitle: -1 budget
+unavailable-subtitle: Need 1 budget.
+choose-if: budget >= 1
+on-arrival: budget -= 1; economic_growth += 0.5; unemployed -= 0.2; working_dem += 2*(1-dissent); abundance_strength += 1; month_actions += 1
+
+Roads, grids, and research labs get funding.
+
+@trade_policy
+on-arrival: rural_dem += 2*(1-dissent); working_dem += 3*(1-dissent); biz_relation -= 3; intl_relation -= 2; populist_strength += 2; month_actions += 1
+
+We rebalance trade rules toward workers and domestic industry.
+
+@consolidate
+on-arrival: budget += 2; economic_growth -= 0.3; biz_relation += 3; progressive_dissent += 4; labor_dissent += 3; month_actions += 1
+
+Fiscal prudence restores room on the books but costs us on the left.

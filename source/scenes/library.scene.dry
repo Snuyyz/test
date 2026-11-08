@@ -1,0 +1,50 @@
+title: The Library
+new-page: true
+is-special: true
+go-to: menu
+
+= The Library
+
+Herein is background on how American politics works in this game.
+
+@menu
+
+- @government: The American system of government
+- @demographics: Demographic groups
+- @factions: Factions inside the Democratic Party
+- @opposition: Opponents of democracy
+- @elections: How elections work in this game
+- @tips: Tips
+- @backSpecialScene: Exit library.
+
+@government
+go-to: menu
+
+The United States is a federal presidential republic. The **President** is elected every four years by the **Electoral College**; the 435-seat **House of Representatives** is elected every two years; the 100-seat **Senate** has six-year terms staggered in thirds. Government usually needs both chambers and the presidency for major legislation, and the filibuster means Senate bills often need sixty votes.
+
+The game tracks who holds each branch. Government Affairs cards require the necessary power. Without control, you must fight through party affairs, state affairs, organizing, and elections.
+
+@demographics
+go-to: menu
+
+Six groups matter: **working-class** voters, **suburbanites**, **college-educated professionals**, **rural** voters, **minority communities**, and **young voters**. Each group's support is split among Democrats, Republicans, left parties, far-right parties, and non-voting. Turnout is lower in midterm years, especially among minority and young voters.
+
+@factions
+go-to: menu
+
+The party has six factions: **Progressives**, **Establishment**, **Labor**, **Moderates**, **Abundance** (builders and technocrats) and **Populists** (heartland economic nationalists). Each has strength and dissent. High dissent costs resources and reduces the effect of your actions.
+
+@opposition
+go-to: menu
+
+Three forces threaten democratic stability: the **MAGA movement** which can capture the Republican Party and strain institutions; **far-right extremists and militias**; and the **far left**, whose rise can split our coalition and trigger backlash. Meters track institutions, civic culture, and the progress of any subversion effort.
+
+@elections
+go-to: menu
+
+Elections occur every November in even years. Presidential years: the national vote is mapped onto five Electoral College blocs. Midterm years: House and Senate seats are projected from the national vote, a gerrymandering bias, and the Senate map of that cycle. The nominees you help choose carry their own strengths and weaknesses.
+
+@tips
+go-to: menu
+
+Every action takes a month. Advisor actions are free. Don't neglect organizing, voter protection, and the economy: you cannot win elections or protect democracy with a collapsing coalition.

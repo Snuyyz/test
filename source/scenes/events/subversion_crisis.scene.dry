@@ -1,0 +1,40 @@
+title: The Crisis of the Republic
+new-page: true
+tags: event
+view-if: subversion_progress >= 9.9 and subversion_done != 1
+priority: 870
+max-visits: 1
+
+= The Crisis of the Republic
+
+The movement to subvert the democratic order has reached a critical mass: officials loyal to a leader rather than to the Constitution have been installed, courts are being defied, and elections are being undermined.
+
+Everything we have built (or failed to build) will now be tested.
+
+- @crisis_all_in: Mobilize every resource at our disposal
+- @crisis_negotiate: Seek a political settlement
+
+@crisis_all_in
+choose-if: resources >= 0
+on-arrival: {!
+Q.subversion_done = 1;
+var score = SD.resilience(Q) + 5;
+Q.dispute_score = Math.round(score);
+Q.dispute_ok = score >= 80 ? 1 : 0;
+if (Q.dispute_ok) { Q.subversion_progress = 3; Q.institutions += 5; Q.maga_strength -= 6; Q.pro_democracy += 4; }
+else { Q.game_lost = 1; Q.institutions = 8; }
+!}
+
+[? if dispute_ok = 1 : The republic holds. Civil society, courts, and a handful of principled officials hold the line. ?][? if dispute_ok = 0 : The republic falters. The guardrails fail. ?]
+
+@crisis_negotiate
+on-arrival: {!
+Q.subversion_done = 1;
+var score = SD.resilience(Q) + Q.gopmod_relation * 0.08;
+Q.dispute_score = Math.round(score);
+Q.dispute_ok = score >= 80 ? 1 : 0;
+if (Q.dispute_ok) { Q.subversion_progress = 4; Q.institutions += 3; Q.gopmod_relation += 5; }
+else { Q.game_lost = 1; Q.institutions = 8; }
+!}
+
+[? if dispute_ok = 1 : A fragile settlement is reached. The danger recedes, for now. ?][? if dispute_ok = 0 : The settlement is a surrender. ?]

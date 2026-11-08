@@ -1,0 +1,23 @@
+title: The Climate and Healthcare Bill
+new-page: true
+tags: event
+view-if: year = 2022 and month = 8 and dem_president = 1 and dem_house = 1 and dem_senate = 1
+priority: 300
+max-visits: 1
+
+= The Climate and Healthcare Bill
+
+A scaled-down version of our agenda is within reach: climate investment, healthcare cost reductions, and a minimum tax on large corporations.
+
+- @climate_pass: Pass it
+- @climate_hold: Hold out for more
+
+@climate_pass
+on-arrival: climate_progress += 3; budget += 1; abundance_strength += 2; young_dem += 2*(1-dissent); progressive_dissent -= 3; inflation -= 0.3; healthcare_agenda += 1
+
+The law passes narrowly. It is smaller than we wanted, but historic.
+
+@climate_hold
+on-arrival: progressive_dissent -= 1; moderate_dissent += 3; budget -= 0; polarization += 1
+
+The window may close.

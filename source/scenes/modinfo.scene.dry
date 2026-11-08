@@ -1,0 +1,24 @@
+title: Mod Info
+go-to: flavors
+
+@flavors
+new-page: true
+
+= Dynamic Social Democracy: America 2014-2026
+
+This mod ports the mechanics of *Social Democracy: An Alternate History* to American politics. You play the **Democratic Party**, month by month from January 2014 to December 2026. Nothing is scripted to match the real outcomes: the real-world shocks (the Ukraine war, a pandemic, inflation) happen around you, but elections, nominees, and who holds power depend on how well you play.
+
+- @what: What is carried over from the original?
+- @paths: What can happen?
+- @root.start: Start game
+- @root: Back
+
+@what
+go-to: flavors
+
+The monthly action loop, decks and hands of cards, advisor free-actions, factions with strength and dissent, resources and dues, the demographic-group vote model, relations, paramilitary-style forces, rising enemies, dynamic opposition, and multiple endings are all kept. Weimar-specific content (coalitions, Reichstag proportional representation, the president's cabinet-making power) is converted to its US analogues.
+
+@paths
+go-to: flavors
+
+Win elections and keep the institutions strong, and democracy endures. Neglect the threat, and the Trump movement, the far right, or a split left can drag the country toward collapse. You can lose power and still save democracy, or win power and lose it.

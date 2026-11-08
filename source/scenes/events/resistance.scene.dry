@@ -1,0 +1,29 @@
+title: The Resistance
+new-page: true
+tags: event
+view-if: year = 2017 and month = 2 and dem_president = 0
+priority: 1
+max-visits: 1
+
+= The Resistance
+
+Millions march in cities across the country the day after the inauguration. A new kind of opposition is born: decentralized, female-led, and furious.
+
+- @resist_channel: Channel the energy into elections
+- @resist_noncollab: Embrace total opposition
+- @resist_selective: Oppose selectively and legislate where we can
+
+@resist_channel
+on-arrival: dem_enthusiasm += 1.2; civic_strength += 500; dem_legislatures += 0; progressive_strength += 2
+
+We convert marches into volunteer lists, candidate recruitment, and voter registration.
+
+@resist_noncollab
+on-arrival: dem_enthusiasm += 1.5; polarization += 2; progressive_dissent -= 4; moderate_dissent += 3; gopmod_relation -= 5
+
+Our base cheers; bipartisan deals become harder.
+
+@resist_selective
+on-arrival: moderate_strength += 2; gopmod_relation += 3; suburban_dem += 2*(1-dissent); progressive_dissent += 5; dem_enthusiasm += 0.3
+
+We fight on the biggest issues and cut deals on others.

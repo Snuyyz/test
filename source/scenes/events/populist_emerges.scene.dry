@@ -1,0 +1,25 @@
+title: A New Faction: Economic Populists
+new-page: true
+tags: event
+view-if: year >= 2016 and populist_discovered = 0 and rural_dem < 17 and month = 9
+priority: 150
+max-visits: 1
+
+= A New Faction: Economic Populists
+
+Rust Belt and rural officials argue that the party has lost touch with the places it once represented. They want a message about jobs, trade, and dignity, with less cultural scolding.
+
+A faction of populists is taking shape.
+
+- @populist_welcome: Give them a platform
+- @populist_ignore: Hold the line
+
+@populist_welcome
+on-arrival: populist_discovered = 1; populist_strength += 6; populist_dissent -= 5; progressive_dissent += 2; working_dem += 1*(1-dissent); rural_dem += 1*(1-dissent)
+
+Voices from the heartland get a bigger megaphone.
+
+@populist_ignore
+on-arrival: populist_discovered = 1; populist_dissent += 6
+
+The populist caucus grows restive.

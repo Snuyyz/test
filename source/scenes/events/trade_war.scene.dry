@@ -1,0 +1,23 @@
+title: Tariffs and Trade War
+new-page: true
+tags: event
+view-if: year >= 2025 and month = 4 and dem_president = 0 and president == maga_leader and tariffs_done != 1
+priority: 350
+max-visits: 1
+
+= Tariffs and Trade War
+
+The Republican administration has launched a sweeping tariff offensive against allies and adversaries alike. Markets shudder, prices rise, and farmers and manufacturers brace for retaliation.
+
+- @tariff_oppose: Oppose the tariffs and defend consumers
+- @tariff_selective: Support targeted tariffs, oppose chaos
+
+@tariff_oppose
+on-arrival: tariffs_done = 1; economic_growth -= 1; inflation += 1; unemployed += 0.3; working_dem += 2*(1-dissent); suburban_dem += 2*(1-dissent); intl_relation += 3; biz_relation += 3
+
+Polling shows tariffs unpopular; the economy slows.
+
+@tariff_selective
+on-arrival: tariffs_done = 1; economic_growth -= 0.8; inflation += 0.8; working_dem += 2*(1-dissent); rural_dem += 1*(1-dissent); populist_strength += 2; abundance_dissent += 3
+
+A nuanced position, which gets less attention than the slogans.

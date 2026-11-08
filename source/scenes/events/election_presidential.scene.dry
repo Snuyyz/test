@@ -1,0 +1,18 @@
+title: Presidential Election Day
+new-page: true
+tags: event
+view-if: election_due = 1 and pres_year = 1 and election_shown != year
+priority: 800
+on-arrival: election_shown = year
+
+= Presidential Election Day
+
+Americans have voted in the [+ year +] presidential election.
+
+Popular vote: <span style="color: #1a5fb4;">**Democrats**</span> [+ el_dem_votes +]%, <span style="color: #c01c28;">**GOP**</span> [+ el_gop_votes +]%, left candidates [+ el_left_votes +]%, far-right candidates [+ el_farright_votes +]%. Turnout: [+ el_turnout +]%.
+
+Electoral College: **Democrats [+ el_dem_ev +]**, **Republicans [+ el_gop_ev +]**.
+
+Battleground margins (Democratic lead in points): industrial Midwest [+ el_rust_belt +], Florida/Ohio/Iowa [+ el_heartland_swing +], Sun Belt [+ el_sun_belt +].
+
+[? if el_pres_winner == "D" : The **Democratic nominee wins the presidency**. ?][? if el_pres_winner == "R" : The **Republican nominee wins the presidency**. ?]Congress: House [+ el_house +]-[+ el_house_gop +] and Senate [+ el_senate +]-[+ el_senate_gop +] (Democratic-Republican, new Congress seated in January).

@@ -1,26 +1,23 @@
-title: The Confirmation
-subtitle: A Supreme Court fight and an allegation.
+title: A Supreme Court Confirmation Fight
 new-page: true
 tags: event
-view-if: year = 2018 and month = 7
+view-if: year = 2018 and month = 10 and court_lean >= 0
+priority: 1
 max-visits: 1
-priority: 2
 
-= The Confirmation
+= A Supreme Court Confirmation Fight
 
-A Supreme Court nominee faces credible allegations of sexual misconduct from his youth. The Senate hearing becomes a national drama. The nominee is confirmed on a narrow vote. The midterms are weeks away.
+A Supreme Court vacancy has produced a brutal confirmation fight, with allegations, hearings, and furious protests. The stakes: the Court's balance for a generation.
 
-- @fight: Fight the nomination with everything.
-- @measured: Press for a thorough investigation, then stand down.
+- @confirm_fight: Fight with everything we have
+- @confirm_process: Insist on a fair, thorough process
 
-@fight
-subtitle: Energizes the base. Red-state senators vulnerable.
-on-arrival: enthusiasm += 6; pop_mod += 0.1; mod_dissent += 2; senate_d -= 1
+@confirm_fight
+on-arrival: dem_enthusiasm += 1; gop_enthusiasm += 1; polarization += 2; civic_strength += 200; progressive_dissent -= 3
 
-We lose the vote, but the energy is real.
+We fight, and lose or win narrowly, and the country is more polarized than ever.
 
-@measured
-subtitle: Measured.
-on-arrival: stability += 1; media_trust += 1; enthusiasm += 2
+@confirm_process
+on-arrival: institutions += 1; gopmod_relation += 2; progressive_dissent += 3; dem_enthusiasm += 0.3; pro_democracy += 0.5
 
-We argue for process and accept the result.
+We press for a full investigation and restraint.

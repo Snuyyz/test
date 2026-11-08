@@ -1,0 +1,33 @@
+title: Voter Protection Program
+new-page: true
+is-card: true
+tags: party_affairs
+view-if: voter_protection_timer <= 0
+on-arrival: voter_protection_timer = 10
+
+= Voter Protection Program
+
+A democracy is only as strong as its election machinery. How do we protect it?
+
+- @poll_watchers: Recruit and train poll workers and watchers
+- @state_partners: Partner with state election officials
+- @legal_war_chest: Build a legal war chest
+- @easy_discard
+
+@poll_watchers
+on-arrival: election_admin += 4; civic_strength += 200; subversion_progress -= 0.3; pro_democracy += 0.5; month_actions += 1
+
+Volunteers staff polling places and observe counts, defending both access and integrity.
+
+@state_partners
+on-arrival: election_admin += 3; institutions += 1; gopmod_relation += 4; progressive_dissent += 1; month_actions += 1
+
+Nonpartisan officials, including Republicans, learn they can count on us to defend clean administration.
+
+@legal_war_chest
+subtitle: -1 resource
+unavailable-subtitle: Need 1 resource.
+choose-if: resources >= 1
+on-arrival: resources -= 1; election_admin += 3; voting_rights += 0.15; subversion_progress -= 0.5; month_actions += 1
+
+Lawyers on retainer are ready for any challenge.

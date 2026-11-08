@@ -1,0 +1,42 @@
+title: Healthcare Policy
+new-page: true
+is-card: true
+tags: govt_affairs
+view-if: healthcare_timer <= 0 and dem_president = 1 and dem_house = 1 and dem_senate = 1
+on-arrival: healthcare_timer = 8
+
+= Healthcare Policy
+
+Roughly [+ uninsured +] percent of Americans lack health insurance, and costs still strain families.
+
+- @expand_aca: Expand ACA subsidies and Medicaid
+- @public_option: Create a public option
+- @drug_prices: Negotiate drug prices
+- @stabilize: Stabilize the current system
+- @easy_discard
+
+@expand_aca
+subtitle: -1 budget
+unavailable-subtitle: Need 1 budget.
+choose-if: budget >= 1
+on-arrival: budget -= 1; uninsured -= 2; working_dem += 2*(1-dissent); minority_dem += 2*(1-dissent); healthcare_agenda += 1; progressive_dissent -= 3; month_actions += 1
+
+More families get covered. Cost curves bend a little.
+
+@public_option
+subtitle: -2 budget
+unavailable-subtitle: Need 2 budget.
+choose-if: budget >= 2
+on-arrival: budget -= 2; uninsured -= 3; progressive_strength += 2; biz_relation -= 3; moderate_dissent += 3; healthcare_agenda += 2; month_actions += 1
+
+The public option sparks a fierce lobbying fight, and passes.
+
+@drug_prices
+on-arrival: budget += 1; working_dem += 2*(1-dissent); suburban_dem += 2*(1-dissent); biz_relation -= 2; healthcare_agenda += 1; month_actions += 1
+
+Seniors save; pharmaceutical lobbyists fume.
+
+@stabilize
+on-arrival: budget -= 0; uninsured -= 0.5; moderate_strength += 1; progressive_dissent += 2; month_actions += 1
+
+We patch what exists and avoid bigger fights.

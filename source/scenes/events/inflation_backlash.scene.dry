@@ -1,0 +1,28 @@
+title: The Cost-of-Living Backlash
+new-page: true
+tags: event
+view-if: inflation >= 5.5 and dem_president = 1 and backlash_done != 1 and year >= 2021
+priority: 250
+
+= The Cost-of-Living Backlash
+
+Prices are eating into paychecks. Polls show the voters are blaming the party in power. The next election looks grim.
+
+- @backlash_message: Tell voters about the real gains
+- @backlash_policy: Pivot to cost-of-living policies
+- @backlash_blame: Blame corporate greed
+
+@backlash_message
+on-arrival: backlash_done = 1; working_dem -= 1*(1-dissent); dem_enthusiasm -= 0.3
+
+Many voters think we are out of touch.
+
+@backlash_policy
+on-arrival: backlash_done = 1; working_dem += 2*(1-dissent); suburban_dem += 1*(1-dissent); populist_strength += 2; budget -= 0
+
+We announce policies on housing, groceries, and healthcare costs.
+
+@backlash_blame
+on-arrival: backlash_done = 1; working_dem += 1*(1-dissent); biz_relation -= 4; populist_strength += 2; progressive_dissent -= 2
+
+A populist message resonates with some.

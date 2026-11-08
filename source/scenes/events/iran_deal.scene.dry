@@ -1,0 +1,23 @@
+title: The Iran Nuclear Deal
+new-page: true
+tags: event
+view-if: year = 2015 and month = 7
+priority: 1
+max-visits: 1
+
+= The Iran Nuclear Deal
+
+Negotiators have reached an agreement limiting Iran's nuclear program. Critics call it dangerous; supporters call it the best alternative to war. The vote in Congress will be bitter.
+
+- @iran_support: Back the deal
+- @iran_hedge: Support it, with conditions
+
+@iran_support
+on-arrival: intl_relation += 4; progressive_dissent -= 2; moderate_dissent += 2; biz_relation -= 1
+
+We defend the agreement as the best way to prevent war.
+
+@iran_hedge
+on-arrival: moderate_strength += 2; intl_relation += 2; progressive_dissent += 2
+
+We back the deal with new inspection guarantees.

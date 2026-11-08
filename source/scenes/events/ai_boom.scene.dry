@@ -1,0 +1,29 @@
+title: The Artificial Intelligence Boom
+new-page: true
+tags: event
+view-if: year >= 2024 and month = 3 and ai_done != 1
+priority: 100
+max-visits: 1
+
+= The Artificial Intelligence Boom
+
+Artificial intelligence is transforming the economy: soaring valuations, concerns for white-collar jobs, an arms race for data centers, and a flood of synthetic media.
+
+- @ai_growth: Embrace the opportunity
+- @ai_guardrail: Impose guardrails and protect workers
+- @ai_ignore: Leave it to the market
+
+@ai_growth
+on-arrival: ai_done = 1; economic_growth += 0.6; abundance_strength += 3; progressive_dissent += 3; inequality += 2; educated_dem += 1*(1-dissent)
+
+The boom lifts growth and stock portfolios; inequality grows too.
+
+@ai_guardrail
+on-arrival: ai_done = 1; economic_growth -= 0.1; working_dem += 3*(1-dissent); young_dem += 1*(1-dissent); abundance_dissent += 4; biz_relation -= 2; inequality -= 1
+
+We pair innovation with protections for workers and citizens.
+
+@ai_ignore
+on-arrival: ai_done = 1; polarization += 1; pro_democracy -= 1; press_freedom -= 2
+
+Synthetic media floods the public square.

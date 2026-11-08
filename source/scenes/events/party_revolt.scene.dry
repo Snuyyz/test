@@ -1,0 +1,30 @@
+title: The Party in Revolt
+new-page: true
+tags: event
+view-if: dissent_percent >= 28 and month >= 1 and revolt_cooldown <= 0
+priority: 450
+
+= The Party in Revolt
+
+Factional resentments have reached the breaking point. Leaders of several factions are airing grievances in public, donors are nervous, and the base is confused. Something must be done.
+
+- @revolt_concede: Concede policy demands
+- @revolt_unity: Make a high-profile unity push
+- @revolt_purge: Reassert central control
+
+@revolt_concede
+on-arrival: revolt_cooldown = 18; progressive_dissent -= 6; moderate_dissent -= 6; labor_dissent -= 6; populist_dissent -= 6; abundance_dissent -= 6; establishment_dissent -= 6; budget -= 1
+
+We buy peace by promising more than we can deliver.
+
+@revolt_unity
+choose-if: resources >= 1
+unavailable-subtitle: Need 1 resource.
+on-arrival: revolt_cooldown = 18; progressive_dissent -= 4; moderate_dissent -= 4; labor_dissent -= 4; populist_dissent -= 4; abundance_dissent -= 4; establishment_dissent -= 4; resources -= 1
+
+A summit and a joint statement calm the waters.
+
+@revolt_purge
+on-arrival: revolt_cooldown = 18; establishment_strength += 6; establishment_dissent -= 10; progressive_dissent += 6; moderate_dissent += 4; left_relation -= 6; dem_enthusiasm -= 0.6
+
+Order returns, at a price.

@@ -1,34 +1,29 @@
 title: Charlottesville
-subtitle: A rally, a killing, a president's response.
 new-page: true
 tags: event
-view-if: year = 2017 and month = 7
+view-if: year = 2017 and month = 8
+priority: 1
 max-visits: 1
-priority: 2
-on-arrival: far_right += 6
 
 = Charlottesville
 
-Torch-bearing white supremacists march through a Virginia college town. One of them drives a car into a crowd of counter-protesters, killing a woman. The president's response draws bipartisan criticism. Organized extremism has stepped out of the shadows.
+Neo-Nazis and white supremacists have marched in Charlottesville, Virginia; a counter-protester has been killed by a car driven into the crowd. The country watches as the lines of acceptable politics are tested.
 
-- @condemn: Unite the country in condemnation.
-- @confront: Confront the far right in the streets.
-- @legal: Press for stronger domestic-extremism enforcement.
+- @charlottesville_condemn: Demand universal condemnation
+- @charlottesville_crackdown: Press for investigations of hate groups
+- @charlottesville_street: Back mass counter-protest
 
-@condemn
-subtitle: Moral clarity, broad appeal.
-on-arrival: stability += 3; media_trust += 2; enthusiasm += 2; far_right -= 2
+@charlottesville_condemn
+on-arrival: pro_democracy += 1.5; polarization += 0.5; farright_strength -= 1; suburban_dem += 2*(1-dissent); minority_dem += 1*(1-dissent)
 
-Leaders of both parties speak against hatred. The rally leaders are shunned.
+We insist that leaders of both parties condemn the marchers without qualification.
 
-@confront
-subtitle: Risky, can escalate.
-on-arrival: enthusiasm += 4; far_left += 3; far_right += 2; stability -= 2; pop_mod -= 0.1
+@charlottesville_crackdown
+on-arrival: farright_strength -= 2.5; militia_strength -= 30; federal_law_loyalty += 0.01; press_freedom -= 0.5; progressive_dissent -= 2
 
-Counter-protests grow. Some are peaceful. Some are not. The fringes feed on each other.
+Federal agencies are pressed to prioritize domestic extremism.
 
-@legal
-subtitle: Institutional.
-on-arrival: far_right -= 4; stability += 2; prog_dissent += 2
+@charlottesville_street
+on-arrival: directleft_strength += 10; civic_strength += 200; polarization += 1.5; farleft_strength += 1; young_dem += 2*(1-dissent); suburban_dem -= 1*(1-dissent)
 
-Civil libertarians worry about the tools. Law enforcement welcomes the attention.
+Counter-protests grow, and so does the danger of confrontation.

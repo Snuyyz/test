@@ -1,0 +1,14 @@
+title: December 2026
+subtitle: The final reckoning
+new-page: true
+tags: event
+view-if: ending_due = 1 and game_over != 1
+priority: 990
+max-visits: 1
+go-to: game_over
+
+= December 2026
+
+The calendar has turned to a new year. The era that began in January 2014 is over; what comes next has yet to be written.
+
+Americans will judge you on whether democracy survived, whether the coalition held together, and whether the country was left better, or worse, than you found it.

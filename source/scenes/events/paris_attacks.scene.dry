@@ -1,0 +1,23 @@
+title: Paris Attacks
+new-page: true
+tags: event
+view-if: year = 2015 and month = 11
+priority: 1
+max-visits: 1
+
+= Paris Attacks
+
+Coordinated terrorist attacks have killed 130 people in Paris. In the United States a fierce debate begins over refugees and security.
+
+- @refugees_welcome: Defend refugee resettlement
+- @refugees_vetting: Support stricter vetting
+
+@refugees_welcome
+on-arrival: progressive_dissent -= 3; rural_dem -= 2*(1-dissent); maga_strength += 1.5; minority_dem += 1*(1-dissent)
+
+We argue that refusing refugees hands the terrorists a victory.
+
+@refugees_vetting
+on-arrival: suburban_dem += 2*(1-dissent); rural_dem += 1*(1-dissent); progressive_dissent += 4; maga_strength -= 0.5
+
+We back tougher screening while keeping the program alive.

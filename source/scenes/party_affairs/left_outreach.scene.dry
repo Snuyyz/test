@@ -1,0 +1,33 @@
+title: Outreach to the Left
+new-page: true
+is-card: true
+tags: party_affairs
+view-if: left_outreach_timer <= 0
+on-arrival: left_outreach_timer = 8
+
+= Outreach to the Left
+
+Our left flank is restless: some want to work within the party, others point toward third parties and street protest.
+
+- @dsa_activists: Welcome left activists into the party
+- @policy_concessions: Offer policy concessions
+- @discipline_left: Draw a line against extremism
+- @easy_discard
+
+@dsa_activists
+on-arrival: left_relation += 8; farleft_strength -= 1.5; progressive_strength += 3; progressive_dissent -= 5; moderate_dissent += 3; biz_relation -= 2; young_dem += 2*(1-dissent); month_actions += 1
+
+Democratic socialists and movement groups find seats at the table.
+
+@policy_concessions
+subtitle: -1 resource, -1 budget
+unavailable-subtitle: Need 1 resource.
+choose-if: resources >= 1
+on-arrival: left_relation += 5; farleft_strength -= 1; progressive_dissent -= 4; resources -= 1; budget -= 1; month_actions += 1
+
+We adopt several demands in the platform.
+
+@discipline_left
+on-arrival: left_relation -= 6; farleft_strength += 1; radicalization -= 0; suburban_dem += 3*(1-dissent); progressive_dissent += 6; moderate_dissent -= 3; directleft_militancy -= 0.05; month_actions += 1
+
+We condemn violence and fringe positions. Swing voters approve; activists fume.

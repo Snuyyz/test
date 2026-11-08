@@ -1,0 +1,32 @@
+title: An Outsider Enters the Race
+new-page: true
+tags: event
+view-if: year = 2015 and month >= 6 and trump_checked = 0
+priority: 400
+max-visits: 1
+on-arrival: trump_active = 1 if maga_strength >= 29
+
+= An Outsider Enters the Race
+
+[? if maga_strength >= 29 : A brash outsider has entered the Republican primary, with no political experience, a talent for television, and a message about trade, immigration, and elites that resonates with millions of disaffected voters. The Republican establishment is horrified, and polls are not reassuring. ?][? if maga_strength < 29 : A handful of political outsiders have entered the Republican primary. The anti-establishment mood is real, but the movement lacks a champion capable of breaking through. ?]
+
+How seriously do we take this?
+
+- @outsider_serious: Take the threat seriously
+- @outsider_laugh: Treat it as a sideshow
+- @outsider_grievances: Engage with the grievances
+
+@outsider_serious
+on-arrival: trump_urgency += 1.5; trump_checked = 1; dem_enthusiasm += 0.3; pro_democracy += 0.5; maga_strength -= 0.5
+
+We start preparing early, in case the outsider breaks through.
+
+@outsider_laugh
+on-arrival: trump_checked = 1; trump_urgency -= 0.3; maga_strength += 1
+
+We treat the whole thing as a joke. Some of us will regret it.
+
+@outsider_grievances
+on-arrival: trump_checked = 1; trump_urgency += 0.5; working_dem += 2*(1-dissent); rural_dem += 2*(1-dissent); populist_strength += 2; maga_strength -= 1.5
+
+We study why the message resonates and adjust our economic pitch.

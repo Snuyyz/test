@@ -1,0 +1,14 @@
+title: Inauguration Day
+new-page: true
+tags: event
+view-if: just_inaugurated = 1 and inaug_shown != time
+priority: 750
+on-arrival: inaug_shown = time
+
+= Inauguration Day
+
+On January 20, [+ year +], **[+ president +]** is sworn in as president.
+
+[? if dem_president = 1 : A Democrat is back in the White House. The party now has to govern: expectations will be very high, and the factions are already fighting over priorities. ?][? if dem_president = 0 : A Republican takes the oath of office. We are in opposition: our task is to organize, to protect institutions from abuse, and to win the next elections. ?]
+
+[? if dem_house = 1 and dem_senate = 1 and dem_president = 1 : Democrats hold a **trifecta**: the White House, the House, and the Senate. ?][? if dem_president = 0 and dem_house = 0 and dem_senate = 0 : Republicans hold a **trifecta**. ?]

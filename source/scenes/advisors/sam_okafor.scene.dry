@@ -1,0 +1,31 @@
+title: Sam Okafor
+is-pinned-card: true
+tags: advisor, abundance
+view-if: sam_okafor_advisor = 1
+new-page: true
+
+= Sam Okafor
+
+Okafor runs the party's digital operation: a young, data-driven strategist who thinks the party loses online before it loses at the ballot box.
+
+- @online_youth
+- @counter_disinfo
+- @root: Return to main
+
+@online_youth
+title: Reach Young Voters Online
+subtitle: Meet young people on the platforms where they live.
+unavailable-subtitle: [? if advisor_action_timer > 0 : [+ advisor_action_timer +] months before next advisor action. ?]
+choose-if: advisor_action_timer = 0
+on-arrival: advisor_action_timer = 6; young_dem += 4*(1-dissent); educated_dem += 1*(1-dissent); abundance_strength += 2; establishment_dissent += 2
+
+The digital team floods feeds with short, human-sounding content. Young voters notice.
+
+@counter_disinfo
+title: Counter Disinformation
+subtitle: Rapid-response against viral falsehoods.
+unavailable-subtitle: [? if advisor_action_timer > 0 : [+ advisor_action_timer +] months before next advisor action. ?]
+choose-if: advisor_action_timer = 0
+on-arrival: advisor_action_timer = 6; polarization -= 1; press_freedom += 1; pro_democracy += 1; progressive_dissent += 2
+
+A rapid-response team debunks viral falsehoods within hours. Critics call it paternalistic; it does slow the worst rumors.

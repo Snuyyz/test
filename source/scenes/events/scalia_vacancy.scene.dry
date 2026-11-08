@@ -1,0 +1,34 @@
+title: A Supreme Court Vacancy
+new-page: true
+tags: event
+view-if: year = 2016 and month = 3
+priority: 300
+max-visits: 1
+
+= A Supreme Court Vacancy
+
+Justice Scalia's death has left a vacancy on the Supreme Court in an election year.
+
+[? if dem_president = 1 and dem_senate = 1 : A Democratic Senate stands ready to confirm a moderate nominee. ?][? if dem_president = 1 and dem_senate = 0 : The Republican Senate has signaled it will not hold hearings on any Democratic nominee. ?][? if dem_president = 0 : The Republican president will fill the seat quickly. ?]
+
+- @scalia_nominee: Press the nomination fight
+- @scalia_compromise: Seek a compromise
+
+@scalia_nominee
+on-arrival: {!
+if (Q.dem_president && Q.dem_senate) { Q.court_lean -= 1; }
+if (Q.dem_president && !Q.dem_senate) { Q.dem_enthusiasm = Math.min(10, Q.dem_enthusiasm + 0.8); Q.polarization += 1; }
+if (!Q.dem_president) { Q.court_lean += 1; Q.dem_enthusiasm = Math.min(10, Q.dem_enthusiasm + 0.4); }
+!}
+
+We use every procedural tool and every public platform to make the Court a campaign issue.
+
+@scalia_compromise
+on-arrival: {!
+if (Q.dem_president && Q.dem_senate) { Q.court_lean -= 0.5; }
+if (Q.dem_president && !Q.dem_senate) { Q.court_lean += 0.3; }
+if (!Q.dem_president) { Q.court_lean += 0.8; }
+Q.gopmod_relation += 4; Q.progressive_dissent += 3; Q.institutions += 1;
+!}
+
+We appeal for a consensus nominee to protect the Court's legitimacy.

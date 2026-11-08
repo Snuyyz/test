@@ -1,27 +1,23 @@
-title: Shutdown
-subtitle: A standoff over health care subsidies.
+title: The Longest Shutdown
 new-page: true
 tags: event
-view-if: year = 2025 and month = 10 and white_house == "R"
+view-if: year >= 2025 and month = 10 and dem_president = 0 and shutdown_done != 1
+priority: 300
 max-visits: 1
-priority: 2
-on-arrival: enthusiasm += 6; pop_mod += 0.3
 
-= Shutdown
+= The Longest Shutdown
 
-The government shuts down for weeks in a fight over expiring health-insurance subsidies. Federal workers go unpaid. Flights are delayed. Both sides claim the moral high ground. In November, elections in New Jersey and Virginia go strongly to our side, and a democratic socialist wins the New York City mayoralty.
+The federal government has shut down in a fight over spending and health-care subsidies. Federal workers go unpaid, air travel is disrupted, and food benefits are in doubt.
 
-- @hold: Hold out for the subsidies.
-- @deal: Take a deal.
+- @shutdown_hold_firm: Hold firm on healthcare
+- @shutdown_cave: Reopen the government
 
-@hold
-subtitle: Principle, pain.
-on-arrival: enthusiasm += 4; prog_dissent -= 4; mod_dissent += 2; pop_mod += 0.1
+@shutdown_hold_firm
+on-arrival: shutdown_done = 1; healthcare_agenda += 1; dem_enthusiasm += 0.8; progressive_dissent -= 4; moderate_dissent += 3; working_dem += 2*(1-dissent)
 
-We hold. The shutdown drags on, and the pressure builds on both sides.
+We refuse to cave. The standoff drags on for weeks.
 
-@deal
-subtitle: Reopens government.
-on-arrival: unity -= 3; prog_dissent += 6; enthusiasm -= 3; mod_dissent -= 2
+@shutdown_cave
+on-arrival: shutdown_done = 1; progressive_dissent += 7; dem_enthusiasm -= 0.8; moderate_strength += 1
 
-A deal is struck, with a promise to vote on the subsidies later. The base is not pleased.
+We reopen the government with promises of a vote later. Our base is furious.

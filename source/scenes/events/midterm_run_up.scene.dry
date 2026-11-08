@@ -1,0 +1,23 @@
+title: The Final Midterm Stretch
+new-page: true
+tags: event
+view-if: year = 2026 and month = 1
+priority: 100
+max-visits: 1
+
+= The Final Midterm Stretch
+
+The 2026 midterm elections are ten months away. The next ten months will define how the story of this era ends.
+
+- @final_all_in: All in on turnout
+- @final_bridge: Broaden the coalition
+
+@final_all_in
+on-arrival: dem_enthusiasm += 0.6; civic_strength += 200; resources -= 0
+
+We commit everything to the final push.
+
+@final_bridge
+on-arrival: suburban_dem += 2*(1-dissent); rural_dem += 2*(1-dissent); moderate_strength += 2; progressive_dissent += 2
+
+We aim for persuasion over mobilization.

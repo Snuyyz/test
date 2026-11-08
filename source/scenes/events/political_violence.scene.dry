@@ -1,34 +1,31 @@
-title: Violence
-subtitle: A hostile year for democratic politics.
+title: Political Violence
 new-page: true
 tags: event
-view-if: year = 2025 and month = 7
+view-if: year >= 2019 and (farright_strength >= 15 or farleft_strength >= 25 or maga_strength >= 50) and violence_done != 1
+priority: 350
 max-visits: 1
-priority: 2
-on-arrival: stability -= 3; far_left += 2; far_right += 2
 
-= Violence
+= Political Violence
 
-Political violence reaches new heights: state lawmakers are shot, an activist is assassinated at a campus event, and threats against judges and election officials multiply. The temperature is far too high.
+A wave of political violence has broken out: threats against election workers and judges, attacks on politicians, and clashes at protests. Experts warn the country is entering a dangerous new phase.
 
-- @denounce: Denounce violence from any direction.
-- @security: Fund security for officials and election workers.
-- @blame: Blame the other side.
+- @violence_condemn: Condemn violence from every side
+- @violence_security: Increase security for officials and election workers
+- @violence_blame: Blame the other side
 
-@denounce
-subtitle: Principled.
-on-arrival: stability += 4; media_trust += 2; far_right -= 2; far_left -= 2; enthusiasm -= 1
+@violence_condemn
+on-arrival: violence_done = 1; polarization -= 1.5; pro_democracy += 2; farright_strength -= 1; farleft_strength -= 0.5; institutions += 1
 
-We say, clearly, that violence is never acceptable.
+A rare moment of cross-party agreement offers hope.
 
-@security
-subtitle: Practical.
-on-arrival: stability += 3; funds -= 1 if funds > 0; far_right -= 1
+@violence_security
+choose-if: budget >= 1
+unavailable-subtitle: Need 1 budget.
+on-arrival: violence_done = 1; budget -= 1; election_admin += 4; institutions += 1; federal_law_loyalty += 0.02
 
-Funds flow to local security.
+Protection of the people who run democracy becomes a priority.
 
-@blame
-subtitle: Cathartic, corrosive.
-on-arrival: enthusiasm += 2; stability -= 3; far_right += 2; far_left += 2; media_trust -= 2
+@violence_blame
+on-arrival: violence_done = 1; polarization += 3; dem_enthusiasm += 0.5; gop_enthusiasm += 0.8; farright_strength += 1.5
 
-Rhetoric escalates. The temperature does not drop.
+Rhetoric worsens, with predictable results.

@@ -1,0 +1,36 @@
+title: Justice and Policing
+new-page: true
+is-card: true
+tags: govt_affairs
+view-if: justice_policing_timer <= 0 and dem_president = 1
+on-arrival: justice_policing_timer = 8
+
+= Justice and Policing
+
+Public safety and civil rights both matter. The Department of Justice must remain independent from politics.
+
+- @doj_independence: Protect DOJ independence
+- @police_reform: Fund police reform and training
+- @community_safety: Invest in community violence prevention
+- @easy_discard
+
+@doj_independence
+on-arrival: federal_law_loyalty += 0.06; institutions += 2; courts_independence += 1; progressive_dissent += 1; month_actions += 1
+
+Rules insulate prosecutors from political pressure.
+
+@police_reform
+subtitle: -1 budget
+unavailable-subtitle: Need 1 budget.
+choose-if: budget >= 1
+on-arrival: budget -= 1; minority_dem += 3*(1-dissent); suburban_dem += 1*(1-dissent); local_police_loyalty += 0.03; directleft_militancy -= 0.03; month_actions += 1
+
+Modest reforms improve accountability while keeping officers on side.
+
+@community_safety
+subtitle: -1 budget
+unavailable-subtitle: Need 1 budget.
+choose-if: budget >= 1
+on-arrival: budget -= 1; minority_dem += 2*(1-dissent); suburban_dem += 2*(1-dissent); progressive_dissent -= 2; month_actions += 1
+
+Cities see gradual declines in violent crime.

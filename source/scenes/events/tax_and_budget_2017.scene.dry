@@ -1,0 +1,23 @@
+title: Tax Cuts and the Budget
+new-page: true
+tags: event
+view-if: year = 2017 and month = 12 and dem_president = 0
+priority: 1
+max-visits: 1
+
+= Tax Cuts and the Budget
+
+Congressional Republicans are pushing through a sweeping tax cut. Critics say it favors the wealthy and balloons the deficit; supporters say it will boost investment.
+
+- @tax_opposition: Unified opposition
+- @tax_alternatives: Offer a middle-class alternative
+
+@tax_opposition
+on-arrival: progressive_dissent -= 3; working_dem += 2*(1-dissent); suburban_dem += 1*(1-dissent); inequality += 1
+
+We make inequality the center of our message.
+
+@tax_alternatives
+on-arrival: economic_plan = 1; working_dem += 3*(1-dissent); suburban_dem += 2*(1-dissent); moderate_strength += 1
+
+Our counter-proposal gives credits to families and small businesses.

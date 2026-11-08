@@ -1,0 +1,51 @@
+title: The Loser Will Not Concede
+new-page: true
+tags: event
+view-if: pres_year = 1 and month = 12 and el_pres_winner == "D" and gop_nominee_type == "maga" and dispute_done != year and election_done = year
+priority: 850
+
+= The Loser Will Not Concede
+
+The Republican nominee has refused to concede defeat, alleging fraud without evidence, filing lawsuits, and pressuring state officials to overturn results. For the first time in modern American history, the peaceful transfer of power is in doubt.
+
+[? if institutions >= 60 : State officials, courts, and the military have so far shown no appetite to go along. ?][? if institutions < 60 : The pressure is working on some institutions, and some officials are wavering. ?]
+
+- @dispute_legal: Mobilize lawyers and state officials
+- @dispute_public: Mobilize the public and pressure Republicans
+- @dispute_quiet: Negotiate quietly with party leaders
+
+@dispute_legal
+on-arrival: {!
+Q.dispute_done = Q.year;
+var score = SD.resilience(Q) + 4;
+Q.dispute_score = Math.round(score);
+Q.dispute_ok = score >= 80 ? 1 : 0;
+if (Q.dispute_ok) { Q.institutions += 3; Q.subversion_progress = Math.max(0, Q.subversion_progress - 2); Q.maga_strength -= 2; Q.pro_democracy += 2; }
+else { Q.institutions -= 20; Q.subversion_progress = 10; Q.game_lost = 1; }
+!}
+
+[? if dispute_ok = 1 : Courts rule against every challenge; state officials certify results; lawyers swarm every courtroom. The dispute fails. ?][? if dispute_ok = 0 : The legal defenses prove too thin. State legislatures and officials buckle, and the election is overturned. ?]
+
+@dispute_public
+on-arrival: {!
+Q.dispute_done = Q.year;
+var score = SD.resilience(Q) + Math.min(Q.civic_strength, 3000) / 3000 * 6 + 0.02 * Q.pro_democracy;
+Q.dispute_score = Math.round(score);
+Q.dispute_ok = score >= 80 ? 1 : 0;
+if (Q.dispute_ok) { Q.institutions += 2; Q.civic_strength += 400; Q.subversion_progress = Math.max(0, Q.subversion_progress - 2); Q.maga_strength -= 1; Q.pro_democracy += 3; Q.polarization += 1; }
+else { Q.institutions -= 20; Q.subversion_progress = 10; Q.game_lost = 1; }
+!}
+
+[? if dispute_ok = 1 : Millions fill the streets peacefully, and Republican officials one by one refuse to join the scheme. ?][? if dispute_ok = 0 : The protests are large but the pressure points hold. The scheme succeeds. ?]
+
+@dispute_quiet
+on-arrival: {!
+Q.dispute_done = Q.year;
+var score = SD.resilience(Q) + Q.gopmod_relation * 0.08;
+Q.dispute_score = Math.round(score);
+Q.dispute_ok = score >= 80 ? 1 : 0;
+if (Q.dispute_ok) { Q.institutions += 1; Q.subversion_progress = Math.max(0, Q.subversion_progress - 1); Q.gopmod_relation += 4; }
+else { Q.institutions -= 20; Q.subversion_progress = 10; Q.game_lost = 1; }
+!}
+
+[? if dispute_ok = 1 : Republican leaders, privately, make clear that the end is near. The transfer will proceed. ?][? if dispute_ok = 0 : The quiet approach is too slow. Events move faster than conversations. ?]
