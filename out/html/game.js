@@ -232,9 +232,174 @@ window.disableGrayMode = function() {
     }
   };
 
+  // ---------------------------------------------------------------------
+  // Election result charts (House / Senate hemicycles, Electoral College).
+  // Scenes emit <div class="sd-chart" data-chart="house|senate|ec" ...>
+  // placeholders; they are filled in here after the content is displayed.
+  // ---------------------------------------------------------------------
+  var SD_DEM = '#1a5fb4';
+  var SD_GOP = '#c01c28';
+
+  var CHAMBERS = {
+      house:  {name: 'House of Representatives', total: 435, majority: 218},
+      senate: {name: 'Senate', total: 100, majority: 51}
+  };
+
+  // keep order in sync with SD.bloc_names in tools/sd_lib.js
+  var EC_BLOCS = [
+      {name: 'Blue-core states', ev: 230},
+      {name: 'Industrial Midwest', ev: 44},
+      {name: 'Florida / Ohio / Iowa', ev: 53},
+      {name: 'Sun Belt', ev: 49},
+      {name: 'Red-core states', ev: 162}
+  ];
+
+  function chartWidth(el) {
+      var w = el.getBoundingClientRect().width || el.offsetWidth || 480;
+      return Math.max(240, Math.min(520, Math.floor(w)));
+  }
+
+  function svgText(parent, cls, x, y, txt) {
+      return parent.append('text').attr('class', cls)
+          .attr('x', x).attr('y', y).attr('text-anchor', 'middle').text(txt);
+  }
+
+  function renderChamber(el, kind) {
+      var cfg = CHAMBERS[kind];
+      var dem = Math.max(0, Math.min(cfg.total, Math.round(parseFloat(el.getAttribute('data-dem')))));
+      if (isNaN(dem)) { return; }
+      var gop = cfg.total - dem;
+      var prev = parseFloat(el.getAttribute('data-prev'));
+      var w = chartWidth(el);
+
+      var title = d3.select(el).append('div').attr('class', 'sd-chart-title').text(cfg.name);
+
+      var svg = d3.select(el).append('svg')
+          .attr('class', 'sd-svg')
+          .attr('role', 'img')
+          .attr('aria-label', cfg.name + ': Democrats ' + dem + ', Republicans ' + gop)
+          .attr('width', w).attr('height', Math.ceil(w / 2) + 4);
+
+      // d3.parliament breaks on zero-seat parties, so only pass non-empty ones
+      var parties = [];
+      if (dem > 0) { parties.push({id: 'dem', name: 'Democrats', color: SD_DEM, seats: dem}); }
+      if (gop > 0) { parties.push({id: 'gop', name: 'Republicans', color: SD_GOP, seats: gop}); }
+
+      // a fresh instance per chart: the library caches width in its closure
+      var parliament = d3.parliament().width(w).innerRadiusCoef(0.4);
+      parliament.enter.fromCenter(false).smallToBig(true);
+      parliament.update.animate(false);
+      svg.datum(parties).call(parliament);
+
+      // a 50-50 Senate is decided by the vice president, so keep it neutral
+      var tied = (kind === 'senate' && dem === 50);
+      var demWins = dem >= cfg.majority;
+      var cx = w / 2, base = w / 2;
+      svgText(svg, 'sd-center-num ' + (tied ? '' : (demWins ? 'sd-d' : 'sd-r')), cx, base - 30, dem + ' \u2013 ' + gop);
+      svgText(svg, 'sd-center-sub', cx, base - 10, cfg.majority + ' for majority' + (kind === 'senate' ? ' (50 + VP)' : ''));
+
+      var cap = d3.select(el).append('div').attr('class', 'sd-chart-caption');
+      cap.append('span').attr('class', 'sd-d').text('\u25CF Democrats ' + dem);
+      cap.append('span').text('   ');
+      cap.append('span').attr('class', 'sd-r').text('\u25CF Republicans ' + gop);
+      if (!isNaN(prev)) {
+          var diff = dem - prev;
+          var txt = diff === 0 ? 'no change in Democratic seats' :
+              (diff > 0 ? '+' : '\u2212') + Math.abs(diff) + ' Democratic seats vs. outgoing Congress (' + prev + ')';
+          d3.select(el).append('div').attr('class', 'sd-chart-caption sd-muted').text(txt);
+      }
+  }
+
+  function shadeFor(demWon, margin) {
+      var a = Math.abs(margin);
+      if (demWon) { return a < 3 ? '#7fb0ea' : (a < 8 ? '#3f82d6' : SD_DEM); }
+      return a < 3 ? '#e8868d' : (a < 8 ? '#d9505b' : SD_GOP);
+  }
+
+  function renderEC(el) {
+      var margins = (el.getAttribute('data-margins') || '').split(',').map(parseFloat);
+      var wins = (el.getAttribute('data-wins') || '').split(',').map(function (x) { return parseInt(x, 10) === 1; });
+      if (margins.length !== EC_BLOCS.length || margins.some(isNaN)) { return; }
+
+      var blocs = EC_BLOCS.map(function (b, i) {
+          return {name: b.name, ev: b.ev, margin: margins[i], dem: wins[i]};
+      });
+      var demEV = d3.sum(blocs.filter(function (b) { return b.dem; }), function (b) { return b.ev; });
+      var gopEV = 538 - demEV;
+
+      // most Democratic on the left, most Republican on the right
+      var ordered = blocs.slice().sort(function (a, b) {
+          if (a.dem !== b.dem) { return a.dem ? -1 : 1; }
+          return a.dem ? (b.margin - a.margin) : (a.margin - b.margin);
+      });
+
+      var w = chartWidth(el), barH = 34, top = 26, h = top + barH + 22;
+      var x = d3.scaleLinear().domain([0, 538]).range([0, w]);
+
+      d3.select(el).append('div').attr('class', 'sd-chart-title').text('Electoral College');
+
+      var svg = d3.select(el).append('svg').attr('class', 'sd-svg')
+          .attr('role', 'img')
+          .attr('aria-label', 'Electoral College: Democrats ' + demEV + ', Republicans ' + gopEV)
+          .attr('width', w).attr('height', h);
+
+      var acc = 0;
+      ordered.forEach(function (b) {
+          var g = svg.append('g');
+          g.append('rect').attr('x', x(acc)).attr('y', top).attr('width', Math.max(0, x(b.ev) - 1))
+              .attr('height', barH).attr('fill', shadeFor(b.dem, b.margin));
+          if (x(b.ev) > 26) {
+              svgText(g, 'sd-ec-ev', x(acc) + x(b.ev) / 2, top + barH / 2 + 5, b.ev);
+          }
+          acc += b.ev;
+      });
+
+      // 270 line
+      svg.append('line').attr('class', 'sd-ec-line').attr('x1', x(270)).attr('x2', x(270))
+          .attr('y1', top - 6).attr('y2', top + barH + 6);
+      svg.append('text').attr('class', 'sd-center-sub').attr('x', x(270)).attr('y', top + barH + 18)
+          .attr('text-anchor', 'middle').text('270 to win');
+
+      svg.append('text').attr('class', 'sd-ec-total sd-d').attr('x', 0).attr('y', 16)
+          .attr('text-anchor', 'start').text('Democrats ' + demEV);
+      svg.append('text').attr('class', 'sd-ec-total sd-r').attr('x', w).attr('y', 16)
+          .attr('text-anchor', 'end').text('Republicans ' + gopEV);
+
+      // per-bloc table (readable without relying on colour alone)
+      var tbl = d3.select(el).append('table').attr('class', 'sd-ec-table');
+      var rows = tbl.selectAll('tr').data(blocs).enter().append('tr');
+      rows.append('td').append('span').attr('class', 'sd-swatch')
+          .style('background', function (b) { return shadeFor(b.dem, b.margin); });
+      rows.append('td').text(function (b) { return b.name; });
+      rows.append('td').attr('class', 'sd-num').text(function (b) { return b.ev + ' EV'; });
+      rows.append('td').attr('class', function (b) { return 'sd-num ' + (b.dem ? 'sd-d' : 'sd-r'); })
+          .text(function (b) {
+              var m = Math.abs(b.margin).toFixed(1);
+              return (b.dem ? 'D' : 'R') + ' won' + (b.margin === 0 ? '' : ' (' + (b.margin > 0 ? 'D+' : 'R+') + m + ')');
+          });
+  }
+
+  window.renderElectionCharts = function () {
+      if (typeof d3 === 'undefined' || !d3.parliament) { return; }
+      var nodes = document.querySelectorAll('#content .sd-chart');
+      for (var i = 0; i < nodes.length; i++) {
+          var el = nodes[i];
+          if (el.getAttribute('data-rendered')) { continue; }
+          el.setAttribute('data-rendered', '1');
+          try {
+              var kind = el.getAttribute('data-chart');
+              if (kind === 'house' || kind === 'senate') { renderChamber(el, kind); }
+              else if (kind === 'ec') { renderEC(el); }
+          } catch (e) {
+              console.error('chart render failed', e);
+          }
+      }
+  };
+
   window.onDisplayContent = function() {
       window.updateSidebar();
       window.updateSidebarRight();
+      window.renderElectionCharts();
   };
 
   window.toggleDem = function toggleDemographicTable() {

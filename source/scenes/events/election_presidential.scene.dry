@@ -13,6 +13,12 @@ Popular vote: <span style="color: #1a5fb4;">**Democrats**</span> [+ el_dem_votes
 
 Electoral College: **Democrats [+ el_dem_ev +]**, **Republicans [+ el_gop_ev +]**.
 
+<div class="sd-chart" data-chart="ec" data-dem-ev="[+ el_dem_ev +]" data-gop-ev="[+ el_gop_ev +]" data-margins="[+ el_blue_core +],[+ el_rust_belt +],[+ el_heartland_swing +],[+ el_sun_belt +],[+ el_red_core +]" data-wins="[+ el_blue_core_win +],[+ el_rust_belt_win +],[+ el_heartland_swing_win +],[+ el_sun_belt_win +],[+ el_red_core_win +]"></div>
+
 Battleground margins (Democratic lead in points): industrial Midwest [+ el_rust_belt +], Florida/Ohio/Iowa [+ el_heartland_swing +], Sun Belt [+ el_sun_belt +].
 
 [? if el_pres_winner == "D" : The **Democratic nominee wins the presidency**. ?][? if el_pres_winner == "R" : The **Republican nominee wins the presidency**. ?]Congress: House [+ el_house +]-[+ el_house_gop +] and Senate [+ el_senate +]-[+ el_senate_gop +] (Democratic-Republican, new Congress seated in January).
+
+<div class="sd-chart" data-chart="house" data-dem="[+ el_house +]" data-prev="[+ house_dem +]"></div>
+
+<div class="sd-chart" data-chart="senate" data-dem="[+ el_senate +]" data-prev="[+ senate_dem +]"></div>

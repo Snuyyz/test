@@ -923,3 +923,22 @@ th {
 .progress-text {
   margin-top: 10px;
 }
+/* ---- election result charts (House / Senate / Electoral College) ---- */
+.sd-chart { margin: 1em auto; max-width: 520px; text-align: center; }
+.sd-chart-title { font-weight: bold; margin-bottom: 0.3em; }
+.sd-svg { display: block; margin: 0 auto; max-width: 100%; overflow: visible; }
+.sd-chart .sd-d { color: #1a5fb4; fill: #1a5fb4; }
+.sd-chart .sd-r { color: #c01c28; fill: #c01c28; }
+.sd-center-num { font-size: 22px; font-weight: bold; }
+.sd-center-sub { font-size: 12px; fill: currentColor; opacity: 0.75; }
+.sd-ec-ev { font-size: 13px; font-weight: bold; fill: #fff; }
+.sd-ec-total { font-size: 15px; font-weight: bold; }
+.sd-ec-line { stroke: currentColor; stroke-width: 2; stroke-dasharray: 3 2; }
+.sd-chart-caption { font-size: 0.9em; margin-top: 0.3em; white-space: pre; }
+.sd-chart-caption.sd-muted { opacity: 0.75; white-space: normal; }
+.sd-ec-table { margin: 0.6em auto 0; font-size: 0.9em; border-collapse: collapse; text-align: left; }
+.sd-ec-table td { padding: 1px 8px; }
+.sd-ec-table td.sd-num { text-align: right; white-space: nowrap; }
+.sd-swatch { display: inline-block; width: 12px; height: 12px; border-radius: 2px; vertical-align: middle; }
+body.dark-mode .sd-chart .sd-d { color: #62a0ea; fill: #62a0ea; }
+body.dark-mode .sd-chart .sd-r { color: #f66151; fill: #f66151; }

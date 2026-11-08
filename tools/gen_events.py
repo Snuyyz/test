@@ -23,6 +23,10 @@ The national House vote: %s [+ el_dem_votes +]%%, %s [+ el_gop_votes +]%%, left 
 
 [? if el_house >= 218 : The %s **win control of the House**, [+ el_house +] seats to [+ el_house_gop +]. ?][? if el_house < 218 : The %s will **control the House**, [+ el_house_gop +] seats to [+ el_house +]. ?]In the Senate the new balance is [+ el_senate +] Democratic-caucus seats to [+ el_senate_gop +].
 
+<div class="sd-chart" data-chart="house" data-dem="[+ el_house +]" data-prev="[+ house_dem +]"></div>
+
+<div class="sd-chart" data-chart="senate" data-dem="[+ el_senate +]" data-prev="[+ senate_dem +]"></div>
+
 [? if dem_president = 1 : The president\'s party historically suffers in midterms, and tonight the pattern holds in most of the country. ?][? if dem_president = 0 : Voters have delivered a verdict on the president\'s first term in office. ?]
 """ % (DEM(), GOP(), DEM(), GOP()), fx='election_shown = year', priority=800, max_visits=0)
 
@@ -33,9 +37,15 @@ Popular vote: %s [+ el_dem_votes +]%%, %s [+ el_gop_votes +]%%, left candidates 
 
 Electoral College: **Democrats [+ el_dem_ev +]**, **Republicans [+ el_gop_ev +]**.
 
+<div class="sd-chart" data-chart="ec" data-dem-ev="[+ el_dem_ev +]" data-gop-ev="[+ el_gop_ev +]" data-margins="[+ el_blue_core +],[+ el_rust_belt +],[+ el_heartland_swing +],[+ el_sun_belt +],[+ el_red_core +]" data-wins="[+ el_blue_core_win +],[+ el_rust_belt_win +],[+ el_heartland_swing_win +],[+ el_sun_belt_win +],[+ el_red_core_win +]"></div>
+
 Battleground margins (Democratic lead in points): industrial Midwest [+ el_rust_belt +], Florida/Ohio/Iowa [+ el_heartland_swing +], Sun Belt [+ el_sun_belt +].
 
 [? if el_pres_winner == "D" : The **Democratic nominee wins the presidency**. ?][? if el_pres_winner == "R" : The **Republican nominee wins the presidency**. ?]Congress: House [+ el_house +]-[+ el_house_gop +] and Senate [+ el_senate +]-[+ el_senate_gop +] (Democratic-Republican, new Congress seated in January).
+
+<div class="sd-chart" data-chart="house" data-dem="[+ el_house +]" data-prev="[+ house_dem +]"></div>
+
+<div class="sd-chart" data-chart="senate" data-dem="[+ el_senate +]" data-prev="[+ senate_dem +]"></div>
 """ % (DEM(), GOP()), fx='election_shown = year', priority=800, max_visits=0)
 
 ev('new_congress', 'A New Congress', 'just_seated = 1 and just_inaugurated = 0 and congress_shown != time', """

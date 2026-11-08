@@ -83,7 +83,7 @@ SD.init = function (Q) {
   Q.ending_due = 0; Q.game_lost = 0; Q.game_over = 0;
   // economy
   Q.unemployed = 6.6; Q.inflation = 1.6; Q.economic_growth = 2.5; Q.budget = 2; Q.uninsured = 13;
-  Q.impeach_done = 0; Q.dispute_done = 0; Q.capitol_done = 0; Q.violence_done = 0; Q.tariffs_done = 0; Q.shutdown_done = 0; Q.ai_done = 0; Q.revolt_cooldown = 0; Q.left_split_done = 0; Q.militia_done = 0; Q.power_grab_done = 0; Q.power_grab_year = 0; Q.subversion_done = 0; Q.backlash_done = 0; Q.dispute_score = 0; Q.convention_done = 0; Q.october_done = 0; Q.congress_shown = 0; Q.inaug_shown = 0; Q.el_pres_winner = ''; Q.el_house = 0; Q.el_senate = 0; Q.el_house_gop = 0; Q.el_senate_gop = 0; Q.el_dem_votes = 0; Q.el_gop_votes = 0; Q.el_left_votes = 0; Q.el_farright_votes = 0; Q.el_turnout = 0; Q.el_dem_ev = 0; Q.el_gop_ev = 0; Q.el_rust_belt = 0; Q.el_heartland_swing = 0; Q.el_sun_belt = 0; Q.el_blue_core = 0; Q.el_red_core = 0;
+  Q.impeach_done = 0; Q.dispute_done = 0; Q.capitol_done = 0; Q.violence_done = 0; Q.tariffs_done = 0; Q.shutdown_done = 0; Q.ai_done = 0; Q.revolt_cooldown = 0; Q.left_split_done = 0; Q.militia_done = 0; Q.power_grab_done = 0; Q.power_grab_year = 0; Q.subversion_done = 0; Q.backlash_done = 0; Q.dispute_score = 0; Q.convention_done = 0; Q.october_done = 0; Q.congress_shown = 0; Q.inaug_shown = 0; Q.el_pres_winner = ''; Q.el_house = 0; Q.el_senate = 0; Q.el_house_gop = 0; Q.el_senate_gop = 0; Q.el_dem_votes = 0; Q.el_gop_votes = 0; Q.el_left_votes = 0; Q.el_farright_votes = 0; Q.el_turnout = 0; Q.el_dem_ev = 0; Q.el_gop_ev = 0; Q.el_rust_belt = 0; Q.el_heartland_swing = 0; Q.el_sun_belt = 0; Q.el_blue_core = 0; Q.el_red_core = 0; Q.el_blue_core_win = 0; Q.el_rust_belt_win = 0; Q.el_heartland_swing_win = 0; Q.el_sun_belt_win = 0; Q.el_red_core_win = 0;
   Q.court_lean = 1; Q.stimulus_level = 0; Q.trump_checked = 0; Q.election_shown = 0; Q.dem_nominee_done = 0; Q.gop_nominee_done = 0; Q.just_inaugurated = 0; Q.just_seated = 0; Q.flipped_presidency = 0; Q.last_advisor_action = 0; Q.last_cabinet_action = 0; Q.dispute_ok = 1;
   Q.dolores_reyes_advisor = 1; Q.marcus_hale_advisor = 1; Q.tom_brandt_advisor = 1; Q.elaine_whitcomb_advisor = 1; Q.sam_okafor_advisor = 0; Q.ruth_calloway_advisor = 0; Q.jake_moretti_advisor = 0;
   Q.inequality = 55; Q.climate_progress = 0; Q.pandemic = 0; Q.covid_deaths_handled = 0;
@@ -372,13 +372,14 @@ SD.holdElection = function (Q) {
     for (var b of SD.bloc_names) {
       var m = r.bl[b] + (Q.incumbent_bonus || 0) * (Q.dem_president ? 1 : -1);
       E[b] = Math.round(10 * m) / 10;
+      E[b + '_win'] = m > 0 ? 1 : 0;
       if (m > 0) dev += SD.blocs[b].ev;
     }
     E.dem_ev = dev; E.gop_ev = 538 - dev;
     E.winner = dev >= 270 ? 'D' : 'R';
     Q.el_pres_winner = E.winner;
     Q.el_dem_ev = E.dem_ev; Q.el_gop_ev = E.gop_ev;
-    for (var b2 of SD.bloc_names) { Q['el_' + b2] = E[b2]; }
+    for (var b2 of SD.bloc_names) { Q['el_' + b2] = E[b2]; Q['el_' + b2 + '_win'] = E[b2 + '_win']; }
   }
   // Congress
   E.house = SD.houseSeats(r.d2, Q.gerrymander_bias);

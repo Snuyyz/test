@@ -24,6 +24,7 @@ To use it as a mod in the original UI, host the compiled `game.json` and load it
 ## US-specific conversions
 - Electoral College (5 state blocs), House seats with gerrymander bias, Senate map by cycle, midterm turnout drop
 - Government cards unlock only with the powers needed (presidency / House / Senate)
+- Election-night screens (`election_presidential`, `election_midterm`) show d3 charts: House and Senate hemicycles (with change vs. the outgoing Congress) and, for presidential years, an Electoral College bar + per-bloc table. Scenes emit `<div class="sd-chart" data-chart="house|senate|ec" ...>` placeholders; `out/html/game.js` (`renderElectionCharts`) fills them in.
 - Enemies: MAGA movement (subversion meter -> contested-election crisis), far-right militias, far-left splinter
 - Nominee choice each cycle; GOP nominee depends on how strong the insurgent movement has become
 
@@ -33,5 +34,4 @@ To use it as a mod in the original UI, host the compiled `game.json` and load it
 (`idle`, `random`, `greedy`) for balance testing.
 
 ## Status
-Statically validated and simulated headlessly, but **not yet compiled in dendrynexus** (no network in the build environment).
-If the compiler reports a syntax error, please send it over.
+Statically validated, simulated headlessly, and compiled successfully with dendrynexus (`npx dendrynexus make-html`).

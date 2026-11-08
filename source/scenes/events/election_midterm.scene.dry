@@ -13,4 +13,8 @@ The national House vote: <span style="color: #1a5fb4;">**Democrats**</span> [+ e
 
 [? if el_house >= 218 : The <span style="color: #1a5fb4;">**Democrats**</span> **win control of the House**, [+ el_house +] seats to [+ el_house_gop +]. ?][? if el_house < 218 : The <span style="color: #c01c28;">**GOP**</span> will **control the House**, [+ el_house_gop +] seats to [+ el_house +]. ?]In the Senate the new balance is [+ el_senate +] Democratic-caucus seats to [+ el_senate_gop +].
 
+<div class="sd-chart" data-chart="house" data-dem="[+ el_house +]" data-prev="[+ house_dem +]"></div>
+
+<div class="sd-chart" data-chart="senate" data-dem="[+ el_senate +]" data-prev="[+ senate_dem +]"></div>
+
 [? if dem_president = 1 : The president's party historically suffers in midterms, and tonight the pattern holds in most of the country. ?][? if dem_president = 0 : Voters have delivered a verdict on the president's first term in office. ?]
